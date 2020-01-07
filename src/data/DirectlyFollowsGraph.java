@@ -2,25 +2,32 @@ package data;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DirectlyFollowsGraph {
     List<Event> events;
     List<Node> nodes;
     List<Edge> edges;
+    HashMap<Node, List<Node>> incoming;
+    HashMap<Node, List<Node>> outgoing;
 
     public DirectlyFollowsGraph(List<Event> events){
+        this.nodes = new ArrayList<>();
+        this.edges = new ArrayList<>();
+        this.incoming = new HashMap<>();
+        this.outgoing = new HashMap<>();
         this.events = new ArrayList<>(events);
     }
 
     public void buildGraph(){
         System.out.println("Building DFG...\n");
-        List<Node> nodes = new ArrayList<>();
-        List<Edge> edges = new ArrayList<>();
         Event previousEvent = null;
 
-        for(var event: this.events){
+        for(var event: events){
             Node node = new Node(event.getEventType(), event.context, 1);
             if(!nodes.contains(node))
                 nodes.add(node);
@@ -46,6 +53,17 @@ public class DirectlyFollowsGraph {
                 if(!edges.contains(edge))
                     edges.add(edge);
                 else{
+                    if(!outgoing.containsKey(from))
+                        outgoing.put(from, Collections.singletonList(to));
+                    else
+                        if(!outgoing.get(from).contains(to))
+                            outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(to)).collect(Collectors.toList()));
+                    if(!incoming.containsKey(to))
+                        incoming.put(to, Collections.singletonList(from));
+                    else
+                        if(!incoming.get(to).contains(from))
+                            incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
+
                     for(int i = 0; i < edges.size(); i++)
                         if(edges.get(i).getFromNode().equals(from) && edges.get(i).getToNode().equals(to)){
                             edges.get(i).increaseFrequency();
@@ -55,8 +73,6 @@ public class DirectlyFollowsGraph {
             }
             previousEvent = event;
         }
-        this.nodes = new ArrayList<>(nodes);
-        this.edges = new ArrayList<>(edges);
     }
 
     public void convertIntoDOT(){

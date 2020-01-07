@@ -120,14 +120,15 @@ public class preprocessor {
         return str;
     }
 
-    public static List<Event> applyPreprocessing(String log){
+    public static List<Event> applyPreprocessing(String filePath, String events){
         System.out.println("Preprocessing...");
-        String sortedLog = sortLog(log);
-        sortedLog = deleteChromeClipboardCopy(sortedLog);
-        sortedLog = mergeNavigationCellCopy(sortedLog);
-        sortedLog = identifyPasteAction(sortedLog);
-        writeDataLineByLine("preprocessed.csv", sortedLog);
-        return logReader.readCSV("preprocessed.csv");
+        String sortedEvents = sortLog(events);
+        sortedEvents = deleteChromeClipboardCopy(sortedEvents);
+        sortedEvents = mergeNavigationCellCopy(sortedEvents);
+        sortedEvents = identifyPasteAction(sortedEvents);
+        String preprocessedLog = filePath.substring(0, filePath.lastIndexOf(".")) + "_preprocessed.csv";
+        writeDataLineByLine(preprocessedLog, sortedEvents);
+        return logReader.readCSV(preprocessedLog);
     }
 
     public static void writeDataLineByLine(String filePath, String data) {

@@ -66,6 +66,7 @@ public final class logReader {
         return events;
     }
 
+    /*
     public static HashMap<String, List<Event>> readXES(String path){
         HashMap<String, List<Event>> cases = new HashMap<>();
 
@@ -123,4 +124,5 @@ public final class logReader {
         }
         return cases;
     }
+    */
 }

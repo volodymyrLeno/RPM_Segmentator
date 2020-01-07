@@ -13,14 +13,12 @@ public class Main {
     public static void main(String[] args) {
         String filePath = args[0];
         Double threshold = Double.parseDouble(args[1]);
+        Boolean preprocessing = Boolean.parseBoolean(args[2]);
 
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-
-        //List<Event> events = logReader.readCSV(filePath.substring(0, filePath.lastIndexOf(".")) + "_filtered.csv");
         List<Event> events = logReader.readCSV(filePath);
 
-        events = preprocessor.applyPreprocessing(preprocessor.eventListToString(events));
+        if(preprocessing)
+            events = preprocessor.applyPreprocessing(filePath, preprocessor.eventListToString(events));
 
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())

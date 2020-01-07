@@ -1,6 +1,8 @@
 "timeStamp","userID","targetApp","eventType","url","content","target.workbookName","target.sheetName","target.id","target.className","target.tagName","target.type","target.name","target.value","target.innerText","target.checked","target.href","target.option","target.title","target.innerHTML"
+"2019-10-21T00:10:07.994Z","vleno","Excel","getCell",,,"StudentRecords.xlsx","Sheet1","A1",,,,,"AAA",,,,,,
 "2019-10-21T00:10:08.994Z","vleno","Excel","getCell",,,"StudentRecords.xlsx","Sheet1","A2",,,,,"John",,,,,,
 "2019-10-21T00:10:09.640Z",,"OS-Clipboard","copy",,"John",,,,,,,,,,,,,,
+"2019-10-21T00:10:10.994Z","vleno","Excel","getCell",,,"StudentRecords.xlsx","Sheet1","A3",,,,,"BBB",,,,,,
 "2019-10-21T00:10:11.689Z","vleno","Chrome","clickTextField","https://forms.zoho.com/universityofmelbourne/form/NewRecord",,,,,,"INPUT","text","SingleLine","",,,,,,
 "2019-10-21T00:10:12.216Z","vleno","Chrome","paste","https://forms.zoho.com/universityofmelbourne/form/NewRecord","John",,,,,"INPUT","text","SingleLine","",,,,,,
 "2019-10-21T00:10:13.281Z","vleno","Chrome","editField","https://forms.zoho.com/universityofmelbourne/form/NewRecord",,,,,,"INPUT","text","SingleLine","John",,,,,,
