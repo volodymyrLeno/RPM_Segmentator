@@ -26,13 +26,21 @@ public class Event {
                 temp = values[i].replaceAll("\"{4}","\"\"").replaceAll("\"([^;\"\\[\\]]+)\"","$1").
                         replaceAll("^\"(.*)\"$", "$1");
 
-
             if(i != attributes.indexOf("eventType") && i != attributes.indexOf("timeStamp") && i != attributes.indexOf("caseID"))
             {
                 if((!temp.equals("\"\"") && !temp.equals("")) || (i == attributes.indexOf("target.value")
                         && (this.eventType.equals("clickTextField") ||
                         this.eventType.equals("editField") || this.eventType.equals("getCell") || this.eventType.equals("editRange"))))
                     payload.put(attributes.get(i), temp);
+            }
+        }
+
+        /* Handling Excel events */
+
+        if(payload.containsKey("targetApp") && payload.get("targetApp").equals("Excel")){
+            if(payload.containsKey("target.id")){
+                payload.put("target.row", payload.get("target.id").replaceAll("[A-Za-z]+",""));
+                payload.put("target.column", payload.get("target.id").replaceAll("\\d+", ""));
             }
         }
     }

@@ -1,3 +1,4 @@
+import data.DirectlyFollowsGraph;
 import data.Event;
 
 import java.util.ArrayList;
@@ -13,12 +14,19 @@ public class Main {
         String filePath = args[0];
         Double threshold = Double.parseDouble(args[1]);
 
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
+
         //List<Event> events = logReader.readCSV(filePath.substring(0, filePath.lastIndexOf(".")) + "_filtered.csv");
         List<Event> events = logReader.readCSV(filePath);
 
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())
             setContextAttributes(groupedEvents.get(group), threshold);
+
+        DirectlyFollowsGraph dfg = new DirectlyFollowsGraph();
+        dfg.buildGraph(events);
+        dfg.convertIntoDOT();
     }
 
     public static HashMap<String, List<Event>> groupByEventType(List<Event> events){
