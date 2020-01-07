@@ -20,12 +20,14 @@ public class Main {
         //List<Event> events = logReader.readCSV(filePath.substring(0, filePath.lastIndexOf(".")) + "_filtered.csv");
         List<Event> events = logReader.readCSV(filePath);
 
+        events = preprocessor.applyPreprocessing(preprocessor.eventListToString(events));
+
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())
             setContextAttributes(groupedEvents.get(group), threshold);
 
-        DirectlyFollowsGraph dfg = new DirectlyFollowsGraph();
-        dfg.buildGraph(events);
+        DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
+        dfg.buildGraph();
         dfg.convertIntoDOT();
     }
 

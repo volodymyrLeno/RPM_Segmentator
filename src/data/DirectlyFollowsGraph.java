@@ -6,20 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DirectlyFollowsGraph {
+    List<Event> events;
     List<Node> nodes;
     List<Edge> edges;
 
-    public DirectlyFollowsGraph(){
-        nodes = new ArrayList<>();
-        edges = new ArrayList<>();
+    public DirectlyFollowsGraph(List<Event> events){
+        this.events = new ArrayList<>(events);
     }
 
-    public void buildGraph(List<Event> events){
+    public void buildGraph(){
+        System.out.println("Building DFG...\n");
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
         Event previousEvent = null;
 
-        for(var event: events){
+        for(var event: this.events){
             Node node = new Node(event.getEventType(), event.context, 1);
             if(!nodes.contains(node))
                 nodes.add(node);
