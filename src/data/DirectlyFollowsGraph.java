@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DirectlyFollowsGraph {
-    List<Event> events;
-    List<Node> nodes;
-    List<Edge> edges;
-    HashMap<Node, List<Node>> incoming;
-    HashMap<Node, List<Node>> outgoing;
+    private List<Event> events;
+    private List<Node> nodes;
+    private List<Edge> edges;
+    private HashMap<Node, List<Node>> incoming;
+    private HashMap<Node, List<Node>> outgoing;
 
     public DirectlyFollowsGraph(List<Event> events){
         this.nodes = new ArrayList<>();
@@ -22,6 +22,16 @@ public class DirectlyFollowsGraph {
         this.outgoing = new HashMap<>();
         this.events = new ArrayList<>(events);
     }
+
+    public List<Node> getNodes(){ return nodes; }
+
+    public List<Edge> getEdges() { return edges; }
+
+    public List<Event> getEvents() { return events; }
+
+    public HashMap<Node, List<Node>> getIncomingEdges() { return incoming; }
+
+    public HashMap<Node, List<Node>> getOutgoingEdges() { return outgoing; }
 
     public void buildGraph(){
         System.out.println("Building DFG...\n");
@@ -37,12 +47,12 @@ public class DirectlyFollowsGraph {
             if(previousEvent != null) {
                 Node from = null;
                 Node to = null;
-                for (int i = 0; i < nodes.size(); i++){
-                    if (previousEvent.getEventType().equals(nodes.get(i).getEventType()) && previousEvent.context.equals(nodes.get(i).getContext()))
-                        from = nodes.get(i);
-                    if (event.getEventType().equals(nodes.get(i).getEventType()) && event.context.equals(nodes.get(i).getContext()))
-                        to = nodes.get(i);
-                    if(from != null && to != null)
+                for (Node n : nodes) {
+                    if (previousEvent.getEventType().equals(n.getEventType()) && previousEvent.context.equals(n.getContext()))
+                        from = n;
+                    if (event.getEventType().equals(n.getEventType()) && event.context.equals(n.getContext()))
+                        to = n;
+                    if (from != null && to != null)
                         break;
                 }
                 Edge edge = new Edge(from, to, 1);
@@ -112,22 +122,22 @@ public class DirectlyFollowsGraph {
                     adjacencyMatrix[i][j] = edges.get(edges.indexOf(edge)).getFrequency();
                 else
                     adjacencyMatrix[i][j] = 0;
-                System.out.print(adjacencyMatrix[i][j] + " ");
+                //System.out.print(adjacencyMatrix[i][j] + " ");
             }
-            System.out.println();
+            //System.out.println();
         }
 
         return adjacencyMatrix;
     }
 
-    public void updateIncomingEdges(Node from, Node to){
+    private void updateIncomingEdges(Node from, Node to){
         if(!incoming.containsKey(to))
             incoming.put(to, Collections.singletonList(from));
         else if(!incoming.get(to).contains(from))
             incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
     }
 
-    public void updateOutgoingEdges(Node from, Node to){
+    private void updateOutgoingEdges(Node from, Node to){
         if(!outgoing.containsKey(from))
             outgoing.put(from, Collections.singletonList(to));
         else if(!outgoing.get(from).contains(to))

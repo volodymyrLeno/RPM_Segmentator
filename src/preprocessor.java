@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class preprocessor {
-    public static String sortLog(String log) {
+    private static String sortLog(String log) {
         List<String> actions = Arrays.asList(log.split("\n"));
         Collections.sort(actions);
         return actions.stream().map(el -> el + "\n").collect(Collectors.joining());
     }
 
-    public static String identifyPasteAction(String log) {
+    private static String identifyPasteAction(String log) {
         String cellRegex = "(.*\"copyCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\"),.*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*)\\n*)";
@@ -49,7 +49,7 @@ public class preprocessor {
         return log;
     }
 
-    public static String mergeNavigationCellCopy(String log) {
+    private static String mergeNavigationCellCopy(String log) {
         String getCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((\"([^\"]|\"\")*\",){2}).*\\n*";
@@ -83,7 +83,7 @@ public class preprocessor {
         return log;
     }
 
-    public static String deleteChromeClipboardCopy(String log) {
+    private static String deleteChromeClipboardCopy(String log) {
         String regex = "((\"([^\"]|\"\")*\",){2}\"Chrome\",\"copy\",.*\\n)" +
                 "((\"([^\"]|\"\")*\",){2}\"OS-Clipboard\",\"copy\",.*\\n*)";
 
@@ -97,7 +97,7 @@ public class preprocessor {
         return log;
     }
 
-    public static String eventListToString(List<Event> events){
+    static String eventListToString(List<Event> events){
         String[] header = {"caseID", "timeStamp", "userID", "targetApp", "eventType", "url", "content", "target.workbookName",
                 "target.sheetName", "target.id", "target.class", "target.tagName", "target.type", "target.name",
                 "target.value", "target.innerText", "target.checked", "target.href", "target.option", "target.title", "target.innerHTML"
@@ -120,7 +120,7 @@ public class preprocessor {
         return str;
     }
 
-    public static List<Event> applyPreprocessing(String filePath, String events){
+    static List<Event> applyPreprocessing(String filePath, String events){
         System.out.println("Preprocessing...");
         String sortedEvents = sortLog(events);
         sortedEvents = deleteChromeClipboardCopy(sortedEvents);
@@ -131,7 +131,7 @@ public class preprocessor {
         return logReader.readCSV(preprocessedLog);
     }
 
-    public static void writeDataLineByLine(String filePath, String data) {
+    private static void writeDataLineByLine(String filePath, String data) {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(filePath),
                     CSVWriter.DEFAULT_SEPARATOR,

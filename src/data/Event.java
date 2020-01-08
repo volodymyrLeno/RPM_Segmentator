@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Event {
-    public String caseID;
+    private String caseID;
     private String eventType;
     private String timestamp;
     public HashMap<String, String> payload;
-    public List<String> attributes;
+    private List<String> attributes;
     public HashMap<String, String> context;
 
     public Event(List<String> attributes, String[] values){

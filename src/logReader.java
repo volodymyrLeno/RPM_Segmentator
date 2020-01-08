@@ -17,7 +17,7 @@ import java.util.List;
 
 public final class logReader {
 
-    public static List<Event> readCSV(String path){
+    static List<Event> readCSV(String path){
         List<Event> events = new ArrayList<>();
         List<String> attributes = new ArrayList();
         int counter = 0;
