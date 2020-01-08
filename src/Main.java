@@ -16,9 +16,6 @@ public class Main {
         Boolean preprocessing = Boolean.parseBoolean(args[2]);
         Boolean considerMissingValues = Boolean.parseBoolean(args[3]);
 
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-
         List<Event> events = logReader.readCSV(filePath);
 
         if(preprocessing)
