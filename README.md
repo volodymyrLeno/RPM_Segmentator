@@ -9,5 +9,12 @@ The tool requires the following input parameters:
 * logPath - a path to UI log to be processed (String, e.g. src\logs\useCase_preprocessed.csv)
 * contextThreshold - a threshold which is used to identify context attributes (if ratio of unique values for an attribute is below or equal the threshold, then this attribute is considered as context attribute) (Double [0, 1])
 * preprocessing - indicates whether preprocessing should be performed (Boolean)
+* considerMissing - specify whether consider attributes with missing values as candidates for context attributes (Boolean)
+
+Example how to run the tool:
+
+```
+java -jar RPM_Segmentator.jar logs/useCase_preprocessed.csv 0.05 false true
+```
 
 The tool generates .DOT file that represents a directly follows graph constructed from the given UI log. You can visualize this graph by using any graph vizualization tool (e.g, http://www.webgraphviz.com/)
