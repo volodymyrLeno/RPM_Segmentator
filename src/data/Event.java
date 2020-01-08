@@ -69,6 +69,8 @@ public class Event {
         this.caseID = caseID;
     }
 
+    public List<String> getAttributes(){ return this.attributes; }
+
     public String toString() {
         return "(" + this.caseID + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
     }

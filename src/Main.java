@@ -14,6 +14,7 @@ public class Main {
         String filePath = args[0];
         Double threshold = Double.parseDouble(args[1]);
         Boolean preprocessing = Boolean.parseBoolean(args[2]);
+        Boolean considerMissingValues = Boolean.parseBoolean(args[3]);
 
         List<Event> events = logReader.readCSV(filePath);
 
@@ -22,7 +23,7 @@ public class Main {
 
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())
-            setContextAttributes(groupedEvents.get(group), threshold);
+            setContextAttributes(groupedEvents.get(group), threshold, considerMissingValues);
 
         DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
         dfg.buildGraph();
@@ -42,20 +43,35 @@ public class Main {
         return groupedEvents;
     }
 
-    public static List<String> getContextAttributes(List<Event> events, Double threshold){
+    public static List<String> getContextAttributes(List<Event> events, Double threshold, Boolean considerMissingValues){
         List<String> context = new ArrayList<>();
+        List<String> attributes = new ArrayList<>(events.get(0).getAttributes());
+        if(events.get(0).payload.containsKey("target.row"))
+            attributes.add("target.row");
+        if(events.get(0).payload.containsKey("target.column"))
+            attributes.add("target.column");
 
-        for(String attribute: events.get(0).payload.keySet()){
-            Double variance = (double)events.stream().map(el -> el.payload.get(attribute)).distinct().collect(Collectors.toList()).size()/events.size();
-            if(variance <= threshold)
-                context.add(attribute);
+        for(String attribute: attributes){
+            if(!attribute.equals("timeStamp") && !attribute.equals("eventType")){
+                var uniqueValues = events.stream().map(el -> el.payload.get(attribute)).distinct().collect(Collectors.toList());
+                Double variance = (double)uniqueValues.size()/events.size();
+
+                if(considerMissingValues){
+                    if(!(uniqueValues.size() == 1 && uniqueValues.get(0) == null) && variance <= threshold)
+                        context.add(attribute);
+                }
+                else{
+                    if(!uniqueValues.contains(null) && variance <= threshold)
+                        context.add(attribute);
+                }
+            }
         }
 
         return context;
     }
 
-    public static void setContextAttributes(List<Event> events, Double threshold){
-        List<String> contextAttributes = getContextAttributes(events, threshold);
+    public static void setContextAttributes(List<Event> events, Double threshold, Boolean considerMissingValues){
+        List<String> contextAttributes = getContextAttributes(events, threshold, considerMissingValues);
         for(var event: events){
             HashMap<String, String> context = new HashMap<>();
             for(var attribute: event.payload.keySet())

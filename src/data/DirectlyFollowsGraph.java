@@ -99,8 +99,8 @@ public class DirectlyFollowsGraph {
                 contextTo = edge.getToNode().getContext().get("target.innerText");
 
 
-            DOT = DOT + "   " + edge.getFromNode().getEventType() + "_" + contextFrom.replaceAll(" ", "_").replaceAll("\\.", "") + " -> " +
-                    edge.getToNode().getEventType() + "_" + contextTo.replaceAll(" ", "_").replaceAll("\\.","") + " [label=" + edge.getFrequency() + "];" + "\n";
+            DOT = DOT + "   " + edge.getFromNode().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
+                    edge.getToNode().getEventType() + "_" + contextTo.replaceAll("[^a-zA-Z0-9]+", "_") + " [label=" + edge.getFrequency() + "];" + "\n";
         }
         DOT = DOT + "}";
         try{
