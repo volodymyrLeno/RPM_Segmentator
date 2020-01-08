@@ -14,7 +14,7 @@ The tool requires the following input parameters:
 Example how to run the tool:
 
 ```
-java -jar RPM_Segmentator.jar logs/useCase_filtered.csv 0.05 false true
+java -jar RPM_Segmentator.jar logs/useCase_preprocessed.csv 0.05 false true
 ```
 
 The tool generates .DOT file that represents a directly follows graph constructed from the given UI log. You can visualize this graph by using any graph vizualization tool (e.g, http://www.webgraphviz.com/)
