@@ -31,17 +31,9 @@ public class DirectlyFollowsGraph {
             Node node = new Node(event.getEventType(), event.context, 1);
             if(!nodes.contains(node))
                 nodes.add(node);
-            else{
+            else
                 nodes.get(nodes.indexOf(node)).increaseFrequency();
 
-                /*
-                for(int i = 0; i < nodes.size(); i++)
-                    if(node.equals(nodes.get(i))){
-                        nodes.get(i).increaseFrequency();
-                        break;
-                    }
-                    */
-            }
             if(previousEvent != null) {
                 Node from = null;
                 Node to = null;
@@ -54,28 +46,15 @@ public class DirectlyFollowsGraph {
                         break;
                 }
                 Edge edge = new Edge(from, to, 1);
-                if(!edges.contains(edge))
+                if(!edges.contains(edge)){
                     edges.add(edge);
+                    updateIncomingEdges(from, to);
+                    updateOutgoingEdges(from, to);
+                }
                 else{
-                    if(!outgoing.containsKey(from))
-                        outgoing.put(from, Collections.singletonList(to));
-                    else
-                        if(!outgoing.get(from).contains(to))
-                            outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(to)).collect(Collectors.toList()));
-                    if(!incoming.containsKey(to))
-                        incoming.put(to, Collections.singletonList(from));
-                    else
-                        if(!incoming.get(to).contains(from))
-                            incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
-
-                        /*
-                    for(int i = 0; i < edges.size(); i++)
-                        if(edges.get(i).getFromNode().equals(from) && edges.get(i).getToNode().equals(to)){
-                            edges.get(i).increaseFrequency();
-                            break;
-                        }
-                        */
-                        edges.get(edges.indexOf(edge)).increaseFrequency();
+                    updateIncomingEdges(from, to);
+                    updateOutgoingEdges(from, to);
+                    edges.get(edges.indexOf(edge)).increaseFrequency();
                 }
             }
             previousEvent = event;
@@ -133,11 +112,25 @@ public class DirectlyFollowsGraph {
                     adjacencyMatrix[i][j] = edges.get(edges.indexOf(edge)).getFrequency();
                 else
                     adjacencyMatrix[i][j] = 0;
-                //System.out.print(adjacencyMatrix[i][j] + " ");
+                System.out.print(adjacencyMatrix[i][j] + " ");
             }
-            //System.out.println();
+            System.out.println();
         }
 
         return adjacencyMatrix;
+    }
+
+    public void updateIncomingEdges(Node from, Node to){
+        if(!incoming.containsKey(to))
+            incoming.put(to, Collections.singletonList(from));
+        else if(!incoming.get(to).contains(from))
+            incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
+    }
+
+    public void updateOutgoingEdges(Node from, Node to){
+        if(!outgoing.containsKey(from))
+            outgoing.put(from, Collections.singletonList(to));
+        else if(!outgoing.get(from).contains(to))
+            outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(to)).collect(Collectors.toList()));
     }
 }
