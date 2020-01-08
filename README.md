@@ -6,7 +6,7 @@ This is a command line tool to identify task traces (instances of a task) and as
 
 The tool requires the following input parameters:
 
-* logPath - a path to UI log to be processed (String, e.g. src\useCase_preprocessed.csv)
+* logPath - a path to UI log to be processed (String, e.g. src\logs\useCase_preprocessed.csv)
 * contextThreshold - a threshold which is used to identify context attributes (if ratio of unique values for an attribute is below or equal the threshold, then this attribute is considered as context attribute) (Double [0, 1])
 * preprocessing - indicates whether preprocessing should be performed (Boolean)
 
