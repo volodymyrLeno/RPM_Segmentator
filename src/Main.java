@@ -27,6 +27,7 @@ public class Main {
         DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
         dfg.buildGraph();
         dfg.convertIntoDOT();
+        dfg.getAdjacencyMatrix();
     }
 
     public static HashMap<String, List<Event>> groupByEventType(List<Event> events){

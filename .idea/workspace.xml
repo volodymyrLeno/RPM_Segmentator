@@ -5,19 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/DirectlyFollowsGraph.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/DirectlyFollowsGraph.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/logReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/logReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/preprocessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/preprocessor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/useCase.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/useCase.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/useCase_filtered.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/useCase_preprocessed.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RPM_Segmentator/useCase_preprocessed.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocessed.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/preprocessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/preprocessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/useCase.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/useCase.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/useCase_filtered.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/useCase_preprocessed.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/useCase_preprocessed.csv" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,12 +36,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="1" />
-          <entry key="java" value="7563" />
+          <entry key="java" value="8049" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7563" />
+          <entry key="JAVA" value="8049" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -63,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+            <state relative-caret-position="236">
+              <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/Edge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+            <state relative-caret-position="255">
+              <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="31" />
               <folding>
                 <element signature="e#429#430#0" expanded="true" />
                 <element signature="e#452#453#0" expanded="true" />
@@ -144,8 +133,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+            <state relative-caret-position="245">
+              <caret line="135" column="31" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -184,7 +173,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1616" />
@@ -228,7 +217,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578441319873" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578447753585" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../RPM/opencsv-4.6.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -298,7 +287,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.3295964" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17937219" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.43609866" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.55381167" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -317,16 +306,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>28</line>
-          <properties />
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((HashMap.Node)dfg.nodes.get(29).context.entrySet().toArray()[2]).getValue()" custom="java.util.HashMap.Node" />
@@ -371,19 +350,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/Edge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding>
-            <element signature="e#429#430#0" expanded="true" />
-            <element signature="e#452#453#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1101#1102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data/Event.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -402,16 +368,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -440,10 +396,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/Edge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="31" />
+          <folding>
+            <element signature="e#429#430#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1101#1102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        <state relative-caret-position="245">
+          <caret line="135" column="31" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

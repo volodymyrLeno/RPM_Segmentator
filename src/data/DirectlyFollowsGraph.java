@@ -32,11 +32,15 @@ public class DirectlyFollowsGraph {
             if(!nodes.contains(node))
                 nodes.add(node);
             else{
+                nodes.get(nodes.indexOf(node)).increaseFrequency();
+
+                /*
                 for(int i = 0; i < nodes.size(); i++)
                     if(node.equals(nodes.get(i))){
                         nodes.get(i).increaseFrequency();
                         break;
                     }
+                    */
             }
             if(previousEvent != null) {
                 Node from = null;
@@ -64,11 +68,14 @@ public class DirectlyFollowsGraph {
                         if(!incoming.get(to).contains(from))
                             incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
 
+                        /*
                     for(int i = 0; i < edges.size(); i++)
                         if(edges.get(i).getFromNode().equals(from) && edges.get(i).getToNode().equals(to)){
                             edges.get(i).increaseFrequency();
                             break;
                         }
+                        */
+                        edges.get(edges.indexOf(edge)).increaseFrequency();
                 }
             }
             previousEvent = event;
@@ -115,5 +122,22 @@ public class DirectlyFollowsGraph {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public Integer[][] getAdjacencyMatrix(){
+        Integer[][] adjacencyMatrix = new Integer[nodes.size()][nodes.size()];
+        for(int i = 0; i < nodes.size(); i++){
+            for(int j = 0; j < nodes.size(); j++){
+                Edge edge = new Edge(nodes.get(i), nodes.get(j));
+                if(edges.contains(edge))
+                    adjacencyMatrix[i][j] = edges.get(edges.indexOf(edge)).getFrequency();
+                else
+                    adjacencyMatrix[i][j] = 0;
+                //System.out.print(adjacencyMatrix[i][j] + " ");
+            }
+            //System.out.println();
+        }
+
+        return adjacencyMatrix;
     }
 }
