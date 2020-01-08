@@ -17,18 +17,6 @@ import java.util.List;
 
 public final class logReader {
 
-    /*
-    public static List<Event> readLog(String path){
-        String type = path.substring(path.lastIndexOf("."));
-        if(type.equals("csv"))
-            return readCSV(path);
-        else if(type.equals("xes"))
-            return readXES(path);
-        else
-            return null;
-    }
-    */
-
     public static List<Event> readCSV(String path){
         List<Event> events = new ArrayList<>();
         List<String> attributes = new ArrayList();
@@ -65,64 +53,4 @@ public final class logReader {
 
         return events;
     }
-
-    /*
-    public static HashMap<String, List<Event>> readXES(String path){
-        HashMap<String, List<Event>> cases = new HashMap<>();
-
-        final String conceptname = "concept:name";
-        final String timestamp = "time:timestamp";
-
-        try {
-            File xesFile = new File(path);
-            XesXmlParser parser = new XesXmlParser(new XFactoryNaiveImpl());
-            if (!parser.canParse(xesFile)) {
-                parser = new XesXmlGZIPParser();
-                if (!parser.canParse(xesFile)) {
-                    System.out.println("Unparsable log file: " + xesFile.getAbsolutePath());
-                }
-            }
-            List<XLog> xLogs = parser.parse(xesFile);
-            XLog xLog = xLogs.remove(0);
-
-            for(int i = 0; i < xLog.size(); i++){
-                XTrace trace = xLog.get(i);
-                String traceID = ((XAttributeLiteral) trace.getAttributes().get(conceptname)).getValue();
-                List<Event> events = new ArrayList();
-                for(int j = 0; j < trace.size(); j++){
-                    List<String> attributes = new ArrayList<>();
-                    String[] values = new String[trace.get(j).getAttributes().size() + 1];
-                    values[0] = traceID;
-                    attributes.add("CaseID");
-                    values[1] = trace.get(j).getAttributes().get(conceptname).toString();
-                    attributes.add("Activity");
-                    values[2] = trace.get(j).getAttributes().get(timestamp).toString();
-                    attributes.add("Timestamp");
-
-                    int k = 3;
-
-                    for(String s: trace.get(j).getAttributes().keySet()){
-                        switch(s){
-                            case timestamp:
-                                break;
-                            case conceptname:
-                                break;
-                            default: {
-                                attributes.add(s);
-                                values[k] = trace.get(j).getAttributes().get(s).toString();
-                                k++;
-                            }
-                        }
-                    }
-                    events.add(new Event(attributes, values));
-                }
-                cases.put(traceID, events);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cases;
-    }
-    */
 }
