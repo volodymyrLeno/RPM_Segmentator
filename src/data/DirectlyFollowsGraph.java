@@ -56,7 +56,9 @@ public class DirectlyFollowsGraph {
                         break;
                 }
                 Edge edge = new Edge(from, to, 1);
+
                 if(!edges.contains(edge)){
+                    edge.addEventPair(previousEvent, event);
                     edges.add(edge);
                     updateIncomingEdges(from, to);
                     updateOutgoingEdges(from, to);
@@ -64,6 +66,7 @@ public class DirectlyFollowsGraph {
                 else{
                     updateIncomingEdges(from, to);
                     updateOutgoingEdges(from, to);
+                    edges.get(edges.indexOf(edge)).addEventPair(previousEvent, event);
                     edges.get(edges.indexOf(edge)).increaseFrequency();
                 }
             }
