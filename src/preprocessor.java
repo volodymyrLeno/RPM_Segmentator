@@ -211,6 +211,7 @@ public class preprocessor {
             "((((?!(\"([^\"]|\"\")*\",){3}\"paste).)*\",.*\\n)*" +
             "(\"([^\"]|\"\")*\",){3}\"copy.*\\n*)";
 
+
     /*
     private static String singleCopyRegex = "((.*\\n)*)" +
             "((\"([^\"]|\"\")*\",){3}(\"copy[a-zA-Z]*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n*)" +
@@ -247,8 +248,8 @@ public class preprocessor {
 
     public static String removeSingleCopy(String log) {
         if(containsSingleCopy(log)){
-            log = log.replaceAll(singleCopyRegex, "$1$7");
-            // log = log.replaceAll(singleCopyRegex, "$1$11");
+            //log = log.replaceAll(singleCopyRegex, "$1$7");
+            log = log.replaceAll(singleCopyRegex, "$1$11");
             return removeSingleCopy(log);
         }
 
