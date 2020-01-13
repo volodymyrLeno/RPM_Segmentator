@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 
 public class preprocessor {
     private static String sortLog(String log) {
+        System.out.print("\tSorting the log");
+        long startTime = System.currentTimeMillis();
         List<String> actions = Arrays.asList(log.split("\n"));
         Collections.sort(actions);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
         return actions.stream().map(el -> el + "\n").collect(Collectors.joining());
     }
 
@@ -84,6 +88,7 @@ public class preprocessor {
     }
 
     private static String deleteChromeClipboardCopy(String log) {
+
         String regex = "((\"([^\"]|\"\")*\",){2}\"Chrome\",\"copy\",.*\\n)" +
                 "((\"([^\"]|\"\")*\",){2}\"OS-Clipboard\",\"copy\",.*\\n*)";
 
@@ -94,6 +99,7 @@ public class preprocessor {
             log = log.replaceAll(regex, "$1");
             return deleteChromeClipboardCopy(log);
         }
+
         return log;
     }
 
@@ -123,9 +129,42 @@ public class preprocessor {
     static List<Event> applyPreprocessing(String filePath, String events){
         System.out.println("Preprocessing...");
         String sortedEvents = sortLog(events);
+
+        System.out.print("\tRemoving Clipboard copy actions");
+        long startTime = System.currentTimeMillis();
         sortedEvents = deleteChromeClipboardCopy(sortedEvents);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tIdentifying Excel copy actions");
+        startTime = System.currentTimeMillis();
         sortedEvents = mergeNavigationCellCopy(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tIdentifying Excel paste actions");
+        startTime = System.currentTimeMillis();
         sortedEvents = identifyPasteAction(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tRemoving click text field actions");
+        startTime = System.currentTimeMillis();
+        while(containsRedundantClickTextField(sortedEvents))
+            sortedEvents = removeRedundantClickTextField(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+
+        System.out.print("\tRemoving redundant copy actions");
+        startTime = System.currentTimeMillis();
+        while(containsSingleCopy(sortedEvents))
+            sortedEvents = removeSingleCopy(sortedEvents);
+        while(containsRedundantCopy(sortedEvents))
+            sortedEvents = removeRedundantCopy(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
         String preprocessedLog = filePath.substring(0, filePath.lastIndexOf(".")) + "_preprocessed.csv";
         writeDataLineByLine(preprocessedLog, sortedEvents);
         return logReader.readCSV(preprocessedLog);
@@ -164,5 +203,75 @@ public class preprocessor {
                     .toArray(String[]::new);
             writer.writeNext(actionValues);
         }
+    }
+
+    /* Read actions filter*/
+
+    private static String redundantFirstCopyRegex = "((\"([^\"]|\"\")*\",){3}\"copy.*\\n)" +
+            "((((?!(\"([^\"]|\"\")*\",){3}\"paste).)*\",.*\\n)*" +
+            "(\"([^\"]|\"\")*\",){3}\"copy.*\\n*)";
+
+    /*
+    private static String singleCopyRegex = "((.*\\n)*)" +
+            "((\"([^\"]|\"\")*\",){3}(\"copy[a-zA-Z]*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n*)" +
+            "(((\"([^\"]|\"\")*\",){3}(?!((\"paste[a-zA-Z]*\",(\"([^\"]|\"\")*\",)\\9)|\"copy[a-zA-Z]*\")).*\\n*)*)";
+            */
+
+    private static String singleCopyRegex = "((.*\\n)*)" +
+            "((\"([^\"]|\"\")*\",){3}(\"copy).*\\n*)" +
+            "(((\"([^\"]|\"\")*\",){3}((?!\"paste|\"copy).)*\",.*\\n*)*)";
+
+
+    public static boolean containsRedundantCopy(String log) {
+        Pattern p = Pattern.compile(redundantFirstCopyRegex);
+        Matcher matcher = p.matcher(log);
+
+        return matcher.find();
+    }
+
+    public static boolean containsSingleCopy(String log) {
+        Pattern p = Pattern.compile(singleCopyRegex);
+        Matcher matcher = p.matcher(log);
+
+        return matcher.matches();
+    }
+
+    public static String removeRedundantCopy(String log) {
+        if (containsRedundantCopy(log)) {
+            log = log.replaceAll(redundantFirstCopyRegex, "$4");
+            return removeRedundantCopy(log);
+        }
+
+        return log;
+    }
+
+    public static String removeSingleCopy(String log) {
+        if(containsSingleCopy(log)){
+            log = log.replaceAll(singleCopyRegex, "$1$7");
+            // log = log.replaceAll(singleCopyRegex, "$1$11");
+            return removeSingleCopy(log);
+        }
+
+        return log;
+    }
+
+    /* Navigation actions filter */
+
+    private static String redundantClickTextFieldRegex = "((\"([^\"]|\"\")*\",){3}\"clickTextField\",.*\\n*)";
+
+    public static boolean containsRedundantClickTextField(String log) {
+        Pattern pattern = Pattern.compile(redundantClickTextFieldRegex);
+        Matcher matcher = pattern.matcher(log);
+
+        return matcher.find();
+    }
+
+    public static String removeRedundantClickTextField(String log) {
+        if (containsRedundantClickTextField(log)) {
+            log = log.replaceAll(redundantClickTextFieldRegex, "");
+            return removeRedundantClickTextField(log);
+        }
+
+        return log;
     }
 }
