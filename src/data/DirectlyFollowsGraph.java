@@ -12,8 +12,8 @@ public class DirectlyFollowsGraph {
     private List<Event> events;
     private List<Node> nodes;
     private List<Edge> edges;
-    private HashMap<Node, List<Node>> incoming;
-    private HashMap<Node, List<Node>> outgoing;
+    private HashMap<Node, List<Edge>> incoming;
+    private HashMap<Node, List<Edge>> outgoing;
 
     public DirectlyFollowsGraph(List<Event> events){
         this.nodes = new ArrayList<>();
@@ -29,9 +29,9 @@ public class DirectlyFollowsGraph {
 
     public List<Event> getEvents() { return events; }
 
-    public HashMap<Node, List<Node>> getIncomingEdges() { return incoming; }
+    public HashMap<Node, List<Edge>> getIncomingEdges() { return incoming; }
 
-    public HashMap<Node, List<Node>> getOutgoingEdges() { return outgoing; }
+    public HashMap<Node, List<Edge>> getOutgoingEdges() { return outgoing; }
 
     public void buildGraph(){
         System.out.println("Building DFG...\n");
@@ -134,16 +134,22 @@ public class DirectlyFollowsGraph {
     }
 
     private void updateIncomingEdges(Node from, Node to){
-        if(!incoming.containsKey(to))
-            incoming.put(to, Collections.singletonList(from));
-        else if(!incoming.get(to).contains(from))
-            incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(from)).collect(Collectors.toList()));
+        Edge incomingEdge = edges.stream().filter(el -> el.getFromNode().equals(from) && el.getToNode().equals(to)).findFirst().orElse(null);
+        if(incomingEdge != null) {
+            if (!incoming.containsKey(to))
+                incoming.put(to, Collections.singletonList(incomingEdge));
+            else if (!incoming.get(to).contains(incomingEdge))
+                incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(incomingEdge)).collect(Collectors.toList()));
+        }
     }
 
     private void updateOutgoingEdges(Node from, Node to){
-        if(!outgoing.containsKey(from))
-            outgoing.put(from, Collections.singletonList(to));
-        else if(!outgoing.get(from).contains(to))
-            outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(to)).collect(Collectors.toList()));
+        Edge outgoingEdge = edges.stream().filter(el -> el.getFromNode().equals(from) && el.getToNode().equals(to)).findFirst().orElse(null);
+        if(outgoingEdge != null) {
+            if (!outgoing.containsKey(from))
+                outgoing.put(from, Collections.singletonList(outgoingEdge));
+            else if (!outgoing.get(from).contains(outgoingEdge))
+                outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(outgoingEdge)).collect(Collectors.toList()));
+        }
     }
 }
