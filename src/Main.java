@@ -1,5 +1,6 @@
 import data.DirectlyFollowsGraph;
 import data.Event;
+import data.Node;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,12 @@ public class Main {
         dfg.buildGraph();
         dfg.convertIntoDOT();
         dfg.getAdjacencyMatrix();
+
+        List<Node> nodes = dfg.getNodes();
+        Node source = nodes.get(0);
+
+//        SegmentsDiscoverer disco = new SegmentsDiscoverer();
+//        disco.extractSegmentsFromDFG(dfg);
     }
 
     public static HashMap<String, List<Event>> groupByEventType(List<Event> events){

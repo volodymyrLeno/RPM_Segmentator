@@ -45,27 +45,27 @@ public class DirectlyFollowsGraph {
                 nodes.get(nodes.indexOf(node)).increaseFrequency();
 
             if(previousEvent != null) {
-                Node from = null;
-                Node to = null;
+                Node src = null;
+                Node tgt = null;
                 for (Node n : nodes) {
                     if (previousEvent.getEventType().equals(n.getEventType()) && previousEvent.context.equals(n.getContext()))
-                        from = n;
+                        src = n;
                     if (event.getEventType().equals(n.getEventType()) && event.context.equals(n.getContext()))
-                        to = n;
-                    if (from != null && to != null)
+                        tgt = n;
+                    if (src != null && tgt != null)
                         break;
                 }
-                Edge edge = new Edge(from, to, 1);
+                Edge edge = new Edge(src, tgt, 1);
 
                 if(!edges.contains(edge)){
                     edge.addEventPair(previousEvent, event);
                     edges.add(edge);
-                    updateIncomingEdges(from, to);
-                    updateOutgoingEdges(from, to);
+                    updateIncomingEdges(src, tgt);
+                    updateOutgoingEdges(src, tgt);
                 }
                 else{
-                    updateIncomingEdges(from, to);
-                    updateOutgoingEdges(from, to);
+                    updateIncomingEdges(src, tgt);
+                    updateOutgoingEdges(src, tgt);
                     edges.get(edges.indexOf(edge)).addEventPair(previousEvent, event);
                     edges.get(edges.indexOf(edge)).increaseFrequency();
                 }
@@ -79,31 +79,31 @@ public class DirectlyFollowsGraph {
         for(Edge edge: this.edges){
             String contextFrom = "";
             String contextTo = "";
-            if(edge.getFromNode().getContext().containsKey("target.row"))
-                contextFrom = edge.getFromNode().getContext().get("target.row");
-            else if(edge.getFromNode().getContext().containsKey("target.column"))
-                contextFrom = edge.getFromNode().getContext().get("target.column");
-            else if(edge.getFromNode().getContext().containsKey("target.id"))
-                contextFrom = edge.getFromNode().getContext().get("target.id");
-            else if(edge.getFromNode().getContext().containsKey("target.name"))
-                contextFrom = edge.getFromNode().getContext().get("target.name");
-            else if(edge.getFromNode().getContext().containsKey("target.innerText"))
-                contextFrom = edge.getFromNode().getContext().get("target.innerText");
+            if(edge.getSource().getContext().containsKey("target.row"))
+                contextFrom = edge.getSource().getContext().get("target.row");
+            else if(edge.getSource().getContext().containsKey("target.column"))
+                contextFrom = edge.getSource().getContext().get("target.column");
+            else if(edge.getSource().getContext().containsKey("target.id"))
+                contextFrom = edge.getSource().getContext().get("target.id");
+            else if(edge.getSource().getContext().containsKey("target.name"))
+                contextFrom = edge.getSource().getContext().get("target.name");
+            else if(edge.getSource().getContext().containsKey("target.innerText"))
+                contextFrom = edge.getSource().getContext().get("target.innerText");
 
-            if(edge.getToNode().getContext().containsKey("target.row"))
-                contextTo = edge.getToNode().getContext().get("target.row");
-            else if(edge.getToNode().getContext().containsKey("target.column"))
-                contextTo = edge.getToNode().getContext().get("target.column");
-            else if(edge.getToNode().getContext().containsKey("target.id"))
-                contextTo = edge.getToNode().getContext().get("target.id");
-            else if(edge.getToNode().getContext().containsKey("target.name"))
-                contextTo = edge.getToNode().getContext().get("target.name");
-            else if(edge.getToNode().getContext().containsKey("target.innerText"))
-                contextTo = edge.getToNode().getContext().get("target.innerText");
+            if(edge.getTarget().getContext().containsKey("target.row"))
+                contextTo = edge.getTarget().getContext().get("target.row");
+            else if(edge.getTarget().getContext().containsKey("target.column"))
+                contextTo = edge.getTarget().getContext().get("target.column");
+            else if(edge.getTarget().getContext().containsKey("target.id"))
+                contextTo = edge.getTarget().getContext().get("target.id");
+            else if(edge.getTarget().getContext().containsKey("target.name"))
+                contextTo = edge.getTarget().getContext().get("target.name");
+            else if(edge.getTarget().getContext().containsKey("target.innerText"))
+                contextTo = edge.getTarget().getContext().get("target.innerText");
 
 
-            DOT = DOT + "   " + edge.getFromNode().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
-                    edge.getToNode().getEventType() + "_" + contextTo.replaceAll("[^a-zA-Z0-9]+", "_") + " [label=" + edge.getFrequency() + "];" + "\n";
+            DOT = DOT + "   " + edge.getSource().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
+                    edge.getTarget().getEventType() + "_" + contextTo.replaceAll("[^a-zA-Z0-9]+", "_") + " [label=" + edge.getFrequency() + "];" + "\n";
         }
         DOT = DOT + "}";
         try{
@@ -133,23 +133,23 @@ public class DirectlyFollowsGraph {
         return adjacencyMatrix;
     }
 
-    private void updateIncomingEdges(Node from, Node to){
-        Edge incomingEdge = edges.stream().filter(el -> el.getFromNode().equals(from) && el.getToNode().equals(to)).findFirst().orElse(null);
+    private void updateIncomingEdges(Node src, Node tgt){
+        Edge incomingEdge = edges.stream().filter(el -> el.getSource().equals(src) && el.getTarget().equals(tgt)).findFirst().orElse(null);
         if(incomingEdge != null) {
-            if (!incoming.containsKey(to))
-                incoming.put(to, Collections.singletonList(incomingEdge));
-            else if (!incoming.get(to).contains(incomingEdge))
-                incoming.put(to, Stream.concat(incoming.get(to).stream(), Stream.of(incomingEdge)).collect(Collectors.toList()));
+            if (!incoming.containsKey(tgt))
+                incoming.put(tgt, Collections.singletonList(incomingEdge));
+            else if (!incoming.get(tgt).contains(incomingEdge))
+                incoming.put(tgt, Stream.concat(incoming.get(tgt).stream(), Stream.of(incomingEdge)).collect(Collectors.toList()));
         }
     }
 
-    private void updateOutgoingEdges(Node from, Node to){
-        Edge outgoingEdge = edges.stream().filter(el -> el.getFromNode().equals(from) && el.getToNode().equals(to)).findFirst().orElse(null);
+    private void updateOutgoingEdges(Node src, Node to){
+        Edge outgoingEdge = edges.stream().filter(el -> el.getSource().equals(src) && el.getTarget().equals(to)).findFirst().orElse(null);
         if(outgoingEdge != null) {
-            if (!outgoing.containsKey(from))
-                outgoing.put(from, Collections.singletonList(outgoingEdge));
-            else if (!outgoing.get(from).contains(outgoingEdge))
-                outgoing.put(from, Stream.concat(outgoing.get(from).stream(), Stream.of(outgoingEdge)).collect(Collectors.toList()));
+            if (!outgoing.containsKey(src))
+                outgoing.put(src, Collections.singletonList(outgoingEdge));
+            else if (!outgoing.get(src).contains(outgoingEdge))
+                outgoing.put(src, Stream.concat(outgoing.get(src).stream(), Stream.of(outgoingEdge)).collect(Collectors.toList()));
         }
     }
 }

@@ -4,59 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Edge {
-    private Node from;
-    private Node to;
+public class Edge implements Comparable<Edge> {
+    private Node src;
+    private Node tgt;
     private Integer frequency;
-    private List<Event> startEvents;
-    private List<Event> endEvents;
+    private List<Event> sourceEvents;
+    private List<Event> targetEvents;
+    private int avgLogLength;
 
-    Edge(Node from, Node to, Integer frequency){
-        this.from = from;
-        this.to = to;
+    Edge(Node src, Node tgt, Integer frequency){
+        this.src = src;
+        this.tgt = tgt;
         this.frequency = frequency;
-        this.startEvents = new ArrayList<>();
-        this.endEvents = new ArrayList<>();
+        this.sourceEvents = new ArrayList<>();
+        this.targetEvents = new ArrayList<>();
     }
 
-    Edge(Node from, Node to){
-        this.from = new Node(from);
-        this.to = new Node(to);
+    Edge(Node src, Node tgt){
+        this.src = new Node(src);
+        this.tgt = new Node(tgt);
         this.frequency = 0;
-        this.startEvents = new ArrayList<>();
-        this.endEvents = new ArrayList<>();
+        this.sourceEvents = new ArrayList<>();
+        this.targetEvents = new ArrayList<>();
     }
 
     void increaseFrequency(){
         this.frequency += 1;
     }
 
-    Node getFromNode(){ return this.from; }
+    public Node getSource(){ return this.src; }
 
-    Node getToNode(){ return this.to; }
+    public Node getTarget(){ return this.tgt; }
 
-    Integer getFrequency(){ return this.frequency; }
+    public Integer getFrequency(){ return this.frequency; }
 
-    List<Event> getStartEvents(){ return this.startEvents; }
+    public List<Event> getSourceEvents(){ return this.sourceEvents; }
 
-    List<Event> getEndEvents(){ return this.endEvents; }
+    public List<Event> getTargetEvents(){ return this.targetEvents; }
 
     void addEventPair(Event from, Event to){
-        startEvents.add(from);
-        endEvents.add(to);
+        sourceEvents.add(from);
+        targetEvents.add(to);
+
+    }
+
+    @Override
+    public String toString() {
+        return src.getEventType() + ">>" + tgt.getEventType();
     }
 
     @Override
     public boolean equals(Object obj){
         if(obj != null && getClass() == obj.getClass()){
             Edge edge = (Edge) obj;
-            return this.from.equals(edge.from) && this.to.equals(edge.to);
+            return this.src.equals(edge.src) && this.tgt.equals(edge.tgt);
         }
         return false;
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(from, to);
+        return Objects.hash(src, tgt);
+    }
+
+    @Override
+    public int compareTo(Edge e){
+        return e.frequency - this.frequency;
     }
 }

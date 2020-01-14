@@ -18,6 +18,7 @@ import java.util.List;
 public final class logReader {
 
     static List<Event> readCSV(String path){
+        int eid = 0;
         List<Event> events = new ArrayList<>();
         List<String> attributes = new ArrayList();
         int counter = 0;
@@ -42,7 +43,7 @@ public final class logReader {
                         else
                             row[i] = row[i].replaceAll("^\"(.*)\"$","$1");
                     }
-                    events.add(new Event(attributes, row));
+                    events.add(new Event(attributes, row, eid++));
                     counter++;
                 }
             }

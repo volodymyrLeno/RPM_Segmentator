@@ -10,5 +10,7 @@
     <orderEntry type="library" name="guava-20.0-javadoc" level="project" />
     <orderEntry type="library" name="commons-lang3-3.1" level="project" />
     <orderEntry type="library" name="opencsv-4.6" level="project" />
+    <orderEntry type="library" name="opencsv-4.6 (3)" level="project" />
+    <orderEntry type="library" name="OpenXES-20181205 (2)" level="project" />
   </component>
 </module>

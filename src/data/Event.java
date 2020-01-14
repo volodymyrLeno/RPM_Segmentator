@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Event {
+    private int eid;
     private String caseID;
     private String eventType;
     private String timestamp;
@@ -12,7 +13,8 @@ public class Event {
     private List<String> attributes;
     public HashMap<String, String> context;
 
-    public Event(List<String> attributes, String[] values){
+    public Event(List<String> attributes, String[] values, int eid){
+        this.eid = eid;
         String temp;
         this.attributes = new ArrayList<>(attributes);
         this.caseID = attributes.contains("caseID") ? values[attributes.indexOf("caseID")] : "";
@@ -74,4 +76,11 @@ public class Event {
     public String toString() {
         return "(" + this.caseID + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Event && obj != null) return this.eid == ((Event) obj).eid;
+        return false;
+    }
+
 }

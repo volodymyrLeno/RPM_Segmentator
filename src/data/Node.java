@@ -29,6 +29,9 @@ public class Node {
     void increaseFrequency() { this.frequency += 1; }
 
     @Override
+    public String toString() { return eventType;}
+
+    @Override
     public boolean equals(Object obj){
         if(obj != null && getClass() == obj.getClass()){
             Node node = (Node) obj;
