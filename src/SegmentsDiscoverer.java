@@ -28,6 +28,7 @@ public class SegmentsDiscoverer {
 
         int depth = 0;
         depths.put(source, depth);
+        System.out.println("DEBUG - ("+ depth +") node: " + source.toString());
 
         ArrayList<Edge> unexplored = new ArrayList<>();
         for(Edge e : outgoings.get(source))
@@ -42,10 +43,13 @@ public class SegmentsDiscoverer {
                     depths.put(target, depth);
                     System.out.println("DEBUG - ("+ depth +") node: " + target.toString());
                     for(Edge e : outgoings.get(target)) unexplored.add(e);
-                } else if( depth < depths.get(target) ) System.out.println("ERROR 0001 - this should not happen.");
-                else {
-                    System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() );
-                    loops.add(next);
+                } else {
+                    if( depth < depths.get(target) ) {
+                        System.out.println("ERROR 0001 - this should not happen.");
+                    } else {
+                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() );
+                        loops.add(next);
+                    }
                 }
             }
             System.out.println("DEBUG - null (" + depth + ")");

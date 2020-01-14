@@ -31,11 +31,8 @@ public class Main {
         dfg.convertIntoDOT();
         dfg.getAdjacencyMatrix();
 
-        List<Node> nodes = dfg.getNodes();
-        Node source = nodes.get(0);
-
-//        SegmentsDiscoverer disco = new SegmentsDiscoverer();
-//        disco.extractSegmentsFromDFG(dfg);
+        SegmentsDiscoverer disco = new SegmentsDiscoverer();
+        disco.extractSegmentsFromDFG(dfg);
     }
 
     public static HashMap<String, List<Event>> groupByEventType(List<Event> events){
