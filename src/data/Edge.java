@@ -50,7 +50,7 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public String toString() {
-        return src.getEventType() + ">>" + tgt.getEventType();
+        return src.toString() + ">>" + tgt.toString();
     }
 
     @Override

@@ -29,7 +29,24 @@ public class Node {
     void increaseFrequency() { this.frequency += 1; }
 
     @Override
-    public String toString() { return eventType;}
+    public String toString() {
+        String context = "";
+
+        if(this.context.containsKey("target.row"))
+            context = this.context.get("target.row");
+        else if(this.context.containsKey("target.column"))
+            context = this.context.get("target.column");
+        else if(this.context.containsKey("target.id"))
+            context = this.context.get("target.id");
+        else if(this.context.containsKey("target.name"))
+            context = this.context.get("target.name");
+        else if(this.context.containsKey("target.innerText"))
+            context = this.context.get("target.innerText");
+        else if(this.context.containsKey("url"))
+            context = this.context.get("url");
+
+        return eventType + "_" + context.replaceAll("[^a-zA-Z0-9]+", "_");
+    }
 
     @Override
     public boolean equals(Object obj){

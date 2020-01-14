@@ -89,6 +89,8 @@ public class DirectlyFollowsGraph {
                 contextFrom = edge.getSource().getContext().get("target.name");
             else if(edge.getSource().getContext().containsKey("target.innerText"))
                 contextFrom = edge.getSource().getContext().get("target.innerText");
+            else if(edge.getSource().getContext().containsKey("url"))
+                contextFrom = edge.getSource().getContext().get("url");
 
             if(edge.getTarget().getContext().containsKey("target.row"))
                 contextTo = edge.getTarget().getContext().get("target.row");
@@ -100,6 +102,8 @@ public class DirectlyFollowsGraph {
                 contextTo = edge.getTarget().getContext().get("target.name");
             else if(edge.getTarget().getContext().containsKey("target.innerText"))
                 contextTo = edge.getTarget().getContext().get("target.innerText");
+            else if(edge.getTarget().getContext().containsKey("url"))
+                contextTo = edge.getTarget().getContext().get("url");
 
 
             DOT = DOT + "   " + edge.getSource().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
