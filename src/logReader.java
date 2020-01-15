@@ -43,7 +43,8 @@ public final class logReader {
                         else
                             row[i] = row[i].replaceAll("^\"(.*)\"$","$1");
                     }
-                    events.add(new Event(attributes, row, eid++));
+                    events.add(new Event(attributes, row, eid));
+                    eid++;
                     counter++;
                 }
             }

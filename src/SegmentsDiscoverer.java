@@ -14,11 +14,17 @@ public class SegmentsDiscoverer {
 
 
     public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
-        Map<Integer, List<Event>> segments = new HashMap<>();
+        List<Edge> loops = discoverLoopsNaive(dfg);
+        Map<Integer, List<Event>> segments = discoverSegments(dfg, loops);
+
+        return segments;
+
+    }
+
+    private List<Edge> discoverLoopsNaive(DirectlyFollowsGraph dfg) {
         List<Edge> loops = new ArrayList<>();
 
         List<Node> nodes = dfg.getNodes();
-        List<Event> uiLog = dfg.getEvents();
         Map<Node, List<Edge>> outgoings = dfg.getOutgoingEdges();
 
         Map<Node, Integer> depths = new HashMap<>();
@@ -47,7 +53,7 @@ public class SegmentsDiscoverer {
                     if( depth < depths.get(target) ) {
                         System.out.println("ERROR 0001 - this should not happen.");
                     } else {
-                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() );
+                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() + " - " + next.getFrequency());
                         loops.add(next);
                     }
                 }
@@ -55,6 +61,59 @@ public class SegmentsDiscoverer {
             System.out.println("DEBUG - null (" + depth + ")");
         }
 
+        int f = 0;
+        for(Edge e : loops) f+= e.getFrequency();
+        System.out.println("DEBUG - total loops discovered ("+ f +"): " + loops.size());
+
+        return loops;
+    }
+
+    private Map<Integer, List<Event>> discoverSegments(DirectlyFollowsGraph dfg, List<Edge> loops){
+        Map<Integer, List<Event>> segments = new HashMap<>();
+        List<Event> uiLog = dfg.getEvents();
+        Map<Integer, Integer> pairs;
+
+        int eCounts = uiLog.size();
+        Event next = null;
+
+        uiLog.get(0).setStart(true);
+        uiLog.get(eCounts-1).setEnd(true);
+
+        int lCount = 0;
+        for(Edge loop : loops) {
+            for(Event start : loop.getTargetEvents()) uiLog.get(start.getID()).setStart(true);
+            for(Event end : loop.getSourceEvents()) uiLog.get(end.getID()).setEnd(true);
+        }
+
+        int i = 0;
+        int caseID = 0;
+        boolean within = false;
+        List<Event> segment = null;
+        int start;
+        int totalLength = 0;
+        do {
+             next = uiLog.get(i);
+             i++;
+
+            if(within) {
+                segment.add(next);
+                if(next.isEnd()) {
+                    segments.put(caseID, segment);
+                    caseID++;
+                    within = false;
+                    totalLength+=segment.size();
+                    System.out.println("DEBUG - discovered segment of length: " + segment.size());
+                }
+            } else if(next.isStart()) {
+                segment = new ArrayList<>();
+                segment.add(next);
+                within = true;
+            }
+
+        } while(i!=eCounts);
+
+        System.out.println("DEBUG - total segments discovered: " + caseID);
+        System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);
         return segments;
     }
 

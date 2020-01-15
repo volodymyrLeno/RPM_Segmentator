@@ -1,8 +1,6 @@
 package data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Edge implements Comparable<Edge> {
     private Node src;
@@ -10,6 +8,7 @@ public class Edge implements Comparable<Edge> {
     private Integer frequency;
     private List<Event> sourceEvents;
     private List<Event> targetEvents;
+    private Map<Integer, Integer> pairs;
     private int avgLogLength;
 
     Edge(Node src, Node tgt, Integer frequency){
@@ -18,6 +17,7 @@ public class Edge implements Comparable<Edge> {
         this.frequency = frequency;
         this.sourceEvents = new ArrayList<>();
         this.targetEvents = new ArrayList<>();
+        this.pairs = new HashMap<>();
     }
 
     Edge(Node src, Node tgt){
@@ -26,6 +26,7 @@ public class Edge implements Comparable<Edge> {
         this.frequency = 0;
         this.sourceEvents = new ArrayList<>();
         this.targetEvents = new ArrayList<>();
+        this.pairs = new HashMap<>();
     }
 
     void increaseFrequency(){
@@ -42,10 +43,12 @@ public class Edge implements Comparable<Edge> {
 
     public List<Event> getTargetEvents(){ return this.targetEvents; }
 
-    void addEventPair(Event from, Event to){
-        sourceEvents.add(from);
-        targetEvents.add(to);
+    public Map<Integer, Integer> getEventPairs() { return this.pairs; }
 
+    void addEventPair(Event src, Event tgt){
+        sourceEvents.add(src);
+        targetEvents.add(tgt);
+        pairs.put(src.getID(), tgt.getID());
     }
 
     @Override

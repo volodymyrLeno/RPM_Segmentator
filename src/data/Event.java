@@ -13,7 +13,12 @@ public class Event {
     private List<String> attributes;
     public HashMap<String, String> context;
 
+    private boolean start;
+    private boolean end;
+
     public Event(List<String> attributes, String[] values, int eid){
+        this.start = false;
+        this.end = false;
         this.eid = eid;
         String temp;
         this.attributes = new ArrayList<>(attributes);
@@ -52,6 +57,8 @@ public class Event {
         this.eventType = activityName;
         this.timestamp = timestamp;
         payload = new HashMap<>();
+        this.start = false;
+        this.end = false;
     }
 
     public Event(Event event){
@@ -59,6 +66,8 @@ public class Event {
         this.eventType = event.eventType;
         this.timestamp = event.timestamp;
         this.payload = new HashMap<>(event.payload);
+        this.start = false;
+        this.end = false;
     }
 
     public String getEventType() { return this.eventType; }
@@ -72,6 +81,16 @@ public class Event {
     }
 
     public List<String> getAttributes(){ return this.attributes; }
+
+    public int getID() { return eid; }
+
+    public boolean isStart() { return start; }
+
+    public void setStart(boolean start) { this.start = start; }
+
+    public boolean isEnd() { return end; }
+
+    public void setEnd(boolean end) { this.end = end; }
 
     public String toString() {
         return "(" + this.caseID + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
