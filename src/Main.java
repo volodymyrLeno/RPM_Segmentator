@@ -1,11 +1,14 @@
+import com.opencsv.CSVWriter;
 import data.DirectlyFollowsGraph;
 import data.Event;
-import data.Node;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +23,7 @@ public class Main {
         List<Event> events = logReader.readCSV(filePath);
 
         if(preprocessing)
-            events = preprocessor.applyPreprocessing(filePath, preprocessor.eventListToString(events));
+            events = Preprocessor.applyPreprocessing(filePath, Utils.eventListToString(events));
 
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())
@@ -32,7 +35,52 @@ public class Main {
         dfg.getAdjacencyMatrix();
 
         SegmentsDiscoverer disco = new SegmentsDiscoverer();
-        disco.extractSegmentsFromDFG(dfg);
+        Map<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
+        writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
+    }
+
+    static void writeSegments(String filePath, Map<Integer, List<Event>> segments){
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter(filePath),
+                    CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.NO_ESCAPE_CHARACTER,
+                    CSVWriter.RFC4180_LINE_END);
+
+            Map.Entry<Integer,List<Event>> entry = segments.entrySet().iterator().next();
+            var value = entry.getValue();
+
+            String[] headers = Stream.concat(Stream.of("\"caseID\""),
+                    value.get(0).getAttributes().stream().map(el -> "\"" + el + "\"")).toArray(String[]::new);
+            writer.writeNext(headers);
+
+            StringBuilder row = new StringBuilder();
+            for(var caseID: segments.keySet())
+                for(var event: segments.get(caseID)){
+                    for (String header : headers) {
+                        switch (header) {
+                            case "\"caseID\"":
+                                row.append("\"").append(caseID).append("\",");
+                                break;
+                            case "\"timeStamp\"":
+                                row.append("\"").append(event.getTimestamp()).append("\",");
+                                break;
+                            case "\"eventType\"":
+                                row.append("\"").append(event.getEventType()).append("\",");
+                                break;
+                            default:
+                                String attribute = header.replaceAll("^\"(.*)\"$", "$1");
+                                row.append(event.payload.containsKey(attribute) ? "\"" + event.payload.get(attribute) + "\"," : ",");
+                                break;
+                        }
+                    }
+                    row = new StringBuilder(row.substring(0, row.lastIndexOf(",")) + "\n");
+                }
+                Utils.writeActionsValues(writer, row.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static HashMap<String, List<Event>> groupByEventType(List<Event> events){
