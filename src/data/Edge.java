@@ -18,6 +18,7 @@ public class Edge implements Comparable<Edge> {
         this.sourceEvents = new ArrayList<>();
         this.targetEvents = new ArrayList<>();
         this.pairs = new HashMap<>();
+        avgLogLength = 0;
     }
 
     Edge(Node src, Node tgt){
@@ -27,6 +28,7 @@ public class Edge implements Comparable<Edge> {
         this.sourceEvents = new ArrayList<>();
         this.targetEvents = new ArrayList<>();
         this.pairs = new HashMap<>();
+        avgLogLength = 0;
     }
 
     void increaseFrequency(){
@@ -45,11 +47,15 @@ public class Edge implements Comparable<Edge> {
 
     public Map<Integer, Integer> getEventPairs() { return this.pairs; }
 
-    void addEventPair(Event src, Event tgt){
+    public void addEventPair(Event src, Event tgt){
+        if(!pairs.isEmpty())
+            avgLogLength += (src.getID() - targetEvents.get(targetEvents.size()-1).getID());
         sourceEvents.add(src);
         targetEvents.add(tgt);
         pairs.put(src.getID(), tgt.getID());
     }
+
+    public int getAvgLogLength() { return avgLogLength/(pairs.size()-1); }
 
     @Override
     public String toString() {
