@@ -4,8 +4,12 @@ import data.Event;
 import data.Node;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
+import static java.util.Map.Entry.comparingByValue;
+import static java.util.stream.Collectors.toMap;
 
 public class SegmentsDiscoverer {
 
@@ -13,59 +17,11 @@ public class SegmentsDiscoverer {
 
 
     public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
-        List<Edge> loops = discoverLoopsNaive(dfg);
+        List<Edge> loops = dfg.discoverLoops();
         Map<Integer, List<Event>> segments = discoverSegments(dfg, loops);
 
         return segments;
 
-    }
-
-    private List<Edge> discoverLoopsNaive(DirectlyFollowsGraph dfg) {
-        List<Edge> loops = new ArrayList<>();
-
-        List<Node> nodes = dfg.getNodes();
-        Map<Node, List<Edge>> outgoings = dfg.getOutgoingEdges();
-
-        Map<Node, Integer> depths = new HashMap<>();
-        Node source = nodes.get(0);
-        Node target;
-        Edge next;
-
-        int depth = 0;
-        depths.put(source, depth);
-        System.out.println("DEBUG - ("+ depth +") node: " + source.toString());
-
-        ArrayList<Edge> unexplored = new ArrayList<>();
-        for(Edge e : outgoings.get(source))
-            unexplored.add(e);
-
-        while(!unexplored.isEmpty()) {
-            depth++;
-            unexplored.add(null);
-            while((next = unexplored.remove(0)) != null) {
-                target = next.getTarget();
-                if( depths.get(target) == null ) {
-                    depths.put(target, depth);
-                    System.out.println("DEBUG - ("+ depth +") node: " + target.toString());
-                    for(Edge e : outgoings.get(target)) unexplored.add(e);
-                } else {
-                    if( depth < depths.get(target) ) {
-                        System.out.println("ERROR 0001 - this should not happen.");
-                    } else {
-                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() + " - " + next.getFrequency() +
-                                " logLength = " + next.getAvgLogLength() + ", topologicalDepth = " + Math.abs(depth - depths.get(target)));
-                        loops.add(next);
-                    }
-                }
-            }
-            System.out.println("DEBUG - null (" + depth + ")");
-        }
-
-        int f = 0;
-        for(Edge e : loops) f+= e.getFrequency();
-        System.out.println("DEBUG - total loops discovered ("+ f +"): " + loops.size());
-
-        return loops;
     }
 
     private Map<Integer, List<Event>> discoverSegments(DirectlyFollowsGraph dfg, List<Edge> loops){
@@ -79,10 +35,14 @@ public class SegmentsDiscoverer {
         uiLog.get(0).setStart(true);
         uiLog.get(eCounts-1).setEnd(true);
 
-        Collections.sort(loops, comparing(Edge::getAvgLogLength));
+        rankByFrequency(loops);
+        rankByLogLength(loops);
+        rankByGraphDistance(loops, dfg);
 
         int lCount = 0;
+
         for(Edge loop : loops) {
+            Dijkstra.getLongestPath(loop.getTarget(), loop.getSource(), dfg);
             for(Event start : loop.getTargetEvents()) uiLog.get(start.getID()).setStart(true);
             for(Event end : loop.getSourceEvents()) uiLog.get(end.getID()).setEnd(true);
         }
@@ -121,14 +81,25 @@ public class SegmentsDiscoverer {
 
     private List<Edge> rankByFrequency(List<Edge> edges){
         List<Edge> rankedEdges = new ArrayList<>(edges);
-        Collections.sort(edges, comparing(Edge::getFrequency));
+        Collections.sort(rankedEdges, comparing(Edge::getFrequency).reversed());
         return rankedEdges;
     }
 
     private List<Edge> rankByLogLength(List<Edge> edges){
         List<Edge> rankedEdges = new ArrayList<>(edges);
-        Collections.sort(edges, comparing(Edge::getAvgLogLength));
+        Collections.sort(rankedEdges, comparing(Edge::getAvgLogLength).reversed());
         return rankedEdges;
     }
 
+    private List<Edge> rankByGraphDistance(List<Edge> edges, DirectlyFollowsGraph dfg){
+        HashMap<Edge, Integer> dijkstrasDistance = new HashMap<>();
+        for(var edge: edges)
+            dijkstrasDistance.put(edge, Dijkstra.getLongestPath(edge.getTarget(), edge.getSource(), dfg));
+
+        Map<Edge, Integer> sorted = dijkstrasDistance.entrySet().stream().sorted(Collections.reverseOrder(comparingByValue()))
+                .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));
+
+        List<Edge> rankedEdges = new ArrayList<>(sorted.keySet());
+        return rankedEdges;
+    }
 }

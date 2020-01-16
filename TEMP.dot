@@ -1,5 +1,5 @@
 digraph g {
-   copyCell_A -> paste_SingleLine [label=50];
+   copyCell_A -> paste_SingleLine [label=47];
    paste_SingleLine -> editField_SingleLine [label=100];
    editField_SingleLine -> copyCell_B [label=50];
    copyCell_B -> paste_SingleLine [label=50];
@@ -25,8 +25,8 @@ digraph g {
    editField_Address_Region -> paste_Address_ZipCode [label=49];
    paste_Address_ZipCode -> editField_Address_ZipCode [label=50];
    editField_Address_ZipCode -> clickButton_Submit [label=8];
-   clickButton_Submit -> clickLink_Add_another_response_ [label=49];
-   clickLink_Add_another_response_ -> copyCell_A [label=49];
+   clickButton_Submit -> clickLink_Add_another_response_ [label=46];
+   clickLink_Add_another_response_ -> copyCell_A [label=46];
    editField_Address_ZipCode -> clickCheckbox_DecisionBox [label=40];
    clickCheckbox_DecisionBox -> editField_DecisionBox [label=40];
    editField_DecisionBox -> clickButton_Submit [label=40];
@@ -35,6 +35,9 @@ digraph g {
    editField_Email -> clickButton_Submit [label=1];
    editField_Address_AddressLine1 -> copy_ [label=2];
    copy_ -> paste_Address_City [label=2];
+   clickButton_Submit -> copyCell_A [label=3];
+   copyCell_A -> clickLink_Add_another_response_ [label=3];
+   clickLink_Add_another_response_ -> paste_SingleLine [label=3];
    editField_Address_City -> copy_ [label=3];
    copy_ -> paste_Address_Region [label=3];
    paste_Address_Region -> copyCell_G [label=2];

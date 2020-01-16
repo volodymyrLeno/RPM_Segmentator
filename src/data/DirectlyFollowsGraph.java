@@ -1,10 +1,7 @@
 package data;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +18,14 @@ public class DirectlyFollowsGraph {
         this.incoming = new HashMap<>();
         this.outgoing = new HashMap<>();
         this.events = new ArrayList<>(events);
+    }
+
+    public DirectlyFollowsGraph(DirectlyFollowsGraph dfg){
+        this.nodes = new ArrayList<>(dfg.getNodes());
+        this.edges = new ArrayList<>(dfg.getEdges());
+        this.incoming = new HashMap<>(dfg.getIncomingEdges());
+        this.outgoing = new HashMap<>(dfg.getOutgoingEdges());
+        this.events = new ArrayList<>(dfg.getEvents());
     }
 
     public List<Node> getNodes(){ return nodes; }
@@ -155,5 +160,73 @@ public class DirectlyFollowsGraph {
             else if (!outgoing.get(src).contains(outgoingEdge))
                 outgoing.put(src, Stream.concat(outgoing.get(src).stream(), Stream.of(outgoingEdge)).collect(Collectors.toList()));
         }
+    }
+
+    public List<Node> getAdjacent(Node source){
+        return incoming.get(source).stream().map(el -> el.getTarget()).collect(Collectors.toList());
+    }
+
+    public void removeLoops(List<Edge> loops){
+        for(var loop: loops)
+            edges.remove(edges.indexOf(loop));
+
+        HashMap<Node, List<Edge>> out = new HashMap<>();
+        HashMap<Node, List<Edge>> in = new HashMap<>();
+
+        for(Node node: nodes){
+            List<Edge> incomingEdges = edges.stream().filter(edge -> edge.getTarget().equals(node)).collect(Collectors.toList());
+            List<Edge> outgoingEdges = edges.stream().filter(edge -> edge.getSource().equals(node)).collect(Collectors.toList());
+
+            in.put(node, incomingEdges);
+            out.put(node, outgoingEdges);
+        }
+
+        incoming = new HashMap<>(in);
+        outgoing = new HashMap<>(out);
+    }
+
+    public List<Edge> discoverLoops() {
+        List<Edge> loops = new ArrayList<>();
+
+        Map<Node, Integer> depths = new HashMap<>();
+        Node source = nodes.get(0);
+        Node target;
+        Edge next;
+
+        int depth = 0;
+        depths.put(source, depth);
+        System.out.println("DEBUG - ("+ depth +") node: " + source.toString());
+
+        ArrayList<Edge> unexplored = new ArrayList<>();
+        for(Edge e : outgoing.get(source))
+            unexplored.add(e);
+
+        while(!unexplored.isEmpty()) {
+            depth++;
+            unexplored.add(null);
+            while((next = unexplored.remove(0)) != null) {
+                target = next.getTarget();
+                if( depths.get(target) == null ) {
+                    depths.put(target, depth);
+                    System.out.println("DEBUG - ("+ depth +") node: " + target.toString());
+                    for(Edge e : outgoing.get(target)) unexplored.add(e);
+                } else {
+                    if( depth < depths.get(target) ) {
+                        System.out.println("ERROR 0001 - this should not happen.");
+                    } else {
+                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() + " - " + next.getFrequency() +
+                                " logLength = " + next.getAvgLogLength() + ", topologicalDepth = " + Math.abs(depth - depths.get(target)));
+                        loops.add(next);
+                    }
+                }
+            }
+            System.out.println("DEBUG - null (" + depth + ")");
+        }
+
+        int f = 0;
+        for(Edge e : loops) f+= e.getFrequency();
+        System.out.println("DEBUG - total loops discovered ("+ f +"): " + loops.size());
+
+        return loops;
     }
 }
