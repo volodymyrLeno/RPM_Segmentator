@@ -76,6 +76,8 @@ public class Event {
         return this.timestamp;
     }
 
+    public String getCaseID() { return this.caseID; }
+
     public void setCaseID(String caseID){
         this.caseID = caseID;
     }

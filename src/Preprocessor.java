@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class preprocessor {
+public class Preprocessor {
     private static String sortLog(String log) {
         System.out.print("\tSorting the log");
         long startTime = System.currentTimeMillis();
@@ -103,120 +103,11 @@ public class preprocessor {
         return log;
     }
 
-    static String eventListToString(List<Event> events){
-        String[] header = {"caseID", "timeStamp", "userID", "targetApp", "eventType", "url", "content", "target.workbookName",
-                "target.sheetName", "target.id", "target.class", "target.tagName", "target.type", "target.name",
-                "target.value", "target.innerText", "target.checked", "target.href", "target.option", "target.title", "target.innerHTML"
-        };
-        String str = "";
-        for(var event: events){
-            str += "\"" + event.getTimestamp() + "\",";
-            str += event.payload.containsKey("userID") ? "\"" + event.payload.get("userID") + "\"," : "\"\",";
-            str += event.payload.containsKey("targetApp") ? "\"" + event.payload.get("targetApp") + "\"," : "\"\",";
-            str += "\"" + event.getEventType() + "\",";
-
-            for(int i = 5; i < header.length; i++)
-                if(event.payload.containsKey(header[i]) && !event.payload.get(header[i]).equals("\"\""))
-                    str += "\"" + event.payload.get(header[i]) + "\",";
-                else
-                    str += "\"\",";
-
-                str = str.substring(0, str.lastIndexOf(",")) + "\n";
-        }
-        return str;
-    }
-
-    static List<Event> applyPreprocessing(String filePath, String events){
-        System.out.println("Preprocessing...");
-        String sortedEvents = sortLog(events);
-
-        System.out.print("\tRemoving Clipboard copy actions");
-        long startTime = System.currentTimeMillis();
-        sortedEvents = deleteChromeClipboardCopy(sortedEvents);
-        long stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
-        System.out.print("\tIdentifying Excel copy actions");
-        startTime = System.currentTimeMillis();
-        sortedEvents = mergeNavigationCellCopy(sortedEvents);
-        stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
-        System.out.print("\tIdentifying Excel paste actions");
-        startTime = System.currentTimeMillis();
-        sortedEvents = identifyPasteAction(sortedEvents);
-        stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
-        System.out.print("\tRemoving click text field actions");
-        startTime = System.currentTimeMillis();
-        while(containsRedundantClickTextField(sortedEvents))
-            sortedEvents = removeRedundantClickTextField(sortedEvents);
-        stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
-
-        System.out.print("\tRemoving redundant copy actions");
-        startTime = System.currentTimeMillis();
-        while(containsSingleCopy(sortedEvents))
-            sortedEvents = removeSingleCopy(sortedEvents);
-        while(containsRedundantCopy(sortedEvents))
-            sortedEvents = removeRedundantCopy(sortedEvents);
-        stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
-        String preprocessedLog = filePath.substring(0, filePath.lastIndexOf(".")) + "_preprocessed.csv";
-        writeDataLineByLine(preprocessedLog, sortedEvents);
-        return logReader.readCSV(preprocessedLog);
-    }
-
-    private static void writeDataLineByLine(String filePath, String data) {
-        try {
-            CSVWriter writer = new CSVWriter(new FileWriter(filePath),
-                    CSVWriter.DEFAULT_SEPARATOR,
-                    CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.NO_ESCAPE_CHARACTER,
-                    CSVWriter.RFC4180_LINE_END);
-
-            String[] headers = {"\"timeStamp\"", "\"userID\"", "\"targetApp\"", "\"eventType\"", "\"url\"",
-                    "\"content\"", "\"target.workbookName\"", "\"target.sheetName\"", "\"target.id\"", "\"target.class\"",
-                    "\"target.tagName\"", "\"target.type\"", "\"target.name\"", "\"target.value\"", "\"target.innerText\"",
-                    "\"target.checked\"", "\"target.href\"", "\"target.option\"", "\"target.title\"", "\"target.innerHTML\""
-            };
-
-            writer.writeNext(headers);
-            writeActionsValues(writer, data);
-
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void writeActionsValues(CSVWriter writer, String data){
-        String[] actions = data.split("\n");
-
-        for (String action : actions) {
-            String[] actionValues = action.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-            actionValues = Arrays.stream(actionValues)
-                    .map(e -> e.replaceAll("\"{2}(([^\"]|\"\")*)\"{2}", "\"\"\"$1\"\"\""))
-                    .toArray(String[]::new);
-            writer.writeNext(actionValues);
-        }
-    }
-
     /* Read actions filter*/
 
     private static String redundantFirstCopyRegex = "((\"([^\"]|\"\")*\",){3}\"copy.*\\n)" +
             "((((?!(\"([^\"]|\"\")*\",){3}\"paste).)*\",.*\\n)*" +
             "(\"([^\"]|\"\")*\",){3}\"copy.*\\n*)";
-
-
-    /*
-    private static String singleCopyRegex = "((.*\\n)*)" +
-            "((\"([^\"]|\"\")*\",){3}(\"copy[a-zA-Z]*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n*)" +
-            "(((\"([^\"]|\"\")*\",){3}(?!((\"paste[a-zA-Z]*\",(\"([^\"]|\"\")*\",)\\9)|\"copy[a-zA-Z]*\")).*\\n*)*)";
-            */
 
     private static String singleCopyRegex = "((.*\\n)*)" +
             "((\"([^\"]|\"\")*\",){3}(\"copy).*\\n*)" +
@@ -274,5 +165,51 @@ public class preprocessor {
         }
 
         return log;
+    }
+
+    /* Preprocessing */
+
+    static List<Event> applyPreprocessing(String filePath, String events){
+        System.out.println("Preprocessing...");
+        String sortedEvents = sortLog(events);
+
+        System.out.print("\tRemoving Clipboard copy actions");
+        long startTime = System.currentTimeMillis();
+        sortedEvents = deleteChromeClipboardCopy(sortedEvents);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tIdentifying Excel copy actions");
+        startTime = System.currentTimeMillis();
+        sortedEvents = mergeNavigationCellCopy(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tIdentifying Excel paste actions");
+        startTime = System.currentTimeMillis();
+        sortedEvents = identifyPasteAction(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        System.out.print("\tRemoving click text field actions");
+        startTime = System.currentTimeMillis();
+        while(containsRedundantClickTextField(sortedEvents))
+            sortedEvents = removeRedundantClickTextField(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+
+        System.out.print("\tRemoving redundant copy actions");
+        startTime = System.currentTimeMillis();
+        while(containsSingleCopy(sortedEvents))
+            sortedEvents = removeSingleCopy(sortedEvents);
+        while(containsRedundantCopy(sortedEvents))
+            sortedEvents = removeRedundantCopy(sortedEvents);
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        String preprocessedLog = filePath.substring(0, filePath.lastIndexOf(".")) + "_preprocessed.csv";
+        Utils.writeDataLineByLine(preprocessedLog, sortedEvents);
+        return logReader.readCSV(preprocessedLog);
     }
 }
