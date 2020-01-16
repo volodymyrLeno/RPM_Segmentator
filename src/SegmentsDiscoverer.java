@@ -3,10 +3,9 @@ import data.Edge;
 import data.Event;
 import data.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Comparator.comparing;
 
 public class SegmentsDiscoverer {
 
@@ -53,7 +52,8 @@ public class SegmentsDiscoverer {
                     if( depth < depths.get(target) ) {
                         System.out.println("ERROR 0001 - this should not happen.");
                     } else {
-                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() + " - " + next.getFrequency());
+                        System.out.println("DEBUG - found a loop edge ("+ depths.get(target) + ","+ depth +"): " + next.toString() + " - " + next.getFrequency() +
+                                " logLength = " + next.getAvgLogLength() + ", topologicalDepth = " + Math.abs(depth - depths.get(target)));
                         loops.add(next);
                     }
                 }
@@ -78,6 +78,8 @@ public class SegmentsDiscoverer {
 
         uiLog.get(0).setStart(true);
         uiLog.get(eCounts-1).setEnd(true);
+
+        Collections.sort(loops, comparing(Edge::getAvgLogLength));
 
         int lCount = 0;
         for(Edge loop : loops) {
@@ -115,6 +117,18 @@ public class SegmentsDiscoverer {
         System.out.println("DEBUG - total segments discovered: " + caseID);
         System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);
         return segments;
+    }
+
+    private List<Edge> rankByFrequency(List<Edge> edges){
+        List<Edge> rankedEdges = new ArrayList<>(edges);
+        Collections.sort(edges, comparing(Edge::getFrequency));
+        return rankedEdges;
+    }
+
+    private List<Edge> rankByLogLength(List<Edge> edges){
+        List<Edge> rankedEdges = new ArrayList<>(edges);
+        Collections.sort(edges, comparing(Edge::getAvgLogLength));
+        return rankedEdges;
     }
 
 }

@@ -55,7 +55,7 @@ public class Edge implements Comparable<Edge> {
         pairs.put(src.getID(), tgt.getID());
     }
 
-    public int getAvgLogLength() { return avgLogLength/(pairs.size()-1); }
+    public int getAvgLogLength() { return pairs.size() != 1 ? avgLogLength/(pairs.size()-1) : 0; }
 
     @Override
     public String toString() {
