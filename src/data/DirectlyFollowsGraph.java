@@ -142,6 +142,16 @@ public class DirectlyFollowsGraph {
         return adjacencyMatrix;
     }
 
+    public Integer[][] transposeAdjacencyMatrix(Integer[][] adj){
+        Integer[][] transposedMatrix = new Integer[adj.length][adj[0].length];
+        for(int i = 0; i < adj.length; i++){
+            for(int j = 0; j < adj[i].length; j++){
+                transposedMatrix[i][j] = adj[j][i];
+            }
+        }
+        return transposedMatrix;
+    }
+
     private void updateIncomingEdges(Node src, Node tgt){
         Edge incomingEdge = edges.stream().filter(el -> el.getSource().equals(src) && el.getTarget().equals(tgt)).findFirst().orElse(null);
         if(incomingEdge != null) {

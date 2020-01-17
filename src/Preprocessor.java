@@ -22,36 +22,53 @@ public class Preprocessor {
     }
 
     private static String identifyPasteAction(String log) {
+        log = transformCopyCellEditToPaste(log);
+        log = transformCopyRangeEditToPaste(log);
+        log = transformChromeCopyEditToPaste(log);
+
+        return log;
+    }
+
+
+    private static String transformCopyCellEditToPaste(String log) {
         String cellRegex = "(.*\"copyCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\"),.*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*)\\n*)";
 
-        String rangeRegex = "(.*\"copyRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",){7}(\"([^\"]|\"\")*\",).*\\n)" +
-                "((.*\\n)*)" +
-                "((.*)\"editRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\8.*)\\n*)";
-
-        String chromeRegex = "(.*\"Chrome\",\"copy\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
-                "((.*\\n)*)" +
-                "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*\\n*))";
-
-
         if (Pattern.compile(cellRegex).matcher(log).find()) {
             log = log.replaceAll(cellRegex, "$1$6$9\"pasteIntoCell\",$10$4,$14\n");
-            return identifyPasteAction(log);
-        }
-
-        if (Pattern.compile(rangeRegex).matcher(log).find()) {
-            log = log.replaceAll(rangeRegex, "$1$10$13\"pasteIntoRange\",$14$4$18\n");
-            return identifyPasteAction(log);
-        }
-
-        if (Pattern.compile(chromeRegex).matcher(log).find()) {
-            log = log.replaceAll(chromeRegex, "$1$6$9\"pasteIntoCell\",$10$4$14\n");
-            return identifyPasteAction(log);
+            return transformCopyCellEditToPaste(log);
         }
 
         return log;
     }
+
+    private static String transformCopyRangeEditToPaste(String log) {
+        String rangeRegex = "(.*\"copyRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",){7}(\"([^\"]|\"\")*\",).*\\n)" +
+                "((.*\\n)*)" +
+                "((.*)\"editRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\8.*)\\n*)";
+
+        if (Pattern.compile(rangeRegex).matcher(log).find()) {
+            log = log.replaceAll(rangeRegex, "$1$10$13\"pasteIntoRange\",$14$4$18\n");
+            return transformCopyRangeEditToPaste(log);
+        }
+
+        return log;
+    }
+
+    private static String transformChromeCopyEditToPaste(String log) {
+        String chromeRegex = "(.*\"Chrome\",\"copy\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
+                "((.*\\n)*)" +
+                "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*\\n*))";
+
+        if (Pattern.compile(chromeRegex).matcher(log).find()) {
+            log = log.replaceAll(chromeRegex, "$1$6$9\"pasteIntoCell\",$10$4$14\n");
+            return transformChromeCopyEditToPaste(log);
+        }
+
+        return log;
+    }
+
 
     private static String mergeNavigationCellCopy(String log) {
         String getCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
@@ -109,26 +126,31 @@ public class Preprocessor {
             "((((?!(\"([^\"]|\"\")*\",){3}\"paste).)*\",.*\\n)*" +
             "(\"([^\"]|\"\")*\",){3}\"copy.*\\n*)";
 
+    /*
     private static String singleCopyRegex = "((.*\\n)*)" +
             "((\"([^\"]|\"\")*\",){3}(\"copy).*\\n*)" +
             "(((\"([^\"]|\"\")*\",){3}((?!\"paste|\"copy).)*\",.*\\n*)*)";
+            */
 
+    private static String singleCopyRegex = "((\"([^\"]|\"\")*\",){3}(\"copy[a-zA-Z]*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
+            "(((\"([^\"]|\"\")*\",){3}(?!(\"paste[a-zA-Z]*\"|\"copy[a-zA-Z]*\")).*\\n)*" +
+            "((\"([^\"]|\"\")*\",){3}(\"paste[a-zA-Z]*\",(\"([^\"]|\"\")*\",)(?!\\7)).*\\n*))";
 
-    public static boolean containsRedundantCopy(String log) {
+    private static boolean containsRedundantCopy(String log) {
         Pattern p = Pattern.compile(redundantFirstCopyRegex);
         Matcher matcher = p.matcher(log);
 
         return matcher.find();
     }
 
-    public static boolean containsSingleCopy(String log) {
+    private static boolean containsSingleCopy(String log) {
         Pattern p = Pattern.compile(singleCopyRegex);
         Matcher matcher = p.matcher(log);
 
-        return matcher.matches();
+        return matcher.find();
     }
 
-    public static String removeRedundantCopy(String log) {
+    private static String removeRedundantCopy(String log) {
         if (containsRedundantCopy(log)) {
             log = log.replaceAll(redundantFirstCopyRegex, "$4");
             return removeRedundantCopy(log);
@@ -138,9 +160,8 @@ public class Preprocessor {
     }
 
     public static String removeSingleCopy(String log) {
-        if(containsSingleCopy(log)){
-            //log = log.replaceAll(singleCopyRegex, "$1$7");
-            log = log.replaceAll(singleCopyRegex, "$1$11");
+        if (containsSingleCopy(log)) {
+            log = log.replaceAll(singleCopyRegex, "$9");
             return removeSingleCopy(log);
         }
 
@@ -151,14 +172,14 @@ public class Preprocessor {
 
     private static String redundantClickTextFieldRegex = "((\"([^\"]|\"\")*\",){3}\"clickTextField\",.*\\n*)";
 
-    public static boolean containsRedundantClickTextField(String log) {
+    private static boolean containsRedundantClickTextField(String log) {
         Pattern pattern = Pattern.compile(redundantClickTextFieldRegex);
         Matcher matcher = pattern.matcher(log);
 
         return matcher.find();
     }
 
-    public static String removeRedundantClickTextField(String log) {
+    private static String removeRedundantClickTextField(String log) {
         if (containsRedundantClickTextField(log)) {
             log = log.replaceAll(redundantClickTextFieldRegex, "");
             return removeRedundantClickTextField(log);
@@ -187,7 +208,7 @@ public class Preprocessor {
 
         System.out.print("\tIdentifying Excel paste actions");
         startTime = System.currentTimeMillis();
-        sortedEvents = identifyPasteAction(sortedEvents);
+        //sortedEvents = identifyPasteAction(sortedEvents);
         stopTime = System.currentTimeMillis();
         System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 

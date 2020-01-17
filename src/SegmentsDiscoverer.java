@@ -35,14 +35,13 @@ public class SegmentsDiscoverer {
         uiLog.get(0).setStart(true);
         uiLog.get(eCounts-1).setEnd(true);
 
-        rankByFrequency(loops);
-        rankByLogLength(loops);
+        //rankByFrequency(loops);
+        //rankByLogLength(loops);
         rankByGraphDistance(loops, dfg);
 
         int lCount = 0;
 
         for(Edge loop : loops) {
-            Dijkstra.getLongestPath(loop.getTarget(), loop.getSource(), dfg);
             for(Event start : loop.getTargetEvents()) uiLog.get(start.getID()).setStart(true);
             for(Event end : loop.getSourceEvents()) uiLog.get(end.getID()).setEnd(true);
         }
@@ -92,9 +91,15 @@ public class SegmentsDiscoverer {
     }
 
     private List<Edge> rankByGraphDistance(List<Edge> edges, DirectlyFollowsGraph dfg){
+
+        DirectlyFollowsGraph acyclicDFG = new DirectlyFollowsGraph(dfg);
+        //acyclicDFG.removeLoops(edges);
+
+        //acyclicDFG.convertIntoDOT();
+
         HashMap<Edge, Integer> dijkstrasDistance = new HashMap<>();
         for(var edge: edges)
-            dijkstrasDistance.put(edge, Dijkstra.getLongestPath(edge.getTarget(), edge.getSource(), dfg));
+            dijkstrasDistance.put(edge, Dijkstra.getLongestPath(edge.getTarget(), edge.getSource(), acyclicDFG));
 
         Map<Edge, Integer> sorted = dijkstrasDistance.entrySet().stream().sorted(Collections.reverseOrder(comparingByValue()))
                 .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));

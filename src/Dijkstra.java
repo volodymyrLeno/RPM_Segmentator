@@ -9,23 +9,27 @@ public class Dijkstra {
 
     public static Integer getLongestPath(Node source, Node target, DirectlyFollowsGraph dfg){
 
+        System.out.println("Source = " + source + " (" + dfg.getNodes().indexOf(source) + ")");
+        System.out.println("Target = " + target + " (" + dfg.getNodes().indexOf(target) + ")");
+
         Integer[][] adjacencyMatrix = dfg.getAdjacencyMatrix();
+
         for(int i = 0; i < adjacencyMatrix.length; i++){
             for(int j = 0; j < adjacencyMatrix[i].length; j++){
                 if(adjacencyMatrix[i][j] > 0)
-                    adjacencyMatrix[i][j] = -1;
-                //System.out.print(adjacencyMatrix[i][j] + " ");
+                    adjacencyMatrix[i][j] = 1;
+                //System.out.printf("%3d", adjacencyMatrix[i][j]);
             }
             //System.out.println();
         }
 
+
         Integer distance = dijkstra(adjacencyMatrix, dfg.getNodes().indexOf(source), dfg.getNodes().indexOf(target));
 
-        System.out.println(source + " -> " + target + " - " + distance);
+        System.out.println(source + " -> " + target + " - " + distance + "\n\n");
 
         return distance;
     }
-
 
     static Integer dijkstra(Integer graph[][], int src, int tgt)
     {
@@ -64,8 +68,8 @@ public class Dijkstra {
                 // edge from u to v, and total weight of path from src to
                 // v through u is smaller than current value of dist[v]
                 if (!sptSet[v] && graph[u][v] != 0 &&
-                        dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v])
-                    dist[v] = dist[u] + graph[u][v];
+                        dist[u] != Integer.MAX_VALUE && dist[u] - graph[u][v] < dist[v])
+                    dist[v] = dist[u] - graph[u][v];
         }
 
         return Math.abs(dist[tgt]);
@@ -74,8 +78,9 @@ public class Dijkstra {
     static int minDistance(int dist[], Boolean sptSet[], Integer V)
     {
         // Initialize min value
-        int min = Integer.MAX_VALUE, min_index = -1;
+        //int min = Integer.MAX_VALUE, min_index = -1;
 
+        int min = Integer.MAX_VALUE, min_index = -1;
         for (int v = 0; v < V; v++)
             if (sptSet[v] == false && dist[v] <= min) {
                 min = dist[v];
@@ -84,6 +89,4 @@ public class Dijkstra {
 
         return min_index;
     }
-
-
 }
