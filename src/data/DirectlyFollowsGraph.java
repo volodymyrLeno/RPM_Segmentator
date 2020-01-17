@@ -239,4 +239,48 @@ public class DirectlyFollowsGraph {
 
         return loops;
     }
+
+    /* SCC */
+
+    public void DFS(Integer[][] adjacencyMatrix, int v, boolean[] visited, List<Integer> comp){
+        visited[v] = true;
+        for(int i = 0; i < adjacencyMatrix[v].length; i++)
+            if(adjacencyMatrix[v][i] > 0 && !visited[i])
+                DFS(adjacencyMatrix, i, visited, comp);
+            comp.add(v);
+    }
+
+    public List<Integer> fillOrder(Integer[][] adjacencyMatrix, boolean[] visited)
+    {
+        int V = adjacencyMatrix.length;
+        List<Integer> order = new ArrayList<>();
+
+        for (int i = 0; i < V; i++)
+            if (!visited[i])
+                DFS(adjacencyMatrix, i, visited, order);
+        return order;
+    }
+
+    public List<List<Integer>> getSCComponents(Integer[][] adjacencyMatrix)
+    {
+        int V = adjacencyMatrix.length;
+        boolean[] visited = new boolean[V];
+        List<Integer> order = fillOrder(adjacencyMatrix, visited);
+        Integer[][] transposedAdjacencyMatrix = transposeAdjacencyMatrix(adjacencyMatrix);
+        visited = new boolean[V];
+        Collections.reverse(order);
+
+        List<List<Integer>> SCComp = new ArrayList<>();
+        for (int i = 0; i < order.size(); i++)
+        {
+            int v = order.get(i);
+            if (!visited[v])
+            {
+                List<Integer> comp = new ArrayList<>();
+                DFS(transposedAdjacencyMatrix, v, visited, comp);
+                SCComp.add(comp);
+            }
+        }
+        return SCComp;
+    }
 }

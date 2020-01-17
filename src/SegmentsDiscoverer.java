@@ -37,7 +37,9 @@ public class SegmentsDiscoverer {
 
         //rankByFrequency(loops);
         //rankByLogLength(loops);
-        rankByGraphDistance(loops, dfg);
+        //rankByGraphDistance(loops, dfg);
+
+        var sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
 
         int lCount = 0;
 
