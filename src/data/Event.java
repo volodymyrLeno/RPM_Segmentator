@@ -95,7 +95,7 @@ public class Event {
     public void setEnd(boolean end) { this.end = end; }
 
     public String toString() {
-        return "(" + this.caseID + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
+        return "({" + this.caseID + "}, " + this.eid + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
     }
 
     @Override

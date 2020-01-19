@@ -5,6 +5,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.comparing;
+
 public class DirectlyFollowsGraph {
     private List<Event> events;
     private List<Node> nodes;
@@ -28,6 +30,23 @@ public class DirectlyFollowsGraph {
         this.events = new ArrayList<>(dfg.getEvents());
     }
 
+    public DirectlyFollowsGraph(List<Node> nodes, List<Edge> edges){
+        this.nodes = new ArrayList<>(nodes);
+        this.edges = new ArrayList<>(edges);
+        this.incoming = getIncomingEdges(this.edges);
+        this.outgoing = getOutgoingEdges(this.edges);
+
+        List<Event> eventsList = new ArrayList<>();
+
+        for(var edge: this.edges){
+            eventsList.addAll(edge.getSourceEvents());
+            eventsList.addAll(edge.getTargetEvents());
+        }
+        eventsList = eventsList.stream().distinct().collect(Collectors.toList());
+        Collections.sort(eventsList, comparing(Event::getID));
+        this.events = new ArrayList<>(eventsList);
+    }
+
     public List<Node> getNodes(){ return nodes; }
 
     public List<Edge> getEdges() { return edges; }
@@ -36,7 +55,31 @@ public class DirectlyFollowsGraph {
 
     public HashMap<Node, List<Edge>> getIncomingEdges() { return incoming; }
 
+    public HashMap<Node, List<Edge>> getIncomingEdges(List<Edge> edges){
+        HashMap<Node, List<Edge>> incomingEdges = new HashMap<>();
+        for(var edge: edges){
+            if(!incomingEdges.containsKey(edge.getTarget()))
+                incomingEdges.put(edge.getTarget(), Collections.singletonList(edge));
+            else
+                incomingEdges.put(edge.getTarget(), Stream.concat(incomingEdges.get(edge.getTarget()).stream(),
+                        Stream.of(edge)).collect(Collectors.toList()));
+        }
+        return incomingEdges;
+    }
+
     public HashMap<Node, List<Edge>> getOutgoingEdges() { return outgoing; }
+
+    public HashMap<Node, List<Edge>> getOutgoingEdges(List<Edge> edges){
+        HashMap<Node, List<Edge>> outgoingEdges = new HashMap<>();
+        for(var edge: edges){
+            if(!outgoingEdges.containsKey(edge.getSource()))
+                outgoingEdges.put(edge.getSource(), Collections.singletonList(edge));
+            else
+                outgoingEdges.put(edge.getTarget(), Stream.concat(outgoingEdges.get(edge.getSource()).stream(),
+                        Stream.of(edge)).collect(Collectors.toList()));
+        }
+        return outgoingEdges;
+    }
 
     public void buildGraph(){
         System.out.println("Building DFG...\n");
@@ -261,7 +304,7 @@ public class DirectlyFollowsGraph {
         return order;
     }
 
-    public List<List<Integer>> getSCComponents(Integer[][] adjacencyMatrix)
+    public List<DirectlyFollowsGraph> getSCComponents(Integer[][] adjacencyMatrix)
     {
         int V = adjacencyMatrix.length;
         boolean[] visited = new boolean[V];
@@ -281,6 +324,22 @@ public class DirectlyFollowsGraph {
                 SCComp.add(comp);
             }
         }
-        return SCComp;
+
+        var sccs = new ArrayList<DirectlyFollowsGraph>();
+
+        for(var scomp: SCComp){
+            Collections.sort(scomp);
+
+            List<Node> nodes = new ArrayList<>();
+            List<Edge> edges = new ArrayList<>();
+            for (Integer aScomp : scomp) nodes.add(this.nodes.get(aScomp));
+
+            for(int i = 0; i < this.edges.size(); i++)
+                if(nodes.contains(this.edges.get(i).getSource()) && nodes.contains(this.edges.get(i).getTarget()))
+                    edges.add(this.edges.get(i));
+                sccs.add(new DirectlyFollowsGraph(nodes, edges));
+            }
+
+        return sccs;
     }
 }
