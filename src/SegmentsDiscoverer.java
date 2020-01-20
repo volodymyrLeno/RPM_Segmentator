@@ -17,7 +17,8 @@ public class SegmentsDiscoverer {
 
 
     public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
-        List<Edge> loops = dfg.discoverLoops();
+        //List<Edge> loops = dfg.discoverLoops();
+        List<Edge> loops = dfg.identifyBackEdges(dfg.getAdjacencyMatrix(), 0);
         Map<Integer, List<Event>> segments = discoverSegments(dfg, loops);
 
         return segments;
@@ -38,6 +39,8 @@ public class SegmentsDiscoverer {
         //rankByFrequency(loops);
         //rankByLogLength(loops);
         //rankByGraphDistance(loops, dfg);
+
+        //var backEdges = dfg.identifyBackEdges(dfg.getAdjacencyMatrix(), 0);
 
         var sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
 

@@ -283,6 +283,43 @@ public class DirectlyFollowsGraph {
         return loops;
     }
 
+    public List<Edge> identifyBackEdges(Integer[][] adjacencyMatrix, int source){
+        Stack<Integer> stack = new Stack<>();
+        boolean[] visited = new boolean[adjacencyMatrix.length];
+        List<Edge> backEdges = new ArrayList<>();
+
+        visited[source] = true;
+        int element = source;
+        int destination = source;
+        stack.push(source);
+
+        while(!stack.isEmpty()){
+            element = stack.peek();
+            destination = element;
+            while(destination <= adjacencyMatrix.length - 1){
+                if(adjacencyMatrix[element][destination] > 0 && visited[destination]){
+                    if(stack.contains(destination)){
+                        Edge backEdge = new Edge(this.nodes.get(element), this.nodes.get(destination));
+                        backEdges.add(edges.get(edges.indexOf(backEdge)));
+                        adjacencyMatrix[element][destination] = 0;
+                    }
+                }
+
+                if(adjacencyMatrix[element][destination] > 0 && !visited[destination]){
+                    stack.push(destination);
+                    visited[destination] = true;
+                    adjacencyMatrix[element][destination] = 0;
+                    element = destination;
+                    destination = 0;
+                    continue;
+                }
+                destination++;
+            }
+            stack.pop();
+        }
+        return backEdges;
+    }
+
     /* SCC */
 
     public void DFS(Integer[][] adjacencyMatrix, int v, boolean[] visited, List<Integer> comp){
