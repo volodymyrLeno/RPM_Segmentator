@@ -13,6 +13,7 @@ public class DirectlyFollowsGraph {
     private List<Edge> edges;
     private HashMap<Node, List<Edge>> incoming;
     private HashMap<Node, List<Edge>> outgoing;
+    private List<Edge> loops;
 
     public DirectlyFollowsGraph(List<Event> events){
         this.nodes = new ArrayList<>();
@@ -20,6 +21,7 @@ public class DirectlyFollowsGraph {
         this.incoming = new HashMap<>();
         this.outgoing = new HashMap<>();
         this.events = new ArrayList<>(events);
+        this.loops = new ArrayList<>();
     }
 
     public DirectlyFollowsGraph(DirectlyFollowsGraph dfg){
@@ -28,13 +30,15 @@ public class DirectlyFollowsGraph {
         this.incoming = new HashMap<>(dfg.getIncomingEdges());
         this.outgoing = new HashMap<>(dfg.getOutgoingEdges());
         this.events = new ArrayList<>(dfg.getEvents());
+        this.loops = new ArrayList<>(dfg.getLoops());
     }
 
-    public DirectlyFollowsGraph(List<Node> nodes, List<Edge> edges){
+    public DirectlyFollowsGraph(List<Node> nodes, List<Edge> edges, List<Edge> loops){
         this.nodes = new ArrayList<>(nodes);
         this.edges = new ArrayList<>(edges);
         this.incoming = getIncomingEdges(this.edges);
         this.outgoing = getOutgoingEdges(this.edges);
+        this.loops = loops.stream().filter(edge -> this.edges.contains(edge)).collect(Collectors.toList());
 
         List<Event> eventsList = new ArrayList<>();
 
@@ -81,6 +85,9 @@ public class DirectlyFollowsGraph {
         return outgoingEdges;
     }
 
+    public List<Edge> getLoops(){ return this.loops; }
+
+    /*
     public void buildGraph(){
         System.out.println("Building DFG...\n");
         Event previousEvent = null;
@@ -119,6 +126,74 @@ public class DirectlyFollowsGraph {
                 }
             }
             previousEvent = event;
+        }
+    }
+    */
+
+    public void buildGraph(){
+        System.out.println("Building DFG...\n");
+        Event previousEvent = null;
+        Node previousNode = null;
+
+        List<Edge> loops = new ArrayList<>();
+        HashMap<Node, Set<Node>> reachability = new HashMap<>();
+        Set<Node> comingFrom = new HashSet<>();
+
+        for(var event: events) {
+            Node node = new Node(event.getEventType(), event.context, 1);
+            if (!nodes.contains(node)){
+                nodes.add(node);
+                addEdge(previousEvent, event);
+                comingFrom.add(node);
+                reachability.put(node, new HashSet<>(comingFrom));
+            }
+            else{
+                nodes.get(nodes.indexOf(node)).increaseFrequency();
+                addEdge(previousEvent, event);
+                if(reachability.get(previousNode) != null && reachability.get(previousNode).contains(node)){
+                    var loopEdge = new Edge(previousNode, node, 1);
+                    if(!loops.contains(loopEdge))
+                        loops.add(edges.get(edges.indexOf(loopEdge)));
+                    comingFrom = new HashSet<>(reachability.get(loopEdge.getTarget()));
+                }
+                else{
+                    comingFrom.add(node);
+                }
+                if(reachability.get(node) != null)
+                    reachability.put(node, new HashSet<>(Stream.concat(reachability.get(node).stream(), comingFrom.stream()).collect(Collectors.toSet())));
+            }
+            previousEvent = event;
+            previousNode = node;
+        }
+        this.loops = new ArrayList<>(loops);
+    }
+
+    public void addEdge(Event sourceEvent, Event targetEvent){
+        if(sourceEvent != null) {
+            Node src = null;
+            Node tgt = null;
+            for (Node n : nodes) {
+                if (sourceEvent.getEventType().equals(n.getEventType()) && sourceEvent.context.equals(n.getContext()))
+                    src = n;
+                if (targetEvent.getEventType().equals(n.getEventType()) && targetEvent.context.equals(n.getContext()))
+                    tgt = n;
+                if (src != null && tgt != null)
+                    break;
+            }
+            Edge edge = new Edge(src, tgt, 1);
+
+            if(!this.edges.contains(edge)){
+                edge.addEventPair(sourceEvent, targetEvent);
+                edges.add(edge);
+                updateIncomingEdges(src, tgt);
+                updateOutgoingEdges(src, tgt);
+            }
+            else{
+                updateIncomingEdges(src, tgt);
+                updateOutgoingEdges(src, tgt);
+                edges.get(edges.indexOf(edge)).addEventPair(sourceEvent, targetEvent);
+                edges.get(edges.indexOf(edge)).increaseFrequency();
+            }
         }
     }
 
@@ -219,7 +294,7 @@ public class DirectlyFollowsGraph {
         return incoming.get(source).stream().map(el -> el.getTarget()).collect(Collectors.toList());
     }
 
-    public void removeLoops(List<Edge> loops){
+    public void removeLoops(){
         for(var loop: loops)
             edges.remove(edges.indexOf(loop));
 
@@ -238,6 +313,7 @@ public class DirectlyFollowsGraph {
         outgoing = new HashMap<>(out);
     }
 
+    /*
     public List<Edge> discoverLoops() {
         List<Edge> loops = new ArrayList<>();
 
@@ -282,6 +358,7 @@ public class DirectlyFollowsGraph {
 
         return loops;
     }
+    */
 
     public List<Edge> identifyBackEdges(Integer[][] adjacencyMatrix, int source){
         Stack<Integer> stack = new Stack<>();
@@ -374,7 +451,7 @@ public class DirectlyFollowsGraph {
             for(int i = 0; i < this.edges.size(); i++)
                 if(nodes.contains(this.edges.get(i).getSource()) && nodes.contains(this.edges.get(i).getTarget()))
                     edges.add(this.edges.get(i));
-                sccs.add(new DirectlyFollowsGraph(nodes, edges));
+                sccs.add(new DirectlyFollowsGraph(nodes, edges, loops));
             }
 
         return sccs;
