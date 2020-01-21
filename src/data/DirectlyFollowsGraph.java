@@ -168,7 +168,7 @@ public class DirectlyFollowsGraph {
         this.loops = new ArrayList<>(loops);
     }
 
-    public void addEdge(Event sourceEvent, Event targetEvent){
+    private void addEdge(Event sourceEvent, Event targetEvent){
         if(sourceEvent != null) {
             Node src = null;
             Node tgt = null;
@@ -291,12 +291,12 @@ public class DirectlyFollowsGraph {
     }
 
     public List<Node> getAdjacent(Node source){
-        return incoming.get(source).stream().map(el -> el.getTarget()).collect(Collectors.toList());
+        return incoming.get(source).stream().map(Edge::getTarget).collect(Collectors.toList());
     }
 
     public void removeLoops(){
         for(var loop: loops)
-            edges.remove(edges.indexOf(loop));
+            edges.remove(loop);
 
         HashMap<Node, List<Edge>> out = new HashMap<>();
         HashMap<Node, List<Edge>> in = new HashMap<>();
@@ -397,9 +397,121 @@ public class DirectlyFollowsGraph {
         return backEdges;
     }
 
+    /* Longest path */
+
+    public Integer getLongestPath(Node source, Node target)
+    {
+        Integer[][] adj = getAdjacencyMatrix();
+        int s = nodes.indexOf(source);
+        int t = nodes.indexOf(target);
+
+        for(int i = 0; i < adj.length; i++)
+            for(int j = 0; j < adj[i].length; j++){
+                Edge e = new Edge(nodes.get(i), nodes.get(j));
+                if(loops.contains(e))
+                    adj[i][j] = 0;
+            }
+
+        Stack<Integer> stack = new Stack<>();
+        int[] dist = new int[adj.length];
+
+        boolean[] visited = new boolean[adj.length];
+        for (int i = 0; i < adj.length; i++)
+            visited[i] = false;
+
+        for (int i = 0; i < adj.length; i++)
+            if (!visited[i])
+                topologicalSortUtil(adj, i, visited, stack);
+
+        for (int i = 0; i < adj.length; i++)
+            dist[i] = Integer.MIN_VALUE;
+        dist[s] = 0;
+
+        while (!stack.empty()) {
+            int u = stack.peek();
+            stack.pop();
+
+            if (dist[u] != Integer.MIN_VALUE) {
+                for(int i = 0; i < adj.length; i++)
+                    if(adj[u][i] > 0)
+                        if(dist[i] < dist[u] + 1)
+                            dist[i] = dist[u] + 1;
+            }
+        }
+
+        Integer distance = dist[t];
+        System.out.println(source + " -> " + target + " - " + distance + "\n\n");
+        return distance;
+    }
+
+    private void topologicalSortUtil(Integer[][] adj, int v, boolean visited[], Stack<Integer> stack)
+    {
+        visited[v] = true;
+
+        for(int i = 0; i < adj.length; i++)
+            if(adj[v][i] > 0 && !visited[i])
+                topologicalSortUtil(adj, i, visited, stack);
+        stack.push(v);
+    }
+
+    /* Shortest path */
+
+    public Integer getShortestPath(Node source, Node target){
+        Integer[][] adjacencyMatrix = getAdjacencyMatrix();
+
+        for(int i = 0; i < adjacencyMatrix.length; i++){
+            for(int j = 0; j < adjacencyMatrix[i].length; j++){
+                if(adjacencyMatrix[i][j] > 0)
+                    adjacencyMatrix[i][j] = 1;
+            }
+        }
+        Integer distance = dijkstra(adjacencyMatrix, nodes.indexOf(source), nodes.indexOf(target));
+        System.out.println(source + " -> " + target + " - " + distance + "\n\n");
+        return distance;
+    }
+
+    private Integer dijkstra(Integer graph[][], int src, int tgt)
+    {
+        int V = graph.length;
+        int dist[] = new int[V];
+        Boolean sptSet[] = new Boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            dist[i] = Integer.MAX_VALUE;
+            sptSet[i] = false;
+        }
+
+        dist[src] = 0;
+
+        for (int count = 0; count < V - 1; count++) {
+            int u = minDistance(dist, sptSet, V);
+            sptSet[u] = true;
+            for (int v = 0; v < V; v++)
+                if (!sptSet[v] && graph[u][v] != 0 &&
+                        dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v])
+                    dist[v] = dist[u] + graph[u][v];
+        }
+
+        return dist[tgt];
+    }
+
+    private int minDistance(int dist[], Boolean sptSet[], Integer V)
+    {
+        int min = Integer.MAX_VALUE;
+        int min_index = -1;
+
+        for (int v = 0; v < V; v++)
+            if (!sptSet[v] && dist[v] <= min) {
+                min = dist[v];
+                min_index = v;
+            }
+
+        return min_index;
+    }
+
     /* SCC */
 
-    public void DFS(Integer[][] adjacencyMatrix, int v, boolean[] visited, List<Integer> comp){
+    private void DFS(Integer[][] adjacencyMatrix, int v, boolean[] visited, List<Integer> comp){
         visited[v] = true;
         for(int i = 0; i < adjacencyMatrix[v].length; i++)
             if(adjacencyMatrix[v][i] > 0 && !visited[i])
@@ -407,7 +519,7 @@ public class DirectlyFollowsGraph {
             comp.add(v);
     }
 
-    public List<Integer> fillOrder(Integer[][] adjacencyMatrix, boolean[] visited)
+    private List<Integer> fillOrder(Integer[][] adjacencyMatrix, boolean[] visited)
     {
         int V = adjacencyMatrix.length;
         List<Integer> order = new ArrayList<>();
@@ -428,11 +540,9 @@ public class DirectlyFollowsGraph {
         Collections.reverse(order);
 
         List<List<Integer>> SCComp = new ArrayList<>();
-        for (int i = 0; i < order.size(); i++)
-        {
-            int v = order.get(i);
-            if (!visited[v])
-            {
+        for (Integer anOrder : order) {
+            int v = anOrder;
+            if (!visited[v]) {
                 List<Integer> comp = new ArrayList<>();
                 DFS(transposedAdjacencyMatrix, v, visited, comp);
                 SCComp.add(comp);
@@ -448,9 +558,9 @@ public class DirectlyFollowsGraph {
             List<Edge> edges = new ArrayList<>();
             for (Integer aScomp : scomp) nodes.add(this.nodes.get(aScomp));
 
-            for(int i = 0; i < this.edges.size(); i++)
-                if(nodes.contains(this.edges.get(i).getSource()) && nodes.contains(this.edges.get(i).getTarget()))
-                    edges.add(this.edges.get(i));
+            for (Edge edge : this.edges)
+                if (nodes.contains(edge.getSource()) && nodes.contains(edge.getTarget()))
+                    edges.add(edge);
                 sccs.add(new DirectlyFollowsGraph(nodes, edges, loops));
             }
 

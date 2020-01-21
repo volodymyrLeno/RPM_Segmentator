@@ -1,8 +1,4 @@
-import com.opencsv.CSVWriter;
 import data.Event;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,40 +25,42 @@ public class Preprocessor {
         return log;
     }
 
-
-    private static String transformCopyCellEditToPaste(String log) {
+    public static String transformCopyCellEditToPaste(String log) {
         String cellRegex = "(.*\"copyCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\"),.*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*)\\n*)";
 
-        if (Pattern.compile(cellRegex).matcher(log).find()) {
+        if (log.contains("editCell") && Pattern.compile(cellRegex).matcher(log).find()) {
             log = log.replaceAll(cellRegex, "$1$6$9\"pasteIntoCell\",$10$4,$14\n");
+
             return transformCopyCellEditToPaste(log);
         }
 
         return log;
     }
 
-    private static String transformCopyRangeEditToPaste(String log) {
+    public static String transformCopyRangeEditToPaste(String log) {
         String rangeRegex = "(.*\"copyRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",){7}(\"([^\"]|\"\")*\",).*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\8.*)\\n*)";
 
-        if (Pattern.compile(rangeRegex).matcher(log).find()) {
+        if (log.contains("editRange") && Pattern.compile(rangeRegex).matcher(log).find()) {
             log = log.replaceAll(rangeRegex, "$1$10$13\"pasteIntoRange\",$14$4$18\n");
+
             return transformCopyRangeEditToPaste(log);
         }
 
         return log;
     }
 
-    private static String transformChromeCopyEditToPaste(String log) {
+    public static String transformChromeCopyEditToPaste(String log) {
         String chromeRegex = "(.*\"Chrome\",\"copy\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*\\n*))";
 
-        if (Pattern.compile(chromeRegex).matcher(log).find()) {
+        if (log.contains("editCell") && Pattern.compile(chromeRegex).matcher(log).find()) {
             log = log.replaceAll(chromeRegex, "$1$6$9\"pasteIntoCell\",$10$4$14\n");
+
             return transformChromeCopyEditToPaste(log);
         }
 
@@ -70,36 +68,55 @@ public class Preprocessor {
     }
 
 
-    private static String mergeNavigationCellCopy(String log) {
+    public static String mergeNavigationCellCopy(String log) {
+        log = mergeGetCellCopy(log);
+        log = mergeGetRangeCopy(log);
+        log = mergeEditCellCopy(log);
+
+        log = log.replaceAll("((\"([^\"]|\"\")*\",){3}\"getCell\",.*\\n*)|" +
+                "((\"([^\"]|\"\")*\",){3}\"getRange\",.*\\n*)", "");
+
+        return log;
+    }
+
+    public static String mergeGetCellCopy(String log) {
         String getCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((\"([^\"]|\"\")*\",){2}).*\\n*";
 
+        if (log.contains("getCell") && Pattern.compile(getCellRegex).matcher(log).find()) {
+            log = log.replaceAll(getCellRegex, "$1$17$4\"copyCell\",$21$9\n");
+
+            return mergeGetCellCopy(log);
+        }
+
+        return log;
+    }
+
+    public static String mergeGetRangeCopy(String log) {
         String getRangeRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getRange\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((((?!,).)*,){2}).*\\n*";
 
+        if (log.contains("getRange") && Pattern.compile(getRangeRegex).matcher(log).find()) {
+            log = log.replaceAll(getRangeRegex, "$1$17$4\"copyRange\",$21$9\n");
+
+            return mergeGetRangeCopy(log);
+        }
+
+        return log;
+    }
+
+    public static String mergeEditCellCopy(String log) {
         String editCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"editCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((\"([^\"]|\"\")*\",){2}).*\\n*";
 
-        if (Pattern.compile(getCellRegex).matcher(log).find()) {
-            log = log.replaceAll(getCellRegex, "$1$17$4\"copyCell\",$21$9\n");
-            return mergeNavigationCellCopy(log);
-        }
-
-        if (Pattern.compile(getRangeRegex).matcher(log).find()) {
-            log = log.replaceAll(getRangeRegex, "$1$17$4\"copyRange\",$21$9\n");
-            return mergeNavigationCellCopy(log);
-        }
-
-        if (Pattern.compile(editCellRegex).matcher(log).find()) {
+        if (log.contains("editCell") && Pattern.compile(editCellRegex).matcher(log).find()) {
             log = log.replaceAll(editCellRegex, "$1$17$4\"copyCell\",$21$9\n");
-            return mergeNavigationCellCopy(log);
-        }
 
-        log = log.replaceAll("((\"([^\"]|\"\")*\",){3}\"getCell\",.*\\n*)|" +
-                "((\"([^\"]|\"\")*\",){3}\"getRange\",.*\\n*)", "");
+            return mergeEditCellCopy(log);
+        }
 
         return log;
     }
@@ -125,12 +142,6 @@ public class Preprocessor {
     private static String redundantFirstCopyRegex = "((\"([^\"]|\"\")*\",){3}\"copy.*\\n)" +
             "((((?!(\"([^\"]|\"\")*\",){3}\"paste).)*\",.*\\n)*" +
             "(\"([^\"]|\"\")*\",){3}\"copy.*\\n*)";
-
-    /*
-    private static String singleCopyRegex = "((.*\\n)*)" +
-            "((\"([^\"]|\"\")*\",){3}(\"copy).*\\n*)" +
-            "(((\"([^\"]|\"\")*\",){3}((?!\"paste|\"copy).)*\",.*\\n*)*)";
-            */
 
     private static String singleCopyRegex = "((\"([^\"]|\"\")*\",){3}(\"copy[a-zA-Z]*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
             "(((\"([^\"]|\"\")*\",){3}(?!(\"paste[a-zA-Z]*\"|\"copy[a-zA-Z]*\")).*\\n)*" +
@@ -208,7 +219,7 @@ public class Preprocessor {
 
         System.out.print("\tIdentifying Excel paste actions");
         startTime = System.currentTimeMillis();
-        //sortedEvents = identifyPasteAction(sortedEvents);
+        sortedEvents = identifyPasteAction(sortedEvents);
         stopTime = System.currentTimeMillis();
         System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 
