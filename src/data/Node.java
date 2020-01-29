@@ -8,13 +8,13 @@ public class Node {
     private HashMap<String, String> context;
     private Integer frequency;
 
-    Node(String eventType, HashMap<String, String> context, Integer frequency){
+    public Node(String eventType, HashMap<String, String> context, Integer frequency){
         this.eventType = eventType;
         this.context = new HashMap<>(context);
         this.frequency = frequency;
     }
 
-    Node(Node node){
+    public Node(Node node){
         this.eventType = node.getEventType();
         this.context = new HashMap<>(node.getContext());
         this.frequency = node.getFrequency();

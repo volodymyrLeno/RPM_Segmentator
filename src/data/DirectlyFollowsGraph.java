@@ -313,6 +313,25 @@ public class DirectlyFollowsGraph {
         outgoing = new HashMap<>(out);
     }
 
+    public void removeEdges(List<Edge> edges){
+        for(var edge: edges)
+            this.edges.remove(edge);
+
+        HashMap<Node, List<Edge>> out = new HashMap<>();
+        HashMap<Node, List<Edge>> in = new HashMap<>();
+
+        for(Node node: nodes){
+            List<Edge> incomingEdges = this.edges.stream().filter(edge -> edge.getTarget().equals(node)).collect(Collectors.toList());
+            List<Edge> outgoingEdges = this.edges.stream().filter(edge -> edge.getSource().equals(node)).collect(Collectors.toList());
+
+            in.put(node, incomingEdges);
+            out.put(node, outgoingEdges);
+        }
+
+        incoming = new HashMap<>(in);
+        outgoing = new HashMap<>(out);
+    }
+
     /*
     public List<Edge> discoverLoops() {
         List<Edge> loops = new ArrayList<>();
@@ -440,7 +459,6 @@ public class DirectlyFollowsGraph {
         }
 
         Integer distance = dist[t];
-        System.out.println(source + " -> " + target + " - " + distance + "\n\n");
         return distance;
     }
 
@@ -565,5 +583,74 @@ public class DirectlyFollowsGraph {
             }
 
         return sccs;
+    }
+
+    /* Control-flow graph */
+
+    List<List<Node>> paths = new ArrayList<>();
+
+    public HashMap<Node, List<Node>> getDominatorsMap(){
+        HashMap<Node, List<List<Node>>> allPaths = getAllPaths();
+        HashMap<Node, List<Node>> dominatorsMap = new HashMap<>();
+        for(int i = 0; i < nodes.size(); i++){
+            for(int j = 0; j < nodes.size(); j++){
+                if(isDominator(i, j, allPaths) && i != j){
+                    if(!dominatorsMap.containsKey(nodes.get(i)))
+                        dominatorsMap.put(nodes.get(i), new ArrayList<>(Collections.singletonList(nodes.get(j))));
+                    else
+                        dominatorsMap.put(nodes.get(i), Stream.concat(dominatorsMap.get(nodes.get(i)).stream(),
+                                Stream.of(nodes.get(j))).collect(Collectors.toList()));
+                }
+            }
+        }
+        return dominatorsMap;
+    }
+
+    public boolean isDominator(int node1, int node2, HashMap<Node, List<List<Node>>> allPaths)
+    {
+        for(var path: allPaths.get(nodes.get(node2))){
+            if(!path.contains(nodes.get(node1)))
+                return false;
+        }
+        return true;
+    }
+
+    private HashMap<Node, List<List<Node>>> getAllPaths(){
+        HashMap<Node, List<List<Node>>> allPaths = new HashMap<>();
+
+        Integer[][] adj = getAdjacencyMatrix();
+        boolean[] isVisited = new boolean[adj.length];
+        List<Node> pathList = new ArrayList<>();
+        pathList.add(nodes.get(0));
+
+        for(int i = 0; i < nodes.size(); i++){
+            paths.clear();
+            getPath(0, i, isVisited, pathList);
+            allPaths.put(nodes.get(i), new ArrayList<>(paths));
+        }
+
+        return allPaths;
+    }
+
+    private void getPath(int source, int target, boolean[] visited, List<Node> localPathList){
+        Integer[][] adj = getAdjacencyMatrix();
+        visited[source] = true;
+
+        if (source == target)
+        {
+            visited[source] = false;
+            paths.add(new ArrayList<>(localPathList));
+            return ;
+        }
+
+        for(int i = 0; i < adj.length; i++)
+            if(adj[source][i] > 0 && !visited[i]){
+                localPathList.add(nodes.get(i));
+                getPath(i, target, visited, localPathList);
+
+                localPathList.remove(nodes.get(i));
+            }
+
+        visited[source] = false;
     }
 }
