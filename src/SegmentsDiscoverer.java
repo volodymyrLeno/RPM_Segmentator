@@ -16,6 +16,7 @@ public class SegmentsDiscoverer {
 
 
     public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
+        System.out.println("\nExtracting segments...\n");
         //List<Edge> loops = dfg.discoverLoops();
         //List<Edge> loops = dfg.identifyBackEdges(dfg.getAdjacencyMatrix(), 0);
         //Map<Integer, List<Event>> segments = discoverSegments(dfg, loops);
@@ -25,7 +26,14 @@ public class SegmentsDiscoverer {
 
         var domMap = dfg.getDominatorsMap();
         List<Edge> loops = new ArrayList<>();
-        discoverBackEdges(dfg, domMap, loops);
+        discoverBackEdges(dfg, domMap, loops, 0);
+        System.out.println("DEBUG - Back edges identified:");
+        for(var loop: loops){
+            var longestDistance = dfg.getLongestPath(loop.getTarget(), loop.getSource());
+            //var longestPath = dfg.getAllPaths(loop.getTarget(), loop.getSource()).stream().filter(el -> el.size() == longestDistance + 1).collect(Collectors.toList());
+            System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");
+        }
+        System.out.println();
 
         var segments = discoverSegments(dfg, loops);
         return segments;
@@ -138,7 +146,8 @@ public class SegmentsDiscoverer {
     }
     */
 
-    private List<Edge> discoverBackEdges(DirectlyFollowsGraph dfg, HashMap<Node, List<Node>> dominatorsMap, List<Edge> loops){
+    private List<Edge> discoverBackEdges(DirectlyFollowsGraph dfg, HashMap<Node, List<Node>> dominatorsMap, List<Edge> loops, int i){
+        var k = i+1;
         List<DirectlyFollowsGraph> sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
         for(var scc: sccs){
             if(scc.getNodes().size() > 1){
@@ -147,12 +156,13 @@ public class SegmentsDiscoverer {
                 if(backEdges == null){
                     List<Edge> loopCandidates = rankByGraphDistance(scc.identifyBackEdges(scc.getAdjacencyMatrix(), 0), scc);
                     scc.removeEdges(Collections.singletonList(loopCandidates.get(0)));
-                    discoverBackEdges(scc, dominatorsMap, loops);
+                    discoverBackEdges(scc, dominatorsMap, loops, i);
                 }
                 else{
+                    System.out.println(backEdges + " (level = " + k + ")");
                     loops.addAll(new ArrayList<>(backEdges));
                     scc.removeEdges(backEdges);
-                    discoverBackEdges(scc, dominatorsMap, loops);
+                    discoverBackEdges(scc, dominatorsMap, loops, k);
                 }
             }
         }
@@ -171,7 +181,7 @@ public class SegmentsDiscoverer {
             for(var edge: scc.getEdges())
                 if(edge.getTarget().equals(header))
                     backEdges.add(edge);
-            return backEdges;
+            return Collections.singletonList(rankByGraphDistance(backEdges, scc).get(0));
         }
     }
 
@@ -183,6 +193,9 @@ public class SegmentsDiscoverer {
                 break;
             }
         }
+        // testing
+        //if(header == null)
+        //    header = new Node(scc.getNodes().get(0));
         return header;
     }
 }

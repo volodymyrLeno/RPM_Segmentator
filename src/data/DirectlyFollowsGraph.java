@@ -131,7 +131,7 @@ public class DirectlyFollowsGraph {
     */
 
     public void buildGraph(){
-        System.out.println("Building DFG...\n");
+        System.out.println("\nBuilding DFG...\n");
         Event previousEvent = null;
         Node previousNode = null;
 
@@ -198,6 +198,7 @@ public class DirectlyFollowsGraph {
     }
 
     public void convertIntoDOT(){
+        System.out.println("\nCreating DOT file from a DFG...\n");
         String DOT = "digraph g {\n";
         for(Edge edge: this.edges){
             String contextFrom = "";
@@ -630,6 +631,17 @@ public class DirectlyFollowsGraph {
         }
 
         return allPaths;
+    }
+
+    public List<List<Node>> getAllPaths(Node source, Node target){
+        paths.clear();
+        Integer[][] adj = getAdjacencyMatrix();
+        boolean[] isVisited = new boolean[adj.length];
+        List<Node> pathList = new ArrayList<>();
+        pathList.add(source);
+        getPath(nodes.indexOf(source), nodes.indexOf(target), isVisited, pathList);
+
+        return paths;
     }
 
     private void getPath(int source, int target, boolean[] visited, List<Node> localPathList){

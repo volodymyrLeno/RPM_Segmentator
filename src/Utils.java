@@ -67,6 +67,7 @@ public class Utils {
     }
 
     static void writeSegments(String filePath, Map<Integer, List<Event>> segments){
+        System.out.println("\nSaving segmented log...\n");
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(filePath),
                     CSVWriter.DEFAULT_SEPARATOR,

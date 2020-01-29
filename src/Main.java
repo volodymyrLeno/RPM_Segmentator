@@ -24,10 +24,11 @@ public class Main {
         DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
         dfg.buildGraph();
         dfg.convertIntoDOT();
-        dfg.getAdjacencyMatrix();
+        //dfg.getAdjacencyMatrix();
 
         SegmentsDiscoverer disco = new SegmentsDiscoverer();
         Map<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
         Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
+        System.out.println("Done!");
     }
 }
