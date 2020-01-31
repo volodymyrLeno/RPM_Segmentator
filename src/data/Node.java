@@ -24,7 +24,7 @@ public class Node {
 
     public Integer getFrequency(){ return this.frequency; }
 
-    HashMap<String, String> getContext(){ return this.context; }
+    public HashMap<String, String> getContext(){ return this.context; }
 
     void increaseFrequency() { this.frequency += 1; }
 

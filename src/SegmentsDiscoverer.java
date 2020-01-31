@@ -5,6 +5,7 @@ import data.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.Map.Entry.comparingByValue;
@@ -17,14 +18,11 @@ public class SegmentsDiscoverer {
 
     public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
         System.out.println("\nExtracting segments...\n");
-        //List<Edge> loops = dfg.discoverLoops();
-        //List<Edge> loops = dfg.identifyBackEdges(dfg.getAdjacencyMatrix(), 0);
-        //Map<Integer, List<Event>> segments = discoverSegments(dfg, loops);
-
-        //List<Edge> loops = dfg.getLoops();
-        //var sccs = dfg.getSCComponents(adj);
 
         var domMap = dfg.getDominatorsMap();
+
+        /* Approach based on loop nested forest */
+
         List<Edge> loops = new ArrayList<>();
         discoverBackEdges(dfg, domMap, loops, 0);
         System.out.println("DEBUG - Back edges identified:");
@@ -34,6 +32,8 @@ public class SegmentsDiscoverer {
             System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");
         }
         System.out.println();
+
+        /* Approach based on identification of back edges during creation of DFG */
 
         //List<Edge> loops = new ArrayList<>(dfg.getLoops());
 
@@ -59,20 +59,35 @@ public class SegmentsDiscoverer {
         List<List<Edge>> rankings = new ArrayList<>(){{ add(rank1); add(rank2); add(rank3); }};
         var overallRank = getAggregatedRanking(rankings);
 
-        Integer[][] adj = dfg.getAdjacencyMatrix();
-
         int lCount = 0;
 
-        for(Edge loop : loops) {
-            for(Event start : loop.getTargetEvents()) uiLog.get(start.getID()).setStart(true);
-            for(Event end : loop.getSourceEvents()) uiLog.get(end.getID()).setEnd(true);
+        HashMap<Event, List<Event>> startMatches = new HashMap<>();
+
+
+        for(Edge loop: loops){
+            for(Event start: uiLog){
+                if(start.getEventType().equals(loop.getTarget().getEventType()) && start.context.equals(loop.getTarget().getContext())){
+                    uiLog.get(start.getID()).setStart(true);
+                    if(!startMatches.containsKey(start))
+                        startMatches.put(start, new ArrayList<>(loop.getSourceEvents().stream().filter(event ->
+                                event.getTimestamp().compareTo(start.getTimestamp()) > 0).collect(Collectors.toList())));
+                    else
+                        startMatches.put(start, new ArrayList<>(Stream.concat(startMatches.get(start).stream(),
+                                loop.getSourceEvents().stream().filter(event ->
+                                        event.getTimestamp().compareTo(start.getTimestamp()) > 0)).collect(Collectors.toList())));
+                }
+            }
+            for(Event end: uiLog){
+                if(end.getEventType().equals(loop.getSource().getEventType()) && end.context.equals(loop.getSource().getContext()))
+                    uiLog.get(end.getID()).setEnd(true);
+            }
         }
 
         int i = 0;
         int caseID = 0;
         boolean within = false;
         List<Event> segment = null;
-        int start;
+        Event start = null;
         int totalLength = 0;
         do {
              next = uiLog.get(i);
@@ -80,7 +95,7 @@ public class SegmentsDiscoverer {
 
             if(within) {
                 segment.add(next);
-                if(next.isEnd()) {
+                if(next.isEnd() && (startMatches.get(start).contains(next) || i == eCounts)) {
                     segments.put(caseID, segment);
                     caseID++;
                     within = false;
@@ -91,6 +106,7 @@ public class SegmentsDiscoverer {
                 segment = new ArrayList<>();
                 segment.add(next);
                 within = true;
+                start = next;
             }
 
         } while(i!=eCounts);
