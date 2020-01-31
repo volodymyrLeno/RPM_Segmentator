@@ -35,6 +35,8 @@ public class SegmentsDiscoverer {
         }
         System.out.println();
 
+        //List<Edge> loops = new ArrayList<>(dfg.getLoops());
+
         var segments = discoverSegments(dfg, loops);
         return segments;
     }
@@ -53,6 +55,9 @@ public class SegmentsDiscoverer {
         var rank1 = rankByFrequency(loops);
         var rank2 = rankByLogLength(loops);
         var rank3 = rankByGraphDistance(loops, dfg);
+
+        List<List<Edge>> rankings = new ArrayList<>(){{ add(rank1); add(rank2); add(rank3); }};
+        var overallRank = getAggregatedRanking(rankings);
 
         Integer[][] adj = dfg.getAdjacencyMatrix();
 
@@ -116,6 +121,20 @@ public class SegmentsDiscoverer {
         Map<Edge, Integer> sorted = longestDistance.entrySet().stream().sorted(Collections.reverseOrder(comparingByValue()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
 
+        return new ArrayList<>(sorted.keySet());
+    }
+
+    private List<Edge> getAggregatedRanking(List<List<Edge>> rankings){
+        List<Edge> edges = new ArrayList<>(rankings.get(0));
+        HashMap<Edge, Double> scores = new HashMap<>();
+        for(var edge: edges){
+            Double score = 0.0;
+            for(var ranking: rankings)
+                score += ranking.indexOf(edge);
+            scores.put(edge, score/rankings.size());
+        }
+        Map<Edge, Double> sorted = scores.entrySet().stream().sorted(comparingByValue())
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
         return new ArrayList<>(sorted.keySet());
     }
 
