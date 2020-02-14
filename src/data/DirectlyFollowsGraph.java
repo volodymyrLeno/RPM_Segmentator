@@ -201,8 +201,11 @@ public class DirectlyFollowsGraph {
         System.out.println("\nCreating DOT file from a DFG...\n");
         String DOT = "digraph g {\n";
         for(Edge edge: this.edges){
+
+            /*
             String contextFrom = "";
             String contextTo = "";
+
             if(edge.getSource().getContext().containsKey("target.row"))
                 contextFrom = edge.getSource().getContext().get("target.row");
             else if(edge.getSource().getContext().containsKey("target.column"))
@@ -228,10 +231,14 @@ public class DirectlyFollowsGraph {
                 contextTo = edge.getTarget().getContext().get("target.innerText");
             else if(edge.getTarget().getContext().containsKey("url"))
                 contextTo = edge.getTarget().getContext().get("url");
+                */
 
+            DOT = DOT + "   " + edge.getSource().toString() + " -> " + edge.getTarget().toString() + " [label=" + edge.getFrequency() + "];" + "\n";
 
+            /*
             DOT = DOT + "   " + edge.getSource().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
                     edge.getTarget().getEventType() + "_" + contextTo.replaceAll("[^a-zA-Z0-9]+", "_") + " [label=" + edge.getFrequency() + "];" + "\n";
+                    */
         }
         DOT = DOT + "}";
         try{

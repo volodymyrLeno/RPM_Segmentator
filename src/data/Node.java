@@ -1,12 +1,20 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class Node {
     private String eventType;
     private HashMap<String, String> context;
     private Integer frequency;
+
+    public Node(Event event){
+        this.eventType = event.getEventType();
+        this.context = new HashMap<>(event.context);
+        this.frequency = 1;
+    }
 
     public Node(String eventType, HashMap<String, String> context, Integer frequency){
         this.eventType = eventType;
@@ -31,21 +39,16 @@ public class Node {
     @Override
     public String toString() {
         String context = "";
+        List<String> ignoreAttributes = new ArrayList<>();
+        ignoreAttributes.add("target.type");
+        if(this.context.containsKey("target.name") && this.context.containsKey("target.id"))
+            ignoreAttributes.add("target.name");
 
-        if(this.context.containsKey("target.row"))
-            context = this.context.get("target.row");
-        else if(this.context.containsKey("target.column"))
-            context = this.context.get("target.column");
-        else if(this.context.containsKey("target.id"))
-            context = this.context.get("target.id");
-        else if(this.context.containsKey("target.name"))
-            context = this.context.get("target.name");
-        else if(this.context.containsKey("target.innerText"))
-            context = this.context.get("target.innerText");
-        else if(this.context.containsKey("url"))
-            context = this.context.get("url");
-
-        return eventType + "_" + context.replaceAll("[^a-zA-Z0-9]+", "_");
+        for(var attribute: this.context.keySet()){
+            if(!ignoreAttributes.contains(attribute))
+                context += this.context.get(attribute) + "_";
+        }
+        return eventType + "_" + context.substring(0, context.lastIndexOf("_")).replaceAll("[^a-zA-Z0-9]+", "_");
     }
 
     @Override

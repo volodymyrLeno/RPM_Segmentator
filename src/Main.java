@@ -1,8 +1,8 @@
 import data.DirectlyFollowsGraph;
 import data.Event;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import data.Pattern;
+
+import java.util.*;
 
 public class Main {
 
@@ -11,8 +11,7 @@ public class Main {
         Double threshold = Double.parseDouble(args[1]);
         Boolean preprocessing = Boolean.parseBoolean(args[2]);
         Boolean considerMissingValues = Boolean.parseBoolean(args[3]);
-
-        /********** Graph-based approach **********/
+        String approach = args[4];
 
         List<Event> events = logReader.readCSV(filePath);
 
@@ -23,26 +22,54 @@ public class Main {
         for(var group: groupedEvents.keySet())
             Utils.setContextAttributes(groupedEvents.get(group), threshold, considerMissingValues);
 
-        DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
-        dfg.buildGraph();
-        dfg.convertIntoDOT();
+        /********** Graph-based approach **********/
 
-        SegmentsDiscoverer disco = new SegmentsDiscoverer();
-        Map<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
-        Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
-        System.out.println("Done!");
+        if(approach.equals("-1")){
 
+            DirectlyFollowsGraph dfg = new DirectlyFollowsGraph(events);
+            dfg.buildGraph();
+            dfg.convertIntoDOT();
+
+            SegmentsDiscoverer disco = new SegmentsDiscoverer();
+            HashMap<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
+            Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
+            System.out.println("Discovering frequent patterns...");
+
+            var patterns = patternsMiner.discoverPatterns(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50);
+
+            List<List<String>> groundTruth = new ArrayList<>();
+            for(var path: patternsMiner.parseSequences("ground truth.txt"))
+                groundTruth.add(Arrays.asList(path.split(",")));
+
+            int i = 1;
+            for(var pattern: patterns){
+                pattern.assignClosestMatch(groundTruth);
+                pattern.computeConfusionMatrix(dfg);
+                System.out.println("\nPattern " + i + ":\n" + pattern);
+                System.out.println("Length = " + pattern.getLength());
+                System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
+                System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
+                System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
+                System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
+                System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
+                i++;
+            }
+            System.out.println("\nOverall results:\n");
+            System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
+            System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
+            System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
+            System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
+            System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
+            System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
+        }
 
         /********** General repeats mining **********/
 
-        /*
-        List<Event> events = logReader.readCSV(filePath);
-        if(preprocessing)
-            events = Preprocessor.applyPreprocessing(filePath, Utils.eventListToString(events));
-        repeatsMiner.m(Utils.toSequence(events, threshold, considerMissingValues), 1);
-        */
+        else if(approach.equals("-2")){
+            repeatsMiner.m(Utils.toSequence(events, threshold, considerMissingValues), 1);
+        }
 
-        /********** Some testing *********/
+        /**********  Some testing  *********/
 
         // Dynamic programming approach \\
 

@@ -28,8 +28,8 @@ digraph g {
    clickButton_Submit -> clickLink_Add_another_response_ [label=46];
    clickLink_Add_another_response_ -> copyCell_A [label=46];
    editField_Address_ZipCode -> clickCheckbox_DecisionBox [label=40];
-   clickCheckbox_DecisionBox -> editField_DecisionBox [label=40];
-   editField_DecisionBox -> clickButton_Submit [label=40];
+   clickCheckbox_DecisionBox -> editField_DecisionBox_true [label=40];
+   editField_DecisionBox_true -> clickButton_Submit [label=40];
    editField_PhoneNumber -> copyCell_F [label=1];
    editField_Address_ZipCode -> copyCell_E [label=1];
    editField_Email -> clickButton_Submit [label=1];

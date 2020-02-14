@@ -1,8 +1,9 @@
 import com.opencsv.CSVWriter;
+import data.Edge;
 import data.Event;
+import data.Node;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -136,14 +137,14 @@ public class Utils {
         for(String attribute: attributes){
             if(!attribute.equals("timeStamp") && !attribute.equals("eventType")){
                 var uniqueValues = events.stream().map(el -> el.payload.get(attribute)).distinct().collect(Collectors.toList());
-                Double variance = (double)uniqueValues.size()/events.size();
+                Double variance = (double)(uniqueValues.size() - 1)/events.size();
 
-                if(considerMissingValues){
-                    if(!(uniqueValues.size() == 1 && uniqueValues.get(0) == null) && variance <= threshold)
-                        context.add(attribute);
-                }
-                else{
-                    if(!uniqueValues.contains(null) && variance <= threshold)
+                if((attribute.equals("target.innerText") || attribute.equals("target.name") || variance > 0.0) && variance <= threshold){
+                    if(!considerMissingValues){
+                        if(!uniqueValues.contains(null))
+                            context.add(attribute);
+                    }
+                    else
                         context.add(attribute);
                 }
             }
@@ -161,5 +162,15 @@ public class Utils {
                     context.put(attribute, event.payload.get(attribute));
             event.context = new HashMap<>(context);
         }
+    }
+
+    public static List<Node> toSequence(List<Event> events, Double threshold, Boolean considerMissingValues){
+        List<Node> sequence = new ArrayList<>();
+        HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
+        for(var group: groupedEvents.keySet())
+            Utils.setContextAttributes(groupedEvents.get(group), threshold, considerMissingValues);
+        for(var event: events)
+            sequence.add(new Node(event.getEventType(), event.context, 1));
+        return sequence;
     }
 }

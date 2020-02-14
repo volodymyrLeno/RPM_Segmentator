@@ -16,7 +16,7 @@ public class SegmentsDiscoverer {
     public SegmentsDiscoverer() {}
 
 
-    public Map<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
+    public HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
         System.out.println("\nExtracting segments...\n");
 
         var domMap = dfg.getDominatorsMap();
@@ -37,14 +37,12 @@ public class SegmentsDiscoverer {
 
         //List<Edge> loops = new ArrayList<>(dfg.getLoops());
 
-        var segments = discoverSegments(dfg, loops);
-        return segments;
+        return discoverSegments(dfg, loops);
     }
 
-    private Map<Integer, List<Event>> discoverSegments(DirectlyFollowsGraph dfg, List<Edge> loops){
-        Map<Integer, List<Event>> segments = new HashMap<>();
+    private HashMap<Integer, List<Event>> discoverSegments(DirectlyFollowsGraph dfg, List<Edge> loops){
+        HashMap<Integer, List<Event>> segments = new HashMap<>();
         List<Event> uiLog = dfg.getEvents();
-        Map<Integer, Integer> pairs;
 
         int eCounts = uiLog.size();
         Event next = null;
@@ -144,7 +142,7 @@ public class SegmentsDiscoverer {
         List<Edge> edges = new ArrayList<>(rankings.get(0));
         HashMap<Edge, Double> scores = new HashMap<>();
         for(var edge: edges){
-            Double score = 0.0;
+            double score = 0.0;
             for(var ranking: rankings)
                 score += ranking.indexOf(edge);
             scores.put(edge, score/rankings.size());
