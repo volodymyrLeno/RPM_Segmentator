@@ -33,11 +33,32 @@ public class patternsMiner {
         return patterns;
     }
 
+
     private static void runSFPM(SPMFAlgorithmName algorithm, int minSupp){
+        Process p;
+
         try{
-            Process p = Runtime.getRuntime().exec("java -jar spmf.jar run " + algorithm.value + " input.txt output.txt " + minSupp + "%");
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            ProcessBuilder pb = new ProcessBuilder();
+            List<String> commands = new ArrayList<>(){{
+                add("java");
+                add("-jar");
+                add("spmf.jar");
+                add("run");
+                add(algorithm.value);
+                add("input.txt");
+                add("output.txt");
+                add(minSupp + "%");
+            }};
+            pb.command(commands);
+            p = pb.start();
+            p.waitFor();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    p.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
         }
         catch(Exception e){
             e.printStackTrace();

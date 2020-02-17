@@ -10,7 +10,6 @@ public class repeatsDiscoverer {
     public static final int MISMATCHSCORE = -1;
     public static final int GAPSCORE = -1;
 
-
     public static void discoverRepeats(String str, int threshold) {
         System.out.println(str);
 
@@ -337,14 +336,17 @@ public class repeatsDiscoverer {
 
     /********************** Approximate match ***********************/
 
-    public static void m(String str1, String str2, int threshold) {
-        int thr = str1.length() - (threshold+1);
-        str1.length();
+    private static List<Integer> coveredColumns = new ArrayList<>();
 
-        int[][] matrix = buildMatrix(str1, str2);
-        printMatrix(matrix, str1, str2);
+    public static void m(String sequence, String pattern, int maxDiff) {
+        coveredColumns.clear();
+        int threshold = pattern.length() - 2 * maxDiff;
+        if(threshold > 0){
+            int[][] matrix = buildMatrix(sequence, pattern);
+            printMatrix(matrix, sequence, pattern);
 
-        findRepeats(matrix, str1, str2, threshold);
+            findRepeats(matrix, sequence, pattern, threshold, maxDiff);
+        }
     }
 
     public static int[][] buildMatrix(String sequence, String ptrn) {
@@ -397,11 +399,11 @@ public class repeatsDiscoverer {
         }
     }
 
-    public static void findRepeats(int[][] matrix, String sequence, String pattern, int threshold) {
+    public static void findRepeats(int[][] matrix, String sequence, String pattern, int threshold, int maxDiff) {
         Position[] path;
         Position end_path = findMax1(matrix);
         while (matrix[end_path.getRow()][end_path.getCol()] >= threshold && end_path.getCol() >= pattern.length()) {
-            path = traceBack(matrix, sequence, pattern, end_path);
+            path = traceBack(matrix, sequence, pattern, end_path, maxDiff);
 
             matrix = adjustMatrix(matrix, path, sequence, pattern);
 
@@ -424,7 +426,7 @@ public class repeatsDiscoverer {
         return maxPos;
     }
 
-    public static Position[] traceBack(int[][] matrix, String sequence, String pattern, Position end_path){
+    public static Position[] traceBack(int[][] matrix, String sequence, String pattern, Position end_path, int maxDiff){
         int i = end_path.getRow();
         int j = end_path.getCol();
         Position[] tmppath = new Position[2 * i];
@@ -455,7 +457,17 @@ public class repeatsDiscoverer {
         int start = path[1].getCol();
         int end = path[path.length-1].getCol();
 
-        System.out.println("\nFound match - " + appMatch.toString() + " (startIndex = " + start + ", endIndex = " + end + ")\n");
+        boolean overlap = false;
+        int zeroes = 0;
+        for(int k = 1; k < path.length; k++){
+            if(matrix[path[k].getRow()][path[k].getCol()] == 0)
+                zeroes++;
+            if(coveredColumns.contains(path[k].getCol()))
+                overlap = true;
+        }
+
+        if(zeroes <= maxDiff && !overlap)
+            System.out.println("\nFound match - " + appMatch.toString() + " (startIndex = " + start + ", endIndex = " + end + ")\n");
 
         return path;
     }
@@ -465,12 +477,31 @@ public class repeatsDiscoverer {
         List<Position> shaded = shade(matrix, path, sequence, pattern);
         int score;
 
+        List<Integer> coveredCol = Arrays.asList(path).subList(1, path.length).stream().
+                map(Position::getCol).distinct().collect(Collectors.toList());
+
+        coveredColumns.addAll(coveredCol);
+
+        for(var column: coveredCol)
+            for(int i = 0; i <= pattern.length(); i++)
+                matrix[i][column] = 0;
+
+        /*
         for(int k = 0; k < path.length; k++){
             int row = path[k].getRow();
             int col = path[k].getCol();
             matrix[row][col] = 0;
         }
+        */
 
+        /*
+        List<Integer> coveredColumns = new ArrayList<>(shaded.stream().map(position -> position.getCol()).collect(Collectors.toList()));
+        for(var col: coveredColumns)
+            for(int i = 1; i < pattern.length(); i++){
+                matrix[i][col] = 0;
+                shaded.add(new Position(i, col));
+            }
+        */
         for(var pos: shaded){
             int i = pos.getRow();
             int j = pos.getCol();
@@ -490,11 +521,12 @@ public class repeatsDiscoverer {
 
     public static List<Position> shade(int[][] matrix, Position[] path, String sequence, String pattern){
         List<Position> shaded = new ArrayList<>(List.of(path));
+        //List<Integer> coveredCols = shaded.stream().map(Position::getCol).distinct().collect(Collectors.toList());
 
         for(int i = 1; i <= pattern.length(); i++)
             for(int j = 1; j <= sequence.length(); j++){
                 Position tempPos = new Position(i, j);
-                if(isShaded(matrix, tempPos, sequence, pattern, shaded))
+                if(coveredColumns.contains(tempPos.getCol()) || isShaded(matrix, tempPos, sequence, pattern, shaded));
                     shaded.add(tempPos);
             }
             return shaded;

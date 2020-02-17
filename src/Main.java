@@ -66,7 +66,31 @@ public class Main {
         /********** General repeats mining **********/
 
         else if(approach.equals("-2")){
-            repeatsMiner.m(Utils.toSequence(events, threshold, considerMissingValues), 1);
+            var patterns = repeatsMiner.discoverRepeats(Utils.toSequence(events, threshold, considerMissingValues), 5, 1, 1);
+            List<List<String>> groundTruth = new ArrayList<>();
+            for(var path: patternsMiner.parseSequences("ground truth.txt"))
+                groundTruth.add(Arrays.asList(path.split(",")));
+
+            int i = 1;
+            for(var pattern: patterns){
+                pattern.assignClosestMatch(groundTruth);
+                pattern.computeConfusionMatrix(events);
+                System.out.println("\nPattern " + i + ":\n" + pattern);
+                System.out.println("Length = " + pattern.getLength());
+                System.out.println("Absolute support = " + pattern.getAbsoluteSupport());
+                System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
+                System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
+                System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
+                System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
+                i++;
+            }
+            System.out.println("\nOverall results:\n");
+            System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
+            System.out.printf("Average support = %.2f\n", patterns.stream().mapToInt(Pattern::getAbsoluteSupport).average().orElse(0.0));
+            System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
+            System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
+            System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
+            System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
         }
 
         /**********  Some testing  *********/
@@ -96,6 +120,8 @@ public class Main {
         // Find all approximate repeats of a pattern \\
 
         //repeatsDiscoverer.m("ABDBDABCADC", "ABC", 1);
+        //repeatsDiscoverer.m("ABCDABABCDAB", "ABCDA", 1);
+        //repeatsDiscoverer.m("ABCABCABCA", "ABCA", 1);
         //repeatsDiscoverer.m("GCGAGAGACGCC", "GAGA", 1);
     }
 }

@@ -139,7 +139,7 @@ public class Utils {
                 var uniqueValues = events.stream().map(el -> el.payload.get(attribute)).distinct().collect(Collectors.toList());
                 Double variance = (double)(uniqueValues.size() - 1)/events.size();
 
-                if((attribute.equals("target.innerText") || attribute.equals("target.name") || variance > 0.0) && variance <= threshold){
+                if((attribute.equals("target.innerText") || attribute.equals("target.name") || variance > 0.0) && variance < threshold){
                     if(!considerMissingValues){
                         if(!uniqueValues.contains(null))
                             context.add(attribute);
@@ -164,13 +164,13 @@ public class Utils {
         }
     }
 
-    public static List<Node> toSequence(List<Event> events, Double threshold, Boolean considerMissingValues){
-        List<Node> sequence = new ArrayList<>();
+    public static List<String> toSequence(List<Event> events, Double threshold, Boolean considerMissingValues){
+        List<String> sequence = new ArrayList<>();
         HashMap<String, List<Event>> groupedEvents = groupByEventType(events);
         for(var group: groupedEvents.keySet())
             Utils.setContextAttributes(groupedEvents.get(group), threshold, considerMissingValues);
         for(var event: events)
-            sequence.add(new Node(event.getEventType(), event.context, 1));
+            sequence.add(new Node(event.getEventType(), event.context, 1).toString());
         return sequence;
     }
 }
