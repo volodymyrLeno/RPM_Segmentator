@@ -1,0 +1,12 @@
+"timeStamp","userID","targetApp","eventType","url","content","target.workbookName","target.sheetName","target.id","target.className","target.tagName","target.type","target.name","target.value","target.innerText","target.checked","target.href","target.option","target.title","target.innerHTML"
+"2020-02-11T04:20:27.852Z","vleno","Chrome","selectTab","https://mail.google.com/mail/u/1/#search/luke",,,,32,,,,,,,,,,"Search results - vleno@student.unimelb.edu.au - The University of Melbourne Mail",
+"2020-02-11T04:20:29.437Z","vleno","Chrome","selectTab","http://www.philippe-fournier-viger.com/spmf/index.php?link=algorithms.php",,,,140,,,,,,,,,,"SPMF: A Java Open-Source Data Mining Library",
+"2020-02-11T04:20:30.370Z","vleno","Chrome","selectTab","http://www.philippe-fournier-viger.com/spmf/how_to_run_graphical_interface.php",,,,152,,,,,,,,,,"How to run the Graphical User Interface version of SPMF",
+"2020-02-11T04:20:31.206Z","vleno","Chrome","selectTab","chrome://extensions/",,,,220,,,,,,,,,,"Extensions",
+"2020-02-11T04:20:31.954Z","vleno","Chrome","selectTab","https://www.geeksforgeeks.org/map-has-in-javascript/",,,,229,,,,,,,,,,"Map.has( ) In JavaScript - GeeksforGeeks",
+"2020-02-11T04:20:33.470Z","vleno","Chrome","createNewTab","",,,,234,,,,,,,,,,"New Tab",
+"2020-02-11T04:20:33.625Z","vleno","Chrome","navigate_to","chrome-search://local-ntp/local-ntp.html",,,,,,,,,,,,,,,
+"2020-02-11T04:20:38.711Z","vleno","Chrome","selectTab","https://www.geeksforgeeks.org/map-has-in-javascript/",,,,229,,,,,,,,,,"Map.has( ) In JavaScript - GeeksforGeeks",
+"2020-02-11T04:20:40.115Z","vleno","Chrome","selectTab","chrome://newtab/",,,,234,,,,,,,,,,"New Tab",
+"2020-02-11T04:20:40.963Z","vleno","Chrome","selectTab","https://www.geeksforgeeks.org/map-has-in-javascript/",,,,229,,,,,,,,,,"Map.has( ) In JavaScript - GeeksforGeeks",
+"2020-02-11T04:20:41.593Z","vleno","Chrome","selectTab","chrome://newtab/",,,,234,,,,,,,,,,"New Tab",
