@@ -141,7 +141,7 @@ public class Utils {
 
                 if((attribute.equals("target.innerText") || attribute.equals("target.name") || variance > 0.0) && variance < threshold){
                     if(!considerMissingValues){
-                        if(!uniqueValues.contains(null))
+                        if(uniqueValues.size() - 1 > 1 || attribute.equals("target.innerText") || attribute.equals("target.name"))
                             context.add(attribute);
                     }
                     else

@@ -41,6 +41,7 @@ public class Node {
         String context = "";
         List<String> ignoreAttributes = new ArrayList<>();
         ignoreAttributes.add("target.type");
+        //ignoreAttributes.add("target.checked");
         if(this.context.containsKey("target.name") && this.context.containsKey("target.id"))
             ignoreAttributes.add("target.name");
 

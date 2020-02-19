@@ -24,7 +24,8 @@ public class repeatsMiner {
         System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 
         for(var pattern: ptrns)
-            getApproximateMatches(sequence, pattern, maxDiff);
+            if(pattern.size() <= sequence.size()/2)
+                getApproximateMatches(sequence, pattern, maxDiff);
 
         var result = patterns.entrySet().stream().sorted(Collections.reverseOrder(comparingByValue())).filter(map -> map.getValue() > minSup).
                 collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));

@@ -30,6 +30,9 @@ public final class logReader {
                 if(Character.codePointAt(line, 0) == 0xFEFF)
                     line = line.substring(1);
                 String[] row = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if(row.length != 20)
+                    System.out.print("");
+
                 if(counter == 0) {
                     counter++;
                     for(int i = 0; i < row.length; i++)

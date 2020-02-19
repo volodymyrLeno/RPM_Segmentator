@@ -45,9 +45,10 @@ public class Main {
             for(var pattern: patterns){
                 pattern.assignClosestMatch(groundTruth);
                 pattern.computeConfusionMatrix(dfg);
-                System.out.println("\nPattern " + i + ":\n" + pattern);
+                System.out.println("\nPattern " + i + ":\n" + pattern + "\n" + pattern.getClosestMatch());
                 System.out.println("Length = " + pattern.getLength());
                 System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
+                System.out.printf("Coverage = %.2f\n", (double)pattern.getLength()*pattern.getAbsoluteSupport()/events.size());
                 System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
                 System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
                 System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
