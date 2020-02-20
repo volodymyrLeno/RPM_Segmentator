@@ -2,11 +2,15 @@ import com.opencsv.CSVWriter;
 import data.Edge;
 import data.Event;
 import data.Node;
+import data.Pattern;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.util.Comparator.comparing;
 
 public class Utils {
     static String eventListToString(List<Event> events){

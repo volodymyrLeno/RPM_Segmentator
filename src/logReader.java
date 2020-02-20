@@ -1,10 +1,4 @@
 import data.Event;
-import org.deckfour.xes.factory.XFactoryNaiveImpl;
-import org.deckfour.xes.in.XesXmlGZIPParser;
-import org.deckfour.xes.in.XesXmlParser;
-import org.deckfour.xes.model.XAttributeLiteral;
-import org.deckfour.xes.model.XLog;
-import org.deckfour.xes.model.XTrace;
 
 import java.io.BufferedReader;
 import java.io.File;

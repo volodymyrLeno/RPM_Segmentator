@@ -6,12 +6,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Pattern {
+public class Pattern implements Comparable<Pattern> {
     List<String> pattern;
     List<String> closestMatch;
     int length;
     double relSupport;
     int absSup;
+    double coverage;
 
     int tp = 0;
     int tn = 0;
@@ -48,6 +49,10 @@ public class Pattern {
     public Integer getAbsoluteSupport(){ return this.absSup; }
 
     public int getLength(){ return this.length; }
+
+    public void setCoverage(double coverage){ this.coverage = coverage; }
+
+    public double getCoverage(){ return this.coverage; }
 
     public void assignClosestMatch(List<List<String>> groundTruth){
         List<String> closestMatch = new ArrayList<>(groundTruth.get(0));
@@ -171,5 +176,13 @@ public class Pattern {
     @Override
     public String toString(){
         return this.pattern.toString();
+    }
+
+    @Override
+    public int compareTo(Pattern e){
+        if(e.getLength() == this.length)
+            return e.getAbsoluteSupport() - this.getAbsoluteSupport();
+        else
+            return e.getLength() - this.getLength();
     }
 }

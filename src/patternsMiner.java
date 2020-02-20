@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
@@ -16,10 +17,110 @@ import static java.util.stream.Collectors.toMap;
 
 public class patternsMiner {
 
-    public static List<Pattern> discoverPatterns(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Integer support){
+    public static List<Pattern> discoverPatterns(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Integer support, Double minCoverage){
         writeFile(convertToSPMF(cases), "input.txt");
         runSFPM(algorithm, support);
-        return extractPatterns(parseSequences("output.txt"), cases);
+        var patterns = extractPatterns(parseSequences("output.txt"), cases);
+
+        List<Event> events = new ArrayList<>();
+        cases.values().forEach(events::addAll);
+
+        var coverages = computeCoverages(patterns, cases, events);
+        for(var pattern: patterns)
+            pattern.setCoverage(coverages.get(pattern));
+
+        patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() >= minCoverage).collect(Collectors.toList()));
+
+        return rankByCoverage(patterns);
+    }
+
+    public static List<Pattern> patterns = new ArrayList<>();
+
+    public static List<Pattern> discoverPatterns2(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Integer support, Double minCoverage){
+        getPattern(toSequences(cases), algorithm, support);
+
+        List<Event> events = new ArrayList<>();
+        cases.values().forEach(events::addAll);
+
+        var coverages = computeCoverages(patterns, cases, events);
+        for(var pattern: patterns)
+            pattern.setCoverage(coverages.get(pattern));
+
+        patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() >= minCoverage).collect(Collectors.toList()));
+
+        return rankByCoverage(patterns);
+    }
+
+    private static void getPattern(List<String>[] cases, SPMFAlgorithmName algorithm, Integer support){
+        List<List<String>> temp = new ArrayList<>();
+        for(int i = 0; i < cases.length; i++){
+            if(cases[i].size() != 0)
+                temp.add(cases[i]);
+        }
+        if(temp.size() != 0){
+            cases = (ArrayList<String>[])new ArrayList[temp.size()];
+            for(int i = 0; i < cases.length; i++)
+                cases[i] = new ArrayList<>(temp.get(i));
+            writeFile(convertToSPMF(cases), "input.txt");
+            runSFPM(algorithm, support);
+            var ptrns = rankByLength(extractPatterns(parseSequences("output.txt")));
+            if(ptrns.size() > 0){
+                patterns.add(ptrns.get(0));
+                var updatedCases = removePattern(cases, ptrns.get(0));
+                getPattern(updatedCases, algorithm, support);
+            }
+            else
+                return;
+        }
+        else return;
+    }
+
+
+
+    public static List<String>[] removePattern(List<String>[] cases, Pattern pattern){
+        HashMap<String, List<Integer>> pos = new HashMap<>();
+        for(int c = 0; c < cases.length; c++){
+            pos.clear();
+            for(var element: pattern.getPattern()){
+                if(cases[c].contains(element)){
+                    for(int i = 0; i < cases[c].size(); i++)
+                        if(cases[c].get(i).equals(element)){
+                            if(pos.containsKey(element) && !pos.get(element).contains(i))
+                                pos.put(element, Stream.concat(pos.get(element).stream(),
+                                        Stream.of(i)).collect(Collectors.toList()));
+                            else{
+                                int finalI = i;
+                                pos.put(element, new ArrayList<>(){{
+                                    add(finalI);
+                                }});
+                            }
+                        }
+                }
+                else
+                    break;
+            }
+            if(pos.size() == pattern.getPattern().stream().distinct().collect(Collectors.toList()).size()){
+                List<Integer> positions = new ArrayList<>();
+                for(var element: pattern.getPattern()){
+                    if(positions.size() == 0)
+                        positions.add(pos.get(element).get(0));
+                    else{
+                        var t = pos.get(element).stream().filter(el -> el > positions.get(positions.size()-1)).collect(Collectors.toList());
+                        if(t.size() > 0)
+                            positions.add(t.get(0));
+                        else
+                            break;
+                    }
+                }
+                if(positions.size() == pattern.getLength()){
+                    cases[c] = new ArrayList<>(IntStream.range(0, cases[c].size())
+                            .filter(i -> !positions.contains(i))
+                            .mapToObj(cases[c]::get)
+                            .collect(Collectors.toList()));
+                }
+            }
+        }
+        return cases;
     }
 
     private static List<Pattern> extractPatterns(List<String> sequences, HashMap<Integer, List<Event>> cases){
@@ -29,6 +130,16 @@ public class patternsMiner {
             Integer absSupport = Integer.valueOf(elements.get(elements.size() - 1).replace("#SUP: ",""));
             patterns.add(new Pattern(elements.subList(0, elements.size() - 1),
                     (double)absSupport/cases.size(), absSupport));
+        }
+        return patterns;
+    }
+
+    private static List<Pattern> extractPatterns(List<String> sequences){
+        List<Pattern> patterns = new ArrayList<>();
+        for(var sequence: sequences){
+            List<String> elements = Arrays.asList(sequence.split(","));
+            Integer absSupport = Integer.valueOf(elements.get(elements.size() - 1).replace("#SUP: ",""));
+            patterns.add(new Pattern(elements.subList(0, elements.size() - 1), absSupport));
         }
         return patterns;
     }
@@ -70,6 +181,17 @@ public class patternsMiner {
         for(var caseID: cases.keySet()){
             for(Event event: cases.get(caseID)){
                 assembleEvent(result, event);
+            }
+            result.append("-2\n");
+        }
+        return formatData(result);
+    }
+
+    private static StringBuilder convertToSPMF(List<String>[] cases){
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < cases.length; i++){
+            for(String element: cases[i]){
+                result.append(element).append(" -1 ");
             }
             result.append("-2\n");
         }
@@ -153,8 +275,86 @@ public class patternsMiner {
 
     public static List<Pattern> rankByLength(List<Pattern> patterns){
         List<Pattern> rankedPatterns = new ArrayList<>(patterns);
-        rankedPatterns.sort(comparing(Pattern::getLength));
+        rankedPatterns.sort(comparing(Pattern::getLength).reversed());
         return rankedPatterns;
+    }
+
+    public  static List<Pattern> rankByCoverage(List<Pattern> patterns){
+        List<Pattern> rankedPatterns = new ArrayList<>(patterns);
+        rankedPatterns.sort(comparing(Pattern::getCoverage).reversed());
+        return rankedPatterns;
+    }
+
+    private static HashMap<Pattern, Double> computeCoverages(List<Pattern> patterns, HashMap<Integer, List<Event>> cases, List<Event> events){
+        var sequences = toSequences(cases);
+
+        List<Pattern> rankedPatterns = new ArrayList<>(patterns);
+        Collections.sort(rankedPatterns);
+
+        HashMap<Pattern, Double> coverages = new HashMap<>();
+        HashMap<String, List<Integer>> pos = new HashMap<>();
+
+        for(Pattern pattern: rankedPatterns){
+
+            int sum = 0;
+            for(int c = 0; c < sequences.length; c++){
+                int counter = 0;
+                pos.clear();
+                for(var element: pattern.getPattern()){
+                    if(sequences[c].contains(element)){
+                        counter++;
+                        for(int i = 0; i < sequences[c].size(); i++)
+                            if(sequences[c].get(i).equals(element)){
+                                if(pos.containsKey(element) && !pos.get(element).contains(i))
+                                    pos.put(element, Stream.concat(pos.get(element).stream(),
+                                            Stream.of(i)).collect(Collectors.toList()));
+                                else{
+                                    int finalI = i;
+                                    pos.put(element, new ArrayList<>(){{
+                                        add(finalI);
+                                    }});
+                                }
+                            }
+                    }
+                    else
+                        break;
+                }
+                if(pos.size() == pattern.getPattern().stream().distinct().collect(Collectors.toList()).size()){
+                    List<Integer> positions = new ArrayList<>();
+                    for(var element: pattern.getPattern()){
+                        if(positions.size() == 0)
+                            positions.add(pos.get(element).get(0));
+                        else{
+                            var t = pos.get(element).stream().filter(el -> el > positions.get(positions.size()-1)).collect(Collectors.toList());
+                            if(t.size() > 0)
+                                positions.add(t.get(0));
+                            else
+                                break;
+                        }
+                    }
+                    if(positions.size() == pattern.getLength()){
+                        sum += pattern.getLength();
+                        sequences[c] = new ArrayList<>(IntStream.range(0, sequences[c].size())
+                                .filter(i -> !positions.contains(i))
+                                .mapToObj(sequences[c]::get)
+                                .collect(Collectors.toList()));
+                    }
+                }
+            }
+            coverages.put(pattern, (double)sum/events.size());
+        }
+        return coverages;
+    }
+
+    private static List<String>[] toSequences(HashMap<Integer, List<Event>> cases){
+        ArrayList<String>[] sequences = (ArrayList<String>[])new ArrayList[cases.size()];
+        int i = 0;
+        for(Integer key: cases.keySet()){
+            List<String> sequence = new ArrayList<>(cases.get(key).stream().map(el -> new Node(el).toString()).collect(Collectors.toList()));
+            sequences[i] = new ArrayList<>(sequence);
+            i++;
+        }
+        return sequences;
     }
 
     public enum SPMFAlgorithmName {

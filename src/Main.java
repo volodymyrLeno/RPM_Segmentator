@@ -3,6 +3,7 @@ import data.Event;
 import data.Pattern;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -35,7 +36,8 @@ public class Main {
             Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
             System.out.println("Discovering frequent patterns...");
 
-            var patterns = patternsMiner.discoverPatterns(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50);
+            //var patterns = patternsMiner.discoverPatterns(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50, 0.005);
+            var patterns = patternsMiner.discoverPatterns2(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50, 0.1);
 
             List<List<String>> groundTruth = new ArrayList<>();
             for(var path: patternsMiner.parseSequences("ground truth.txt"))
@@ -47,8 +49,8 @@ public class Main {
                 pattern.computeConfusionMatrix(dfg);
                 System.out.println("\nPattern " + i + ":\n" + pattern + "\n" + pattern.getClosestMatch());
                 System.out.println("Length = " + pattern.getLength());
-                System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
-                System.out.printf("Coverage = %.2f\n", (double)pattern.getLength()*pattern.getAbsoluteSupport()/events.size());
+                //System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
+                System.out.printf("Coverage = %.2f\n", pattern.getCoverage());
                 System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
                 System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
                 System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
@@ -57,7 +59,7 @@ public class Main {
             }
             System.out.println("\nOverall results:\n");
             System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
-            System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
+            //System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
             System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
             System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
             System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
@@ -119,6 +121,8 @@ public class Main {
         //repeatsDiscoverer.discoverRepeats("ABCABCAB", 3, 1); // dealing with overlapping repeats
 
         // Find all approximate repeats of a pattern \\
+
+        //repeatsDiscoverer.m("ABDBDABCADC", "ABC", 1);
 
         //repeatsDiscoverer.m("ABDBDABCADC", "ABC", 1);
         //repeatsDiscoverer.m("ABCDABABCDAB", "ABCDA", 1);
