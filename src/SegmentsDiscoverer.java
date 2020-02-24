@@ -50,7 +50,7 @@ public class SegmentsDiscoverer {
         int eCounts = uiLog.size();
         Event next = null;
 
-        uiLog.get(0).setStart(true);
+        //uiLog.get(0).setStart(true);
         uiLog.get(eCounts-1).setEnd(true);
 
         var rank1 = rankByFrequency(loops);
@@ -63,7 +63,6 @@ public class SegmentsDiscoverer {
         int lCount = 0;
 
         HashMap<Event, List<Event>> startMatches = new HashMap<>();
-
 
         for(Edge loop: loops){
             for(Event start: uiLog){
