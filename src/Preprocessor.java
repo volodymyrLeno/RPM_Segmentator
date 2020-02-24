@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Preprocessor {
+class Preprocessor {
     private static String sortLog(String log) {
         System.out.print("\tSorting the log");
         long startTime = System.currentTimeMillis();
@@ -25,7 +25,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String transformCopyCellEditToPaste(String log) {
+    private static String transformCopyCellEditToPaste(String log) {
         String cellRegex = "(.*\"copyCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\"),.*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*)\\n*)";
@@ -39,7 +39,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String transformCopyRangeEditToPaste(String log) {
+    private static String transformCopyRangeEditToPaste(String log) {
         String rangeRegex = "(.*\"copyRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",){7}(\"([^\"]|\"\")*\",).*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editRange\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\8.*)\\n*)";
@@ -53,7 +53,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String transformChromeCopyEditToPaste(String log) {
+    private static String transformChromeCopyEditToPaste(String log) {
         String chromeRegex = "(.*\"Chrome\",\"copy\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",).*\\n)" +
                 "((.*\\n)*)" +
                 "((.*)\"editCell\",(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){7}\\4.*\\n*))";
@@ -68,7 +68,7 @@ public class Preprocessor {
     }
 
 
-    public static String mergeNavigationCellCopy(String log) {
+    private static String mergeNavigationCellCopy(String log) {
         log = mergeGetCellCopy(log);
         log = mergeGetRangeCopy(log);
         log = mergeEditCellCopy(log);
@@ -79,7 +79,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String mergeGetCellCopy(String log) {
+    private static String mergeGetCellCopy(String log) {
         String getCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((\"([^\"]|\"\")*\",){2}).*\\n*";
@@ -93,7 +93,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String mergeGetRangeCopy(String log) {
+    private static String mergeGetRangeCopy(String log) {
         String getRangeRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"getRange\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((((?!,).)*,){2}).*\\n*";
@@ -107,7 +107,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String mergeEditCellCopy(String log) {
+    private static String mergeEditCellCopy(String log) {
         String editCellRegex = "((\"([^\"]|\"\")*\",)((\"([^\"]|\"\")*\",){2})\"editCell\",(\"([^\"]|\"\")*\",){2}(.*)\\n" +
                 "(((?!(\"([^\"]|\"\")*\",){3}(\"editCell\"|\"getRange\"|\"getCell\"),(\"([^\"]|\"\")*\",){9}).)*\\n)*)" +
                 "(\"([^\"]|\"\")*\",)(\"([^\"]|\"\")*\",)\"OS-Clipboard\",\"copy\",((\"([^\"]|\"\")*\",){2}).*\\n*";
@@ -170,7 +170,7 @@ public class Preprocessor {
         return log;
     }
 
-    public static String removeSingleCopy(String log) {
+    private static String removeSingleCopy(String log) {
         if (containsSingleCopy(log)) {
             log = log.replaceAll(singleCopyRegex, "$9");
             return removeSingleCopy(log);
@@ -229,7 +229,6 @@ public class Preprocessor {
             sortedEvents = removeRedundantClickTextField(sortedEvents);
         stopTime = System.currentTimeMillis();
         System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
-
 
         System.out.print("\tRemoving redundant copy actions");
         startTime = System.currentTimeMillis();

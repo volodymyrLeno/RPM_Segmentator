@@ -17,8 +17,9 @@ import static java.util.stream.Collectors.toMap;
 
 public class patternsMiner {
 
-    public static List<Pattern> discoverPatterns(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Integer support, Double minCoverage){
+    static List<Pattern> discoverPatterns(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Double support, Double minCoverage){
         writeFile(convertToSPMF(cases), "input.txt");
+
         runSFPM(algorithm, support);
         var patterns = extractPatterns(parseSequences("output.txt"), cases);
 
@@ -29,33 +30,40 @@ public class patternsMiner {
         for(var pattern: patterns)
             pattern.setCoverage(coverages.get(pattern));
 
-        patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() >= minCoverage).collect(Collectors.toList()));
+        if(minCoverage == 0.0)
+            patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() > 0.0).collect(Collectors.toList()));
+        else
+            patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() >= minCoverage).collect(Collectors.toList()));
 
         return rankByCoverage(patterns);
     }
 
-    public static List<Pattern> patterns = new ArrayList<>();
+    private static List<Pattern> patterns = new ArrayList<>();
 
-    public static List<Pattern> discoverPatterns2(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Integer support, Double minCoverage){
-        getPattern(toSequences(cases), algorithm, support);
+    static List<Pattern> discoverPatterns2(HashMap<Integer, List<Event>> cases, SPMFAlgorithmName algorithm, Double support, Double minCoverage){
+        int minFrequency = (int)Math.round(cases.size() * support);
+
+        getPattern(toSequences(cases), algorithm, support, minFrequency);
 
         List<Event> events = new ArrayList<>();
         cases.values().forEach(events::addAll);
 
         var coverages = computeCoverages(patterns, cases, events);
-        for(var pattern: patterns)
+        for(var pattern: patterns){
             pattern.setCoverage(coverages.get(pattern));
+            pattern.setRelativeSupport((double) pattern.getAbsoluteSupport()/cases.size());
+        }
 
         patterns = new ArrayList<>(patterns.stream().filter(pattern -> pattern.getCoverage() >= minCoverage).collect(Collectors.toList()));
 
         return rankByCoverage(patterns);
     }
 
-    private static void getPattern(List<String>[] cases, SPMFAlgorithmName algorithm, Integer support){
+    private static void getPattern(List<String>[] cases, SPMFAlgorithmName algorithm, Double support, Integer minFrequency){
         List<List<String>> temp = new ArrayList<>();
-        for(int i = 0; i < cases.length; i++){
-            if(cases[i].size() != 0)
-                temp.add(cases[i]);
+        for (List<String> aCase : cases) {
+            if (aCase.size() != 0)
+                temp.add(aCase);
         }
         if(temp.size() != 0){
             cases = (ArrayList<String>[])new ArrayList[temp.size()];
@@ -63,21 +71,17 @@ public class patternsMiner {
                 cases[i] = new ArrayList<>(temp.get(i));
             writeFile(convertToSPMF(cases), "input.txt");
             runSFPM(algorithm, support);
-            var ptrns = rankByLength(extractPatterns(parseSequences("output.txt")));
+            var ptrns = rankByLength(extractPatterns(parseSequences("output.txt"))).stream().filter(pattern ->
+                    pattern.getAbsoluteSupport() >= minFrequency).collect(Collectors.toList());
             if(ptrns.size() > 0){
                 patterns.add(ptrns.get(0));
                 var updatedCases = removePattern(cases, ptrns.get(0));
-                getPattern(updatedCases, algorithm, support);
+                getPattern(updatedCases, algorithm, support, minFrequency);
             }
-            else
-                return;
         }
-        else return;
     }
 
-
-
-    public static List<String>[] removePattern(List<String>[] cases, Pattern pattern){
+    private static List<String>[] removePattern(List<String>[] cases, Pattern pattern){
         HashMap<String, List<Integer>> pos = new HashMap<>();
         for(int c = 0; c < cases.length; c++){
             pos.clear();
@@ -145,7 +149,7 @@ public class patternsMiner {
     }
 
 
-    private static void runSFPM(SPMFAlgorithmName algorithm, int minSupp){
+    private static void runSFPM(SPMFAlgorithmName algorithm, Double minSupp){
         Process p;
 
         try{
@@ -158,7 +162,7 @@ public class patternsMiner {
                 add(algorithm.value);
                 add("input.txt");
                 add("output.txt");
-                add(minSupp + "%");
+                add(minSupp.toString());
             }};
             pb.command(commands);
             p = pb.start();
@@ -189,8 +193,8 @@ public class patternsMiner {
 
     private static StringBuilder convertToSPMF(List<String>[] cases){
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < cases.length; i++){
-            for(String element: cases[i]){
+        for (List<String> aCase : cases) {
+            for (String element : aCase) {
                 result.append(element).append(" -1 ");
             }
             result.append("-2\n");
@@ -249,7 +253,7 @@ public class patternsMiner {
         return stringBuilder;
     }
 
-    public static List<String> parseSequences(String fileName) {
+    static List<String> parseSequences(String fileName) {
         List<String> sequences = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
@@ -273,13 +277,13 @@ public class patternsMiner {
         return rankedPatterns;
     }
 
-    public static List<Pattern> rankByLength(List<Pattern> patterns){
+    private static List<Pattern> rankByLength(List<Pattern> patterns){
         List<Pattern> rankedPatterns = new ArrayList<>(patterns);
         rankedPatterns.sort(comparing(Pattern::getLength).reversed());
         return rankedPatterns;
     }
 
-    public  static List<Pattern> rankByCoverage(List<Pattern> patterns){
+    private static List<Pattern> rankByCoverage(List<Pattern> patterns){
         List<Pattern> rankedPatterns = new ArrayList<>(patterns);
         rankedPatterns.sort(comparing(Pattern::getCoverage).reversed());
         return rankedPatterns;
@@ -297,6 +301,7 @@ public class patternsMiner {
         for(Pattern pattern: rankedPatterns){
 
             int sum = 0;
+            int absSupport = 0;
             for(int c = 0; c < sequences.length; c++){
                 int counter = 0;
                 pos.clear();
@@ -334,6 +339,7 @@ public class patternsMiner {
                     }
                     if(positions.size() == pattern.getLength()){
                         sum += pattern.getLength();
+                        absSupport++;
                         sequences[c] = new ArrayList<>(IntStream.range(0, sequences[c].size())
                                 .filter(i -> !positions.contains(i))
                                 .mapToObj(sequences[c]::get)
@@ -342,6 +348,8 @@ public class patternsMiner {
                 }
             }
             coverages.put(pattern, (double)sum/events.size());
+            pattern.setAbsoluteSupport(absSupport);
+            pattern.setRelativeSupport((double)absSupport/cases.size());
         }
         return coverages;
     }

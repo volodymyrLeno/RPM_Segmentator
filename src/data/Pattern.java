@@ -10,7 +10,7 @@ public class Pattern implements Comparable<Pattern> {
     List<String> pattern;
     List<String> closestMatch;
     int length;
-    double relSupport;
+    double relSup;
     int absSup;
     double coverage;
 
@@ -28,7 +28,7 @@ public class Pattern implements Comparable<Pattern> {
         this.pattern = new ArrayList<>(pattern);
         this.closestMatch = new ArrayList<>();
         this.length = pattern.size();
-        this.relSupport = relSup;
+        this.relSup = relSup;
         this.absSup = absSup;
     }
 
@@ -36,7 +36,7 @@ public class Pattern implements Comparable<Pattern> {
         this.pattern = new ArrayList<>(pattern);
         this.closestMatch = new ArrayList<>();
         this.length = pattern.size();
-        this.relSupport = 0.0; // general repeats work with unsegmented log, thus we don't have a total amount of cases
+        this.relSup = 0.0; // general repeats work with unsegmented log, thus we don't have a total amount of cases
         this.absSup = absSup;
     }
 
@@ -44,11 +44,15 @@ public class Pattern implements Comparable<Pattern> {
 
     public List<String> getClosestMatch(){ return this.closestMatch; }
 
-    public Double getRelativeSupport(){ return this.relSupport; }
+    public Double getRelativeSupport(){ return this.relSup; }
 
     public Integer getAbsoluteSupport(){ return this.absSup; }
 
     public int getLength(){ return this.length; }
+
+    public void setRelativeSupport(double support){ this.relSup = support; }
+
+    public void setAbsoluteSupport(Integer support){ this.absSup = support; }
 
     public void setCoverage(double coverage){ this.coverage = coverage; }
 

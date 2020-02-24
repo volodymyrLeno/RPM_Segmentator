@@ -16,8 +16,10 @@ public class SegmentsDiscoverer {
     public SegmentsDiscoverer() {}
 
 
-    public HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
-        System.out.println("\nExtracting segments...\n");
+    HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
+        System.out.print("\nExtracting segments... ");
+
+        long startTime = System.currentTimeMillis();
 
         var domMap = dfg.getDominatorsMap();
 
@@ -25,17 +27,18 @@ public class SegmentsDiscoverer {
 
         List<Edge> loops = new ArrayList<>();
         discoverBackEdges(dfg, domMap, loops, 0);
-        System.out.println("DEBUG - Back edges identified:");
+        //System.out.println("DEBUG - Back edges identified:"); DEBUG
         for(var loop: loops){
             var longestDistance = dfg.getLongestPath(loop.getTarget(), loop.getSource());
-            //var longestPath = dfg.getAllPaths(loop.getTarget(), loop.getSource()).stream().filter(el -> el.size() == longestDistance + 1).collect(Collectors.toList());
-            System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");
+            //System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");  DEBUG
         }
-        System.out.println();
 
         /* Approach based on identification of back edges during creation of DFG */
 
         //List<Edge> loops = new ArrayList<>(dfg.getLoops());
+
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 
         return discoverSegments(dfg, loops);
     }
@@ -98,7 +101,7 @@ public class SegmentsDiscoverer {
                     caseID++;
                     within = false;
                     totalLength+=segment.size();
-                    System.out.println("DEBUG - discovered segment of length: " + segment.size());
+                    //System.out.println("DEBUG - discovered segment of length: " + segment.size());    DEBUG
                 }
             } else if(next.isStart()) {
                 segment = new ArrayList<>();
@@ -109,8 +112,8 @@ public class SegmentsDiscoverer {
 
         } while(i!=eCounts);
 
-        System.out.println("DEBUG - total segments discovered: " + caseID);
-        System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);
+        //System.out.println("DEBUG - total segments discovered: " + caseID);   DEBUG
+        //System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);   DEBUG
         return segments;
     }
 
@@ -192,7 +195,7 @@ public class SegmentsDiscoverer {
                     discoverBackEdges(scc, dominatorsMap, loops, i);
                 }
                 else{
-                    System.out.println(backEdges + " (level = " + k + ")");
+                    //System.out.println(backEdges + " (level = " + k + ")");   DEBUG
                     loops.addAll(new ArrayList<>(backEdges));
                     scc.removeEdges(backEdges);
                     discoverBackEdges(scc, dominatorsMap, loops, k);

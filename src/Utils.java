@@ -1,16 +1,10 @@
 import com.opencsv.CSVWriter;
-import data.Edge;
-import data.Event;
-import data.Node;
-import data.Pattern;
+import data.*;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.util.Comparator.comparing;
 
 public class Utils {
     static String eventListToString(List<Event> events){
@@ -72,7 +66,8 @@ public class Utils {
     }
 
     static void writeSegments(String filePath, Map<Integer, List<Event>> segments){
-        System.out.println("\nSaving segmented log...\n");
+        System.out.print("\nSaving segmented log... ");
+        long startTime = System.currentTimeMillis();
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(filePath),
                     CSVWriter.DEFAULT_SEPARATOR,
@@ -114,6 +109,8 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
     }
 
     /* Context attributes analysis */
@@ -176,5 +173,31 @@ public class Utils {
         for(var event: events)
             sequence.add(new Node(event.getEventType(), event.context, 1).toString());
         return sequence;
+    }
+
+    /* Summary */
+
+    public static void getSummary(List<Pattern> patterns, List<List<String>> groundTruth, List<Event> events){
+        int i = 1;
+        for(var pattern: patterns){
+            pattern.assignClosestMatch(groundTruth);
+            pattern.computeConfusionMatrix(events);
+            System.out.println("\nPattern " + i + ":\n" + pattern + "\n" + pattern.getClosestMatch());
+            System.out.println("Length = " + pattern.getLength());
+            System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
+            System.out.printf("Coverage = %.2f\n", pattern.getCoverage());
+            System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
+            System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
+            System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
+            System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
+            i++;
+        }
+        System.out.println("\nOverall results:\n");
+        System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
+        System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
+        System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
+        System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
+        System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
+        System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
     }
 }

@@ -131,7 +131,8 @@ public class DirectlyFollowsGraph {
     */
 
     public void buildGraph(){
-        System.out.println("\nBuilding DFG...\n");
+        System.out.print("\nBuilding DFG... ");
+        long startTime = System.currentTimeMillis();
         Event previousEvent = null;
         Node previousNode = null;
 
@@ -166,6 +167,8 @@ public class DirectlyFollowsGraph {
             previousNode = node;
         }
         this.loops = new ArrayList<>(loops);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
     }
 
     private void addEdge(Event sourceEvent, Event targetEvent){
@@ -198,48 +201,13 @@ public class DirectlyFollowsGraph {
     }
 
     public void convertIntoDOT(){
-        System.out.println("\nCreating DOT file from a DFG...\n");
+        System.out.print("\nCreating DOT file from a DFG... ");
+
         String DOT = "digraph g {\n";
-        for(Edge edge: this.edges){
-
-            /*
-            String contextFrom = "";
-            String contextTo = "";
-
-            if(edge.getSource().getContext().containsKey("target.row"))
-                contextFrom = edge.getSource().getContext().get("target.row");
-            else if(edge.getSource().getContext().containsKey("target.column"))
-                contextFrom = edge.getSource().getContext().get("target.column");
-            else if(edge.getSource().getContext().containsKey("target.id"))
-                contextFrom = edge.getSource().getContext().get("target.id");
-            else if(edge.getSource().getContext().containsKey("target.name"))
-                contextFrom = edge.getSource().getContext().get("target.name");
-            else if(edge.getSource().getContext().containsKey("target.innerText"))
-                contextFrom = edge.getSource().getContext().get("target.innerText");
-            else if(edge.getSource().getContext().containsKey("url"))
-                contextFrom = edge.getSource().getContext().get("url");
-
-            if(edge.getTarget().getContext().containsKey("target.row"))
-                contextTo = edge.getTarget().getContext().get("target.row");
-            else if(edge.getTarget().getContext().containsKey("target.column"))
-                contextTo = edge.getTarget().getContext().get("target.column");
-            else if(edge.getTarget().getContext().containsKey("target.id"))
-                contextTo = edge.getTarget().getContext().get("target.id");
-            else if(edge.getTarget().getContext().containsKey("target.name"))
-                contextTo = edge.getTarget().getContext().get("target.name");
-            else if(edge.getTarget().getContext().containsKey("target.innerText"))
-                contextTo = edge.getTarget().getContext().get("target.innerText");
-            else if(edge.getTarget().getContext().containsKey("url"))
-                contextTo = edge.getTarget().getContext().get("url");
-                */
-
+        long startTime = System.currentTimeMillis();
+        for(Edge edge: this.edges)
             DOT = DOT + "   " + edge.getSource().toString() + " -> " + edge.getTarget().toString() + " [label=" + edge.getFrequency() + "];" + "\n";
 
-            /*
-            DOT = DOT + "   " + edge.getSource().getEventType() + "_" + contextFrom.replaceAll("[^a-zA-Z0-9]+", "_") + " -> " +
-                    edge.getTarget().getEventType() + "_" + contextTo.replaceAll("[^a-zA-Z0-9]+", "_") + " [label=" + edge.getFrequency() + "];" + "\n";
-                    */
-        }
         DOT = DOT + "}";
         try{
             PrintWriter writer = new PrintWriter("TEMP.dot");
@@ -249,6 +217,8 @@ public class DirectlyFollowsGraph {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
     }
 
     public Integer[][] getAdjacencyMatrix(){

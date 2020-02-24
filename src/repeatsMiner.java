@@ -15,7 +15,7 @@ public class repeatsMiner {
     private static List<List<String>> ptrns = new ArrayList<>();
     private static HashMap<List<String>, Integer> patterns = new HashMap<>();
 
-    public static List<data.Pattern> discoverRepeats(List<String> sequence, int threshold, int minSup, int maxDiff) {
+    static List<data.Pattern> discoverRepeats(List<String> sequence, int threshold, int minSup, int maxDiff) {
         int[][] matrix = buildMatrix(sequence);
         System.out.print("Searching for repeats...\n");
         long startTime = System.currentTimeMillis();

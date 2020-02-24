@@ -1,0 +1,3 @@
+paste_SingleLine1 -1 #SUP: 4
+copyCell_G -1 #SUP: 4
+clickCheckbox_DecisionBox -1 editField_DecisionBox -1 #SUP: 3

@@ -1,9 +1,7 @@
 import data.DirectlyFollowsGraph;
 import data.Event;
-import data.Pattern;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -14,6 +12,8 @@ public class Main {
         Boolean considerMissingValues = Boolean.parseBoolean(args[3]);
         String approach = args[4];
 
+        long startTime = System.currentTimeMillis();
+
         List<Event> events = logReader.readCSV(filePath);
 
         if(preprocessing)
@@ -22,6 +22,10 @@ public class Main {
         HashMap<String, List<Event>> groupedEvents = Utils.groupByEventType(events);
         for(var group: groupedEvents.keySet())
             Utils.setContextAttributes(groupedEvents.get(group), threshold, considerMissingValues);
+
+        List<List<String>> groundTruth = new ArrayList<>();
+        for(var path: patternsMiner.parseSequences("ground truth.txt"))
+            groundTruth.add(Arrays.asList(path.split(",")));
 
         /********** Graph-based approach **********/
 
@@ -34,66 +38,18 @@ public class Main {
             SegmentsDiscoverer disco = new SegmentsDiscoverer();
             HashMap<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
             Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
-            System.out.println("Discovering frequent patterns...");
+            System.out.println("\nDiscovering frequent patterns...\n");
 
-            //var patterns = patternsMiner.discoverPatterns(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50, 0.005);
-            var patterns = patternsMiner.discoverPatterns2(cases, patternsMiner.SPMFAlgorithmName.BIDE, 50, 0.1);
-
-            List<List<String>> groundTruth = new ArrayList<>();
-            for(var path: patternsMiner.parseSequences("ground truth.txt"))
-                groundTruth.add(Arrays.asList(path.split(",")));
-
-            int i = 1;
-            for(var pattern: patterns){
-                pattern.assignClosestMatch(groundTruth);
-                pattern.computeConfusionMatrix(dfg);
-                System.out.println("\nPattern " + i + ":\n" + pattern + "\n" + pattern.getClosestMatch());
-                System.out.println("Length = " + pattern.getLength());
-                //System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
-                System.out.printf("Coverage = %.2f\n", pattern.getCoverage());
-                System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
-                System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
-                System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
-                System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
-                i++;
-            }
-            System.out.println("\nOverall results:\n");
-            System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
-            //System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
-            System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
-            System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
-            System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
-            System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
+            //var patterns = patternsMiner.discoverPatterns(cases, patternsMiner.SPMFAlgorithmName.BIDE, 0.2, 0.0);
+            var patterns = patternsMiner.discoverPatterns2(cases, patternsMiner.SPMFAlgorithmName.BIDE, 0.2, 0.05);
+            Utils.getSummary(patterns, groundTruth, events);
         }
 
         /********** General repeats mining **********/
 
         else if(approach.equals("-2")){
             var patterns = repeatsMiner.discoverRepeats(Utils.toSequence(events, threshold, considerMissingValues), 5, 1, 1);
-            List<List<String>> groundTruth = new ArrayList<>();
-            for(var path: patternsMiner.parseSequences("ground truth.txt"))
-                groundTruth.add(Arrays.asList(path.split(",")));
-
-            int i = 1;
-            for(var pattern: patterns){
-                pattern.assignClosestMatch(groundTruth);
-                pattern.computeConfusionMatrix(events);
-                System.out.println("\nPattern " + i + ":\n" + pattern);
-                System.out.println("Length = " + pattern.getLength());
-                System.out.println("Absolute support = " + pattern.getAbsoluteSupport());
-                System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
-                System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
-                System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
-                System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
-                i++;
-            }
-            System.out.println("\nOverall results:\n");
-            System.out.printf("Average length = %.2f\n", patterns.stream().mapToInt(Pattern::getLength).average().orElse(0.0));
-            System.out.printf("Average support = %.2f\n", patterns.stream().mapToInt(Pattern::getAbsoluteSupport).average().orElse(0.0));
-            System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
-            System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
-            System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
-            System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
+            Utils.getSummary(patterns, groundTruth, events);
         }
 
         /**********  Some testing  *********/
@@ -128,5 +84,8 @@ public class Main {
         //repeatsDiscoverer.m("ABCDABABCDAB", "ABCDA", 1);
         //repeatsDiscoverer.m("ABCABCABCA", "ABCA", 1);
         //repeatsDiscoverer.m("GCGAGAGACGCC", "GAGA", 1);
+
+        long stopTime = System.currentTimeMillis();
+        System.out.println("\nTotal time - " + (stopTime - startTime) / 1000.0 + " sec");
     }
 }
