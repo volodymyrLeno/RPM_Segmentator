@@ -1,5 +1,3 @@
-import data.Edge;
-import data.Node;
 import data.Pattern;
 
 import java.util.*;

@@ -15,7 +15,8 @@ The tool requires the following input parameters:
 Example how to run the tool:
 
 ```
-java -jar RPM_Segmentator.jar logs/useCase_preprocessed.csv 0.05 true true -1
+java -jar RPM_Segmentator.jar logs/StudentRecord.csv 0.05 true false -1
 ```
 
+Segmented log will appear in the same folder as the one used as input and will have name "X_segmented.csv", where X is the name of original log.
 The tool generates .DOT file that represents a directly follows graph constructed from the given UI log. You can visualize this graph by using any graph vizualization tool (e.g, http://www.webgraphviz.com/)

@@ -1,4 +1,3 @@
-import data.Edge;
 import data.Event;
 import data.Node;
 import data.Pattern;

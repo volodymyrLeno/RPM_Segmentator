@@ -10,6 +10,12 @@ public class Node {
     private HashMap<String, String> context;
     private Integer frequency;
 
+    public Node(){
+        this.eventType = "ENTRY";
+        this.context = new HashMap<>();
+        this.frequency = 1;
+    }
+
     public Node(Event event){
         this.eventType = event.getEventType();
         this.context = new HashMap<>(event.context);

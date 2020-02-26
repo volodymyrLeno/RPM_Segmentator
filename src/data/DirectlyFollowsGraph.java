@@ -133,6 +133,7 @@ public class DirectlyFollowsGraph {
     public void buildGraph(){
         System.out.print("\nBuilding DFG... ");
         long startTime = System.currentTimeMillis();
+
         Event previousEvent = null;
         Node previousNode = null;
 
@@ -169,6 +170,12 @@ public class DirectlyFollowsGraph {
         this.loops = new ArrayList<>(loops);
         long stopTime = System.currentTimeMillis();
         System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        Node entry = new Node();
+        this.nodes.add(0, entry);
+        this.outgoing.put(entry, new ArrayList<>(){{
+            add(new Edge(entry, getNodes().get(1), 1));
+        }});
     }
 
     private void addEdge(Event sourceEvent, Event targetEvent){
@@ -605,6 +612,7 @@ public class DirectlyFollowsGraph {
             paths.clear();
             getPath(0, i, isVisited, pathList);
             allPaths.put(nodes.get(i), new ArrayList<>(paths));
+            System.out.println(i + ") " + nodes.get(i) + ": " + allPaths.get(nodes.get(i)));
         }
 
         return allPaths;

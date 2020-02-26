@@ -1,3 +1,5 @@
+import ee.ut.comptech.*;
+
 import data.DirectlyFollowsGraph;
 import data.Edge;
 import data.Event;
@@ -15,30 +17,65 @@ public class SegmentsDiscoverer {
 
     public SegmentsDiscoverer() {}
 
+    DominatorTree domTree;
+    Map<Node, Integer> nodeIDs;
+    Map<Integer, Node> idToNode;
+    int NID;
 
-    HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg) {
-        System.out.print("\nExtracting segments... ");
+    private void generateDominatorsTree(DirectlyFollowsGraph dfg){
+        NID = 0;
+        nodeIDs = new HashMap<>();
+        idToNode = new HashMap<>();
+        Map<Integer, List<Integer>> reachableNodes = new HashMap<>();
+        for(Node node: dfg.getNodes()){
+            NID++;
+            reachableNodes.put(NID, new ArrayList<>());
+            nodeIDs.put(node, NID);
+            idToNode.put(NID, node);
+        }
+        for(Node node: dfg.getNodes())
+            for(var successor: dfg.getOutgoingEdges().get(node))
+                reachableNodes.get(nodeIDs.get(node)).add(nodeIDs.get(successor.getTarget()));
 
+            domTree = new DominatorTree(reachableNodes);
+            domTree.analyse(nodeIDs.get(dfg.getNodes().get(0)));
+    }
+
+    private Node getDominator(Node node){
+        int domID = domTree.getInfo(nodeIDs.get(node)).getDom().getNode();
+        Node dominator = idToNode.get(domID);
+        return dominator;
+    }
+
+    HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg){
+        System.out.println("\nExtracting segments... ");
+
+        System.out.print("\tGenerating dominators tree");
         long startTime = System.currentTimeMillis();
 
-        var domMap = dfg.getDominatorsMap();
+        generateDominatorsTree(dfg);
 
-        /* Approach based on loop nested forest */
+        long stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 
         List<Edge> loops = new ArrayList<>();
-        discoverBackEdges(dfg, domMap, loops, 0);
-        //System.out.println("DEBUG - Back edges identified:"); DEBUG
-        for(var loop: loops){
-            var longestDistance = dfg.getLongestPath(loop.getTarget(), loop.getSource());
-            //System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");  DEBUG
-        }
+
+        System.out.print("\tIdentifying back edges");
+
+        startTime = System.currentTimeMillis();
+
+        discoverBackEdges(dfg, loops, 0);
+
+        stopTime = System.currentTimeMillis();
+        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
+
+        //System.out.println("DEBUG - Back edges identified:");
+        //for(var loop: loops)
+            //System.out.println("DEBUG - " + loop + " (frequency = " + loop.getFrequency() + ", longestDistance = " + longestDistance + ")");
 
         /* Approach based on identification of back edges during creation of DFG */
 
         //List<Edge> loops = new ArrayList<>(dfg.getLoops());
-
-        long stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
 
         return discoverSegments(dfg, loops);
     }
@@ -90,8 +127,8 @@ public class SegmentsDiscoverer {
         Event start = null;
         int totalLength = 0;
         do {
-             next = uiLog.get(i);
-             i++;
+            next = uiLog.get(i);
+            i++;
 
             if(within) {
                 segment.add(next);
@@ -100,7 +137,7 @@ public class SegmentsDiscoverer {
                     caseID++;
                     within = false;
                     totalLength+=segment.size();
-                    //System.out.println("DEBUG - discovered segment of length: " + segment.size());    DEBUG
+                    //System.out.println("DEBUG - discovered segment of length: " + segment.size());
                 }
             } else if(next.isStart()) {
                 segment = new ArrayList<>();
@@ -111,9 +148,72 @@ public class SegmentsDiscoverer {
 
         } while(i!=eCounts);
 
-        //System.out.println("DEBUG - total segments discovered: " + caseID);   DEBUG
-        //System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);   DEBUG
+        //System.out.println("DEBUG - total segments discovered: " + caseID);
+        //System.out.println("DEBUG - total events ("+ i +") into segments: " + totalLength);
         return segments;
+    }
+
+    private List<Edge> discoverBackEdges(DirectlyFollowsGraph dfg, List<Edge> loops, int i){
+        var k = i+1;
+        List<DirectlyFollowsGraph> sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
+        for(var scc: sccs){
+            if(scc.getNodes().size() > 1){
+                var backEdges = getBackEdges(scc);
+
+                if(backEdges == null){
+                    List<Edge> loopCandidates = rankByGraphDistance(scc.identifyBackEdges(scc.getAdjacencyMatrix(), 0), scc);
+                    scc.removeEdges(Collections.singletonList(loopCandidates.get(0)));
+                    discoverBackEdges(scc, loops, i);
+                }
+                else{
+                    //System.out.println("DEBUG - " + backEdges + " (level = " + k + ")");
+                    loops.addAll(new ArrayList<>(backEdges));
+                    scc.removeEdges(backEdges);
+                    discoverBackEdges(scc, loops, k);
+                }
+            }
+        }
+        return loops;
+    }
+
+    private List<Edge> getBackEdges(DirectlyFollowsGraph scc){
+        List<Edge> backEdges = new ArrayList<>();
+
+        var header = getHeader(scc);
+
+        if(header == null){
+            return null;
+        }
+        else{
+            for(var edge: scc.getEdges())
+                if(edge.getTarget().equals(header))
+                    backEdges.add(edge);
+            return Collections.singletonList(rankByGraphDistance(backEdges, scc).get(0));
+        }
+    }
+
+    private Node getHeader(DirectlyFollowsGraph scc){
+        Node header = null;
+
+
+        HashMap<Node, Node> loop = new HashMap<>();
+        /*
+        for(var node: scc.getNodes())
+            loop.put(node, dominatorMap.get(node));
+            */
+
+        for(var node: scc.getNodes())
+            loop.put(node, getDominator(node));
+
+        for(var node: loop.keySet()){
+            if(!scc.getNodes().contains(loop.get(node)))
+                if(header == null)
+                    header = new Node(node);
+                else
+                    return null;
+        }
+
+        return header;
     }
 
     private List<Edge> rankByFrequency(List<Edge> edges){
@@ -152,85 +252,5 @@ public class SegmentsDiscoverer {
         Map<Edge, Double> sorted = scores.entrySet().stream().sorted(comparingByValue())
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
         return new ArrayList<>(sorted.keySet());
-    }
-
-    /*
-
-    private List<Edge> discoverBackEdges(DirectlyFollowsGraph dfg, HashMap<Node, List<Node>> dominatorsMap, List<Edge> loops){
-        List<DirectlyFollowsGraph> sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
-        for(var scc: sccs){
-            if(scc.getNodes().size() > 1){
-                var backEdges = getBackEdges(scc, dominatorsMap);
-                //System.out.println("Back edges: " + backEdges);
-                loops.addAll(new ArrayList<>(backEdges));
-                scc.removeEdges(backEdges);
-                discoverBackEdges(scc, dominatorsMap, loops);
-            }
-        }
-        return loops;
-    }
-
-    private List<Edge> getBackEdges(DirectlyFollowsGraph scc, HashMap<Node, List<Node>> dominatorsMap){
-        List<Edge> backEdges = new ArrayList<>();
-
-        for(var header: getHeaders(scc, dominatorsMap))
-            for(var edge: scc.getEdges())
-                if(edge.getTarget().equals(header))
-                    backEdges.add(edge);
-                return backEdges;
-    }
-    */
-
-    private List<Edge> discoverBackEdges(DirectlyFollowsGraph dfg, HashMap<Node, List<Node>> dominatorsMap, List<Edge> loops, int i){
-        var k = i+1;
-        List<DirectlyFollowsGraph> sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
-        for(var scc: sccs){
-            if(scc.getNodes().size() > 1){
-                var backEdges = getBackEdges(scc, dominatorsMap);
-
-                if(backEdges == null){
-                    List<Edge> loopCandidates = rankByGraphDistance(scc.identifyBackEdges(scc.getAdjacencyMatrix(), 0), scc);
-                    scc.removeEdges(Collections.singletonList(loopCandidates.get(0)));
-                    discoverBackEdges(scc, dominatorsMap, loops, i);
-                }
-                else{
-                    //System.out.println(backEdges + " (level = " + k + ")");   DEBUG
-                    loops.addAll(new ArrayList<>(backEdges));
-                    scc.removeEdges(backEdges);
-                    discoverBackEdges(scc, dominatorsMap, loops, k);
-                }
-            }
-        }
-        return loops;
-    }
-
-    private List<Edge> getBackEdges(DirectlyFollowsGraph scc, HashMap<Node, List<Node>> dominatorsMap){
-        List<Edge> backEdges = new ArrayList<>();
-
-        var header = getHeader(scc, dominatorsMap);
-
-        if(header == null){
-            return null;
-        }
-        else{
-            for(var edge: scc.getEdges())
-                if(edge.getTarget().equals(header))
-                    backEdges.add(edge);
-            return Collections.singletonList(rankByGraphDistance(backEdges, scc).get(0));
-        }
-    }
-
-    private Node getHeader(DirectlyFollowsGraph scc, HashMap<Node, List<Node>> dominatorsMaps){
-        Node header = null;
-        for(var key: dominatorsMaps.keySet()){
-            if(scc.getNodes().contains(key) && dominatorsMaps.get(key).containsAll(scc.getNodes().stream().filter(el -> !el.equals(key)).collect(Collectors.toList()))){
-                header = new Node(key);
-                break;
-            }
-        }
-        // testing
-        //if(header == null)
-        //    header = new Node(scc.getNodes().get(0));
-        return header;
     }
 }

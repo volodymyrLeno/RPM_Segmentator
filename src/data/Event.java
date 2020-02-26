@@ -46,8 +46,8 @@ public class Event {
 
         if(payload.containsKey("targetApp") && payload.get("targetApp").equals("Excel")){
             if(payload.containsKey("target.id")){
-                payload.put("target.row", payload.get("target.id").replaceAll("[A-Za-z]+",""));
-                payload.put("target.column", payload.get("target.id").replaceAll("\\d+", ""));
+                    payload.put("target.row", payload.get("target.id").replaceAll("[A-Za-z]+",""));
+                    payload.put("target.column", payload.get("target.id").replaceAll("\\d+", ""));
             }
         }
     }
@@ -103,5 +103,4 @@ public class Event {
         if(obj instanceof Event && obj != null) return this.eid == ((Event) obj).eid;
         return false;
     }
-
 }

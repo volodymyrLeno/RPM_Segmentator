@@ -37,6 +37,7 @@ public class Main {
 
             SegmentsDiscoverer disco = new SegmentsDiscoverer();
             HashMap<Integer, List<Event>> cases = disco.extractSegmentsFromDFG(dfg);
+
             Utils.writeSegments(filePath.substring(0, filePath.lastIndexOf(".")) + "_segmented.csv", cases);
             System.out.println("\nDiscovering frequent patterns...\n");
 
