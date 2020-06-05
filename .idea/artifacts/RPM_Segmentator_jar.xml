@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RPM_Segmentator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar</output-path>
+    <root id="archive" name="RPM_Segmentator.jar">
+      <element id="module-output" name="RPM_Segmentator" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/bpstruct-0.1.117.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/opencsv-4.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/commons-lang3-3.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

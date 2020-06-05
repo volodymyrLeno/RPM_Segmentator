@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="guava-20.0-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/guava-20.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/javax.activation-1.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-api-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-core-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-impl-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/OpenXES-20160212.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/guava-20.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../PhD/TARTU/java libraries/guava-20.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

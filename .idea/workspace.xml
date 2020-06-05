@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="RPM_Segmentator:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RPM_Segmentator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RPM_Segmentator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TEMP.dot" beforeDir="false" afterPath="$PROJECT_DIR$/TEMP.dot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ground truth.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/DirectlyFollowsGraph.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Edge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Event.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/logReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/preprocessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PatternsMiner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Preprocessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SegmentsDiscoverer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bpstruct-0.1.117.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commons-lang3-3.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Edge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Pattern.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/Erin_GR_5.2.20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/Erin_GR_8.1.20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/erin.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/Reimbursement.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/StudentRecord.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/test_preprocessed10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/test_preprocessed20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/opencsv-4.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repeatsDiscoverer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repeatsMiner.java" beforeDir="false" />
+    </list>
+    <ignored path=".idea/" />
+    <ignored path="out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <manually-removed-from-ignored>
+      <directory path="$PROJECT_DIR$/out/" />
+    </manually-removed-from-ignored>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/RPM_Segmentator$Main.ic" NAME="Main Coverage Results" MODIFIED="1588834377846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="225" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1754638025">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="40" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.16" value="2" />
+          <entry key="project.open.time.17" value="3" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.19" value="2" />
+          <entry key="project.open.time.20" value="4" />
+          <entry key="project.open.time.21" value="2" />
+          <entry key="project.open.time.23" value="3" />
+          <entry key="project.open.time.24" value="3" />
+          <entry key="project.open.time.26" value="2" />
+          <entry key="project.open.time.27" value="2" />
+          <entry key="project.open.time.28" value="2" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.30" value="2" />
+          <entry key="project.open.time.31" value="4" />
+          <entry key="project.open.time.32" value="3" />
+          <entry key="project.open.time.33" value="2" />
+          <entry key="project.open.time.34" value="2" />
+          <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.37" value="1" />
+          <entry key="project.open.time.39" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.45" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="50" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="csv" value="7" />
+          <entry key="dot" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="java" value="98" />
+          <entry key="md" value="2" />
+          <entry key="txt" value="3" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="98" />
+          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="Scratch" value="1" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="5" />
+          <entry key="java" value="94090" />
+          <entry key="md" value="205" />
+          <entry key="txt" value="870" />
+          <entry key="xml" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="94090" />
+          <entry key="PLAIN_TEXT" value="1080" />
+          <entry key="XML" value="9" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="153" column="34" lean-forward="true" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="38" lean-forward="true" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/data/Node.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="241" column="59" selection-start-line="241" selection-start-column="59" selection-end-line="241" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/PatternsMiner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Preprocessor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="197" column="5" lean-forward="true" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/LogReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="65" column="48" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/data/Pattern.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6800#6801#0" expanded="true" />
+                <element signature="e#6844#6845#0" expanded="true" />
+                <element signature="e#6889#6890#0" expanded="true" />
+                <element signature="e#6935#6936#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>&quot;copy&quot;</find>
+      <find>printMa</find>
+      <find>printMat</find>
+      <find>traceBack</find>
+      <find>comes</find>
+      <find>findMax</find>
+      <find>StringBuffer</find>
+      <find>max</find>
+      <find>element</find>
+      <find>add</find>
+      <find>addAll</find>
+      <find>approximate</find>
+      <find>:</find>
+      <find>eid</find>
+      <find>topologicalSort</find>
+      <find>2019-10-31T23:41:45.025Z</find>
+      <find>container</find>
+      <find>DOT</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/dfgBuilder.java" />
+        <option value="$PROJECT_DIR$/src/data/directlyFollowsGraph.java" />
+        <option value="$PROJECT_DIR$/src/preprocessing/NavigationSimplifier.java" />
+        <option value="$PROJECT_DIR$/src/preprocessing/ReadSimplifier.java" />
+        <option value="$PROJECT_DIR$/src/preprocessing/PreProcessing.java" />
+        <option value="$PROJECT_DIR$/src/preprocessing/WriteSimplifier.java" />
+        <option value="$PROJECT_DIR$/src/preprocessor.java" />
+        <option value="$PROJECT_DIR$/src/data/StronglyConnectedComponent.java" />
+        <option value="$PROJECT_DIR$/src/Dijkstra.java" />
+        <option value="$PROJECT_DIR$/src/repeatsDiscoverer.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/repeatsMiner.java" />
+        <option value="$PROJECT_DIR$/src/data/Node.java" />
+        <option value="$PROJECT_DIR$/src/data/Edge.java" />
+        <option value="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" />
+        <option value="$PROJECT_DIR$/src/data/Event.java" />
+        <option value="$PROJECT_DIR$/src/logReader.java" />
+        <option value="$PROJECT_DIR$/src/SegmentsDiscoverer.java" />
+        <option value="$PROJECT_DIR$/src/patternsMiner.java" />
+        <option value="$PROJECT_DIR$/src/Preprocessor.java" />
+        <option value="$PROJECT_DIR$/src/Utils.java" />
+        <option value="$PROJECT_DIR$/src/data/Pattern.java" />
+        <option value="$PROJECT_DIR$/src/PatternsMiner.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/Preprocessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Utils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-7" />
+    <option name="width" value="1292" />
+    <option name="height" value="687" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+              <item name="RPM_Segmentator_jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+              <item name="RPM_Segmentator_jar" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Volodymyr/RPM_Segmentator/src/data/Event.java" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591315884149" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/bpstruct-0.1.117.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.20344828" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="vcs.CVS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="preprocessing" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Volodymyr\RPM_Segmentator\src\logs\RealLife" />
+      <recent name="C:\Volodymyr\RPM_Segmentator" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="RPM_Segmentator" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;src\main\java\logs\Evaluation\CSV\StudentRecord.csv&quot; config2.json src\main\java\logs\Evaluation\groundTruths\reimbursementGT_prep.txt" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\leno\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="" />
+      <created>1578265635723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1578265635723</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added event pairs">
+      <created>1578897042748</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1578897042748</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Updated dfg representation">
+      <created>1578958576088</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1578958576088</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Updated toString methods for Node and Edge classes">
+      <created>1578997389912</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1578997389912</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Write segmented log into file">
+      <created>1579136079839</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1579136079839</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added ranking">
+      <created>1579149502608</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1579149502608</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added longest path ranking">
+      <created>1579158450396</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1579158450396</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated preprocessor">
+      <created>1579238771762</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1579238771762</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Strongly Connected Components added">
+      <created>1579240513136</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1579240513136</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Strongly Connected Components refactored">
+      <created>1579478110914</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1579478110914</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Back edges identification">
+      <created>1579486135460</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1579486135460</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Loops identification reworked">
+      <created>1579498646374</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1579498646374</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Longest distance added, refactoring">
+      <created>1579566768659</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1579566768659</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Control flow graph based approach">
+      <created>1580261380359</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1580261380359</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added level of the loop">
+      <created>1580268921178</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1580268921178</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added aggregated ranking">
+      <created>1580429411893</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1580429411893</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fixed segments discovery">
+      <created>1580441714436</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1580441714436</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added general repeats functionality">
+      <created>1581466453892</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1581466453893</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added general repeats functionality">
+      <created>1581643024660</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1581643024660</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Small fix">
+      <created>1581643981540</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1581643981541</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Find approximate non-overlapping matches">
+      <created>1581919440263</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1581919440263</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Updated general repeats. Added some logs for testing">
+      <created>1582073654773</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1582073654773</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added some logs for testing">
+      <created>1582073779216</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1582073779216</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Searching for non-overlapping patterns">
+      <created>1582177961777</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1582177961777</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Refactoring">
+      <created>1582507685629</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1582507685629</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixed context attributes identification">
+      <created>1582518809973</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1582518809973</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Code optimization, added one more artificial log">
+      <created>1582696685106</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1582696685106</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22557841" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.62938005" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.42991912" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5956873" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3295964" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295964" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.34080717" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.509434" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3295964" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32840616" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added event pairs" />
+    <MESSAGE value="Updated dfg representation" />
+    <MESSAGE value="Updated toString methods for Node and Edge classes" />
+    <MESSAGE value="Write segmented log into file" />
+    <MESSAGE value="Added ranking" />
+    <MESSAGE value="Added longest path ranking" />
+    <MESSAGE value="Updated preprocessor" />
+    <MESSAGE value="Strongly Connected Components added" />
+    <MESSAGE value="Strongly Connected Components refactored" />
+    <MESSAGE value="Back edges identification" />
+    <MESSAGE value="Loops identification reworked" />
+    <MESSAGE value="Longest distance added, refactoring" />
+    <MESSAGE value="Control flow graph based approach" />
+    <MESSAGE value="Added level of the loop" />
+    <MESSAGE value="Added aggregated ranking" />
+    <MESSAGE value="Fixed segments discovery" />
+    <MESSAGE value="Added general repeats functionality" />
+    <MESSAGE value="Small fix" />
+    <MESSAGE value="Find approximate non-overlapping matches" />
+    <MESSAGE value="Updated general repeats. Added some logs for testing" />
+    <MESSAGE value="Added some logs for testing" />
+    <MESSAGE value="Searching for non-overlapping patterns" />
+    <MESSAGE value="Refactoring" />
+    <MESSAGE value="Fixed context attributes identification" />
+    <MESSAGE value="Code optimization, added one more artificial log" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code optimization, added one more artificial log" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((HashMap.Node)dfg.nodes.get(29).context.entrySet().toArray()[2]).getValue()" custom="java.util.HashMap.Node" />
+        <watch expression="dfg.nodes" />
+        <watch expression="dfg.outgoing.entrySet().toArray()[0]" />
+        <watch expression="((HashMap.Node)groupedEvents.entrySet().toArray()[0]).getValue()" custom="java.util.HashMap.Node" />
+        <watch expression="loops.get(26)" />
+        <watch expression="reachability.entrySet().toArray()[24]" />
+        <watch expression="sccs.get(0).events" />
+        <watch expression="reachability.entrySet().toArray()[17]" />
+        <watch expression="sccs.get(7)" />
+        <watch expression="dominatorsMap.entrySet().toArray()[10]" />
+        <watch expression="sccs.get(0)" />
+        <watch expression="((HashMap)loops.get(0).pairs).entrySet().toArray()[24]" custom="java.util.HashMap" />
+        <watch expression="matrix" />
+        <watch expression="path[1]" />
+        <watch expression="patterns.get(8)" />
+        <watch expression="groupedEvents.entrySet().toArray()[0]" />
+        <watch expression="patterns" />
+        <watch expression="patterns.get(1)" language="JAVA" />
+        <watch expression="ptrns.get(0)" />
+        <watch expression="context.get(1)" language="JAVA" />
+        <watch expression="((HashMap.Node)groupedEvents.entrySet().toArray()[6]).getValue()" custom="java.util.HashMap.Node" />
+        <watch expression="((HashMap.Node)groupedEvents.entrySet().toArray()[7]).getValue()" custom="java.util.HashMap.Node" />
+        <watch expression="dfg" />
+        <watch expression="events.get(0)" />
+        <watch expression="variance" />
+        <watch expression="uniqueValues.get(9)" />
+        <watch expression="groupedEvents" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>context.get(1)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>patterns.get(1)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>dfg.getOutgoingEdges().get(dfg.getNodes().get(0))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dfg.getOutgoingEdges()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dfg.getNodes()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>values[2].length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LevenshteinDistance(this.getPattern(), groundTruth.get(0))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>this.getPattern()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LevenshteinDistance(this.getPattern(), groundTruth.get(1))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LevenshteinDistance(this, groundTruth.get(1))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>events.get(events.size()-1)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/dfgBuilder.java" />
+    <entry file="file://$PROJECT_DIR$/src/preprocessing/ReadSimplifier.java" />
+    <entry file="file://$PROJECT_DIR$/src/preprocessing/WriteSimplifier.java" />
+    <entry file="file://$PROJECT_DIR$/src/preprocessing/NavigationSimplifier.java" />
+    <entry file="file://$PROJECT_DIR$/src/preprocessing/PreProcessing.java" />
+    <entry file="file://$PROJECT_DIR$/.gitignore" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logs/test_preprocessed.csv" />
+    <entry file="file://$PROJECT_DIR$/src/data/StronglyConnectedComponent.java" />
+    <entry file="file://$PROJECT_DIR$/src/Dijkstra.java" />
+    <entry file="file://$PROJECT_DIR$/New Text Document.txt" />
+    <entry file="file://$PROJECT_DIR$/../PhD/MELBOURNE/Subjects/Knowledge Technologies/Project1/KT01/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="214" column="5" lean-forward="true" selection-start-line="194" selection-start-column="4" selection-end-line="214" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/regex/Pattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="4849" selection-start-line="4849" selection-end-line="4849" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TEMP.dot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logs/1581394818411.csv" />
+    <entry file="file://$PROJECT_DIR$/src/logs/1582516317947.csv" />
+    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/SutdentRecord_preprocessed.csv" />
+    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/Reimbursement.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/StudentRecord.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/repeatsMiner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2108">
+          <caret line="129" column="59" selection-start-line="129" selection-start-column="59" selection-end-line="129" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/repeatsDiscoverer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logs/Evaluation/Erin_GR_preprocessed.csv" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/function/ToDoubleFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/Edge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="83" column="1" selection-start-line="2" selection-end-line="83" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3168#3169#0" expanded="true" />
+            <element signature="e#3217#3218#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/LogReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="65" column="48" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/Pattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6800#6801#0" expanded="true" />
+            <element signature="e#6844#6845#0" expanded="true" />
+            <element signature="e#6889#6890#0" expanded="true" />
+            <element signature="e#6935#6936#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="38" lean-forward="true" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Preprocessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="197" column="5" lean-forward="true" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/PatternsMiner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="241" column="59" selection-start-line="241" selection-start-column="59" selection-end-line="241" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="153" column="34" lean-forward="true" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>RPM_Segmentator:jar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.20344828" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>RPM_Segmentator</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.20344828" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>bpstruct-0.1.117</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.20344828" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
