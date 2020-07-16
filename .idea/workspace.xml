@@ -2,58 +2,63 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="RPM_Segmentator:jar" />
+      <artifact name="RPM_Segmentator" />
     </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/AcceptingPetriNet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/bpmtk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RPM_Segmentator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RPM_Segmentator.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TEMP.dot" beforeDir="false" afterPath="$PROJECT_DIR$/TEMP.dot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ground truth.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config1.json" beforeDir="false" afterPath="$PROJECT_DIR$/config1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config2.json" beforeDir="false" afterPath="$PROJECT_DIR$/config2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/DirectlyFollowsGraph.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Event.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/data/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/logReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RPM_Segmentator/preprocessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LogReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PatternsMiner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Preprocessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SegmentsDiscoverer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bpstruct-0.1.117.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commons-lang3-3.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Edge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Event.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Pattern.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/Erin_GR_5.2.20.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/Erin_GR_8.1.20.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/RealLife/erin.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/Reimbursement.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/StudentRecord.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/test_preprocessed10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/test_preprocessed20.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/opencsv-4.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repeatsDiscoverer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repeatsMiner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logs/Evaluation/CSV/Reimmbursement_preprocessed.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logs/Evaluation/CSV/StudentRecords_preprocessed.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/Event.class" afterDir="false" />
     </list>
-    <ignored path=".idea/" />
-    <ignored path="out/" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <manually-removed-from-ignored>
-      <directory path="$PROJECT_DIR$/out/" />
-    </manually-removed-from-ignored>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,200 +67,6 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/RPM_Segmentator$Main.ic" NAME="Main Coverage Results" MODIFIED="1588834377846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
-  <component name="CoverageViewManager">
-    <option name="myElementSize" value="225" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1754638025">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="40" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.16" value="2" />
-          <entry key="project.open.time.17" value="3" />
-          <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.19" value="2" />
-          <entry key="project.open.time.20" value="4" />
-          <entry key="project.open.time.21" value="2" />
-          <entry key="project.open.time.23" value="3" />
-          <entry key="project.open.time.24" value="3" />
-          <entry key="project.open.time.26" value="2" />
-          <entry key="project.open.time.27" value="2" />
-          <entry key="project.open.time.28" value="2" />
-          <entry key="project.open.time.29" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.30" value="2" />
-          <entry key="project.open.time.31" value="4" />
-          <entry key="project.open.time.32" value="3" />
-          <entry key="project.open.time.33" value="2" />
-          <entry key="project.open.time.34" value="2" />
-          <entry key="project.open.time.35" value="1" />
-          <entry key="project.open.time.37" value="1" />
-          <entry key="project.open.time.39" value="1" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.45" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="50" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="csv" value="7" />
-          <entry key="dot" value="1" />
-          <entry key="gitignore" value="1" />
-          <entry key="java" value="98" />
-          <entry key="md" value="2" />
-          <entry key="txt" value="3" />
-          <entry key="xml" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="98" />
-          <entry key="PLAIN_TEXT" value="13" />
-          <entry key="Scratch" value="1" />
-          <entry key="XML" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="dummy" value="5" />
-          <entry key="java" value="94090" />
-          <entry key="md" value="205" />
-          <entry key="txt" value="870" />
-          <entry key="xml" value="9" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="94090" />
-          <entry key="PLAIN_TEXT" value="1080" />
-          <entry key="XML" value="9" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="153" column="34" lean-forward="true" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="38" lean-forward="true" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/data/Node.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="241" column="59" selection-start-line="241" selection-start-column="59" selection-end-line="241" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/PatternsMiner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Preprocessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="197" column="5" lean-forward="true" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/LogReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="65" column="48" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/data/Pattern.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#6800#6801#0" expanded="true" />
-                <element signature="e#6844#6845#0" expanded="true" />
-                <element signature="e#6889#6890#0" expanded="true" />
-                <element signature="e#6935#6936#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -263,151 +74,28 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>&quot;copy&quot;</find>
-      <find>printMa</find>
-      <find>printMat</find>
-      <find>traceBack</find>
-      <find>comes</find>
-      <find>findMax</find>
-      <find>StringBuffer</find>
-      <find>max</find>
-      <find>element</find>
-      <find>add</find>
-      <find>addAll</find>
-      <find>approximate</find>
-      <find>:</find>
-      <find>eid</find>
-      <find>topologicalSort</find>
-      <find>2019-10-31T23:41:45.025Z</find>
-      <find>container</find>
-      <find>DOT</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/dfgBuilder.java" />
-        <option value="$PROJECT_DIR$/src/data/directlyFollowsGraph.java" />
-        <option value="$PROJECT_DIR$/src/preprocessing/NavigationSimplifier.java" />
-        <option value="$PROJECT_DIR$/src/preprocessing/ReadSimplifier.java" />
-        <option value="$PROJECT_DIR$/src/preprocessing/PreProcessing.java" />
-        <option value="$PROJECT_DIR$/src/preprocessing/WriteSimplifier.java" />
-        <option value="$PROJECT_DIR$/src/preprocessor.java" />
-        <option value="$PROJECT_DIR$/src/data/StronglyConnectedComponent.java" />
-        <option value="$PROJECT_DIR$/src/Dijkstra.java" />
-        <option value="$PROJECT_DIR$/src/repeatsDiscoverer.java" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/repeatsMiner.java" />
-        <option value="$PROJECT_DIR$/src/data/Node.java" />
-        <option value="$PROJECT_DIR$/src/data/Edge.java" />
-        <option value="$PROJECT_DIR$/src/data/DirectlyFollowsGraph.java" />
-        <option value="$PROJECT_DIR$/src/data/Event.java" />
-        <option value="$PROJECT_DIR$/src/logReader.java" />
-        <option value="$PROJECT_DIR$/src/SegmentsDiscoverer.java" />
-        <option value="$PROJECT_DIR$/src/patternsMiner.java" />
-        <option value="$PROJECT_DIR$/src/Preprocessor.java" />
-        <option value="$PROJECT_DIR$/src/Utils.java" />
-        <option value="$PROJECT_DIR$/src/data/Pattern.java" />
-        <option value="$PROJECT_DIR$/src/PatternsMiner.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Preprocessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Utils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="1292" />
-    <option name="height" value="687" />
-  </component>
+  <component name="ProjectId" id="1dNouq4Tx2XbTB4Lz8xQq8Fyj5f" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-              <item name="RPM_Segmentator_jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-              <item name="RPM_Segmentator_jar" type="462c0819:PsiDirectoryNode" />
-              <item name="logs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RPM_Segmentator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RPM_Segmentator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Volodymyr/RPM_Segmentator/src/data/Event.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591315884149" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591343708132" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/bpstruct-0.1.117.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20344828" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.CVS" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -418,23 +106,11 @@
       <recent name="C:\Volodymyr\RPM_Segmentator" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="RPM_Segmentator" />
-      <option name="PROGRAM_PARAMETERS" value="&quot;src\main\java\logs\Evaluation\CSV\StudentRecord.csv&quot; config2.json src\main\java\logs\Evaluation\groundTruths\reimbursementGT_prep.txt" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;src\main\java\logs\Evaluation\CSV\StudentRecord.csv&quot; config2.json null" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -457,6 +133,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1578265635723</updated>
+      <workItem from="1592275140420" duration="3239000" />
+      <workItem from="1592293966389" duration="615000" />
+      <workItem from="1592451877825" duration="85000" />
+      <workItem from="1592454126109" duration="926000" />
+      <workItem from="1593049469439" duration="25033000" />
+      <workItem from="1593654256601" duration="24595000" />
+      <workItem from="1594873754421" duration="681000" />
+      <workItem from="1594874462234" duration="404000" />
     </task>
     <task id="LOCAL-00001" summary="Added event pairs">
       <created>1578897042748</created>
@@ -652,42 +336,20 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22557841" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.62938005" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.42991912" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5956873" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3295964" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295964" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.34080717" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.509434" />
-      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3295964" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32840616" />
-    </layout>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added event pairs" />
@@ -717,7 +379,82 @@
     <MESSAGE value="Code optimization, added one more artificial log" />
     <option name="LAST_COMMIT_MESSAGE" value="Code optimization, added one more artificial log" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594873045797">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1594873045797" />
+    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1594874218406">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1600.860@0.0.1600.860" timestamp="1594874218406" />
+    <state x="1020" y="266" key="#xdebugger.evaluate" timestamp="1594092588383">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="1020" y="266" key="#xdebugger.evaluate/0.0.1600.860@0.0.1600.860" timestamp="1594092588383" />
+    <state x="597" y="305" key="DetectedRootsChooserDialog" timestamp="1593407438670">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="597" y="305" key="DetectedRootsChooserDialog/0.0.1600.860@0.0.1600.860" timestamp="1593407438670" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1594874307697">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1594874307697" />
+    <state width="1557" height="335" key="GridCell.Tab.0.bottom" timestamp="1594874436695">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="335" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1594874436695" />
+    <state width="1557" height="335" key="GridCell.Tab.0.center" timestamp="1594874436694">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="335" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1594874436694" />
+    <state width="1557" height="335" key="GridCell.Tab.0.left" timestamp="1594874436694">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="335" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1594874436694" />
+    <state width="1557" height="335" key="GridCell.Tab.0.right" timestamp="1594874436695">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="335" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1594874436695" />
+    <state width="1557" height="378" key="GridCell.Tab.1.bottom" timestamp="1594873725232">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="378" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1594873725232" />
+    <state width="1557" height="378" key="GridCell.Tab.1.center" timestamp="1594873725231">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="378" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1594873725231" />
+    <state width="1557" height="378" key="GridCell.Tab.1.left" timestamp="1594873725231">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="378" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1594873725231" />
+    <state width="1557" height="378" key="GridCell.Tab.1.right" timestamp="1594873725232">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1557" height="378" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1594873725232" />
+    <state x="280" y="4" key="SettingsEditor" timestamp="1594874565595">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="280" y="4" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1594874565595" />
+    <state width="808" height="438" key="XDebugger.FullValuePopup" timestamp="1592279662438">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="808" height="438" key="XDebugger.FullValuePopup/0.0.1600.860@0.0.1600.860" timestamp="1592279662438" />
+    <state x="456" y="195" key="run.anything.popup" timestamp="1593406485814">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="456" y="195" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1593406485814" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1594088216189">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1594088216189" />
+  </component>
   <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="org.processmining.models.graphbased.directed.bpmn.elements.Gateway" fieldName="id" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((HashMap.Node)dfg.nodes.get(29).context.entrySet().toArray()[2]).getValue()" custom="java.util.HashMap.Node" />
@@ -747,343 +484,11 @@
         <watch expression="variance" />
         <watch expression="uniqueValues.get(9)" />
         <watch expression="groupedEvents" />
+        <watch expression="events" />
       </configuration>
     </watches-manager>
   </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="watch">
-      <expression>
-        <expression-string>context.get(1)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>patterns.get(1)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>dfg.getOutgoingEdges().get(dfg.getNodes().get(0))</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>dfg.getOutgoingEdges()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>dfg.getNodes()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>values[2].length()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>LevenshteinDistance(this.getPattern(), groundTruth.get(0))</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.getPattern()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>LevenshteinDistance(this.getPattern(), groundTruth.get(1))</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>LevenshteinDistance(this, groundTruth.get(1))</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>events.get(events.size()-1)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/dfgBuilder.java" />
-    <entry file="file://$PROJECT_DIR$/src/preprocessing/ReadSimplifier.java" />
-    <entry file="file://$PROJECT_DIR$/src/preprocessing/WriteSimplifier.java" />
-    <entry file="file://$PROJECT_DIR$/src/preprocessing/NavigationSimplifier.java" />
-    <entry file="file://$PROJECT_DIR$/src/preprocessing/PreProcessing.java" />
-    <entry file="file://$PROJECT_DIR$/.gitignore" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/function/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logs/test_preprocessed.csv" />
-    <entry file="file://$PROJECT_DIR$/src/data/StronglyConnectedComponent.java" />
-    <entry file="file://$PROJECT_DIR$/src/Dijkstra.java" />
-    <entry file="file://$PROJECT_DIR$/New Text Document.txt" />
-    <entry file="file://$PROJECT_DIR$/../PhD/MELBOURNE/Subjects/Knowledge Technologies/Project1/KT01/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="214" column="5" lean-forward="true" selection-start-line="194" selection-start-column="4" selection-end-line="214" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/regex/Pattern.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="4849" selection-start-line="4849" selection-end-line="4849" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TEMP.dot">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logs/1581394818411.csv" />
-    <entry file="file://$PROJECT_DIR$/src/logs/1582516317947.csv" />
-    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/SutdentRecord_preprocessed.csv" />
-    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/Reimbursement.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/logs/StudentRecord.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/repeatsMiner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="129" column="59" selection-start-line="129" selection-start-column="59" selection-end-line="129" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/repeatsDiscoverer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logs/Evaluation/Erin_GR_preprocessed.csv" />
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/function/ToDoubleFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/Edge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="83" column="1" selection-start-line="2" selection-end-line="83" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3168#3169#0" expanded="true" />
-            <element signature="e#3217#3218#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/LogReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="65" column="48" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/Pattern.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6800#6801#0" expanded="true" />
-            <element signature="e#6844#6845#0" expanded="true" />
-            <element signature="e#6889#6890#0" expanded="true" />
-            <element signature="e#6935#6936#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="38" lean-forward="true" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Preprocessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="197" column="5" lean-forward="true" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/PatternsMiner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="241" column="59" selection-start-line="241" selection-start-column="59" selection-end-line="241" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="153" column="34" lean-forward="true" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>RPM_Segmentator:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20344828" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>RPM_Segmentator</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20344828" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>bpstruct-0.1.117</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20344828" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/RPM_Segmentator$Main.ic" NAME="Main Coverage Results" MODIFIED="1594096466860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

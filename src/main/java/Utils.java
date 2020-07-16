@@ -383,18 +383,24 @@ public class Utils {
 
     public static void getSummary(List<Pattern> patterns, List<List<String>> groundTruth, List<Event> events){
         int i = 1;
-        for(var pattern: patterns){
-            pattern.assignClosestMatch(groundTruth);
-            pattern.computeConfusionMatrix(events);
-            System.out.println("\nPattern " + i + ":\n" + pattern + "\n" + pattern.getClosestMatch());
+        for (var pattern : patterns) {
+            System.out.println("\nRoutine " + i + "\nPattern:  " + pattern);
+            if(groundTruth.size() > 0){
+                pattern.assignClosestMatch(groundTruth);
+                pattern.computeConfusionMatrix(events);
+                System.out.println("The closest match:  " + pattern.getClosestMatch());
+            }
             System.out.println("Length = " + pattern.getLength());
             System.out.printf("Sup = %.2f\n", pattern.getRelativeSupport());
             System.out.printf("Coverage = %.2f\n", pattern.getCoverage());
-            System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
-            System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
-            System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
-            System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
-            System.out.printf("Jaccard = %.3f\n", pattern.calculateJaccard(groundTruth, events));
+
+            if(groundTruth.size() > 0){
+                System.out.printf("Precision = %.3f\n", pattern.calculatePrecision());
+                System.out.printf("Recall = %.3f\n", pattern.calculateRecall());
+                System.out.printf("Accuracy = %.3f\n", pattern.calculateAccuracy());
+                System.out.printf("F-score = %.3f\n", pattern.calculateFScore());
+                System.out.printf("Jaccard = %.3f\n", pattern.calculateJaccard(groundTruth, events));
+            }
             i++;
         }
         System.out.println("\nOverall results:\n");
@@ -402,11 +408,14 @@ public class Utils {
         System.out.printf("Average support = %.2f\n", patterns.stream().mapToDouble(Pattern::getRelativeSupport).average().orElse(0.0));
         System.out.printf("Total coverage = %.2f\n", patterns.stream().mapToDouble(Pattern::getCoverage).sum());
         System.out.printf("Average coverage = %.2f\n", patterns.stream().mapToDouble(Pattern::getCoverage).average().orElse(0.0));
-        System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
-        System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
-        System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
-        System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
-        System.out.printf("Average Jaccard = %.3f\n", patterns.stream().mapToDouble(Pattern::getJaccard).average().orElse(0.0));
+
+        if(groundTruth.size() > 0){
+            System.out.printf("Average precision = %.3f\n", patterns.stream().mapToDouble(Pattern::getPrecision).average().orElse(0.0));
+            System.out.printf("Average recall = %.3f\n", patterns.stream().mapToDouble(Pattern::getRecall).average().orElse(0.0));
+            System.out.printf("Average accuracy = %.3f\n", patterns.stream().mapToDouble(Pattern::getAccuracy).average().orElse(0.0));
+            System.out.printf("Average f-score = %.3f\n", patterns.stream().mapToDouble(Pattern::getFscore).average().orElse(0.0));
+            System.out.printf("Average Jaccard = %.3f\n", patterns.stream().mapToDouble(Pattern::getJaccard).average().orElse(0.0));
+        }
     }
 
     public static List<String>  extractAttributes(List<Event> events){
@@ -417,5 +426,12 @@ public class Utils {
                     attributes.add(attr);
         }
         return attributes;
+    }
+
+    public static HashMap<Integer, List<Event>> mergeHashMaps(HashMap<Integer, List<Event>> cases1, HashMap<Integer, List<Event>> cases2){
+        HashMap<Integer, List<Event>> mergedCases = new HashMap<>(cases1);
+        for(var caseID: cases2.keySet())
+            mergedCases.put(caseID + cases1.size(), cases2.get(caseID));
+        return mergedCases;
     }
 }

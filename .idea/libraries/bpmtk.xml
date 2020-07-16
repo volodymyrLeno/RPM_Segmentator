@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bpmtk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../1/bpmtk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

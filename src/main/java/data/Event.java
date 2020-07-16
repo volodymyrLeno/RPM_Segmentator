@@ -121,6 +121,8 @@ public class Event {
 
     public void setEnd(boolean end) { this.end = end; }
 
+    public void setEid(int eid){ this.eid = eid; }
+
     public String toString() {
         return "({" + this.caseID + "}, " + this.eid + ", " + this.eventType + ", " + this.timestamp + ", " + payload + ")";
     }

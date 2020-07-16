@@ -1,9 +1,9 @@
-import data.DirectlyFollowsGraph;
 import data.Event;
 
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,12 +24,10 @@ public class Main {
 
         readConfiguration(config);
 
-        /*
         List<Event> events = new ArrayList<>();
         String fileType = log.substring(log.lastIndexOf('.') + 1);
         List<List<String>> sequences = new ArrayList<>();
         HashMap<Integer, List<Event>> originalCases = new HashMap<>();
-
 
         if (fileType.equals("xes")) {
             originalCases = LogReader.readXES(log);
@@ -50,6 +48,7 @@ public class Main {
         for(var key: groupedEvents.keySet())
             Utils.setContextAttributes(groupedEvents.get(key), contextAttributes);
 
+        System.out.println("\nSegmentation...");
         long t1 = System.currentTimeMillis();
         SegmentsDiscoverer disco = new SegmentsDiscoverer();
         HashMap<Integer, List<Event>> cases = disco.extractSegments(events);
@@ -57,84 +56,37 @@ public class Main {
         System.out.println("Segmentation time - " + (t2 - t1) / 1000.0 + " sec");
 
         List<List<String>> groundTruth = new ArrayList<>();
-        for(var path: PatternsMiner.parseSequences(groundTruthFile))
-            groundTruth.add(Arrays.asList(path.split(",")));
+
+        if(!groundTruthFile.equals("null")){
+            for(var path: PatternsMiner.parseSequences(groundTruthFile))
+                groundTruth.add(Arrays.asList(path.split(",")));
+        }
 
         //List<List<String>> groundTruth = new ArrayList<>(sequences);
 
         var patterns = PatternsMiner.discoverPatterns(cases, algorithm, minSupport, minCoverage, metric);
         Utils.getSummary(patterns, groundTruth, events);
-        */
 
-        List<String> files = new ArrayList<>() {{
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log1.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log2.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log3.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log4.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log5.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log6.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log7.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log8.xes");
-            //add("src\\main\\java\\logs\\Evaluation\\XES\\log9.xes");
-            add("src\\main\\java\\logs\\Evaluation\\CSV\\Reimbursement.csv");
-        }};
 
-        for (var filePath : files) {
-            System.out.println("----- " + filePath + " -----");
-            long startTime = System.currentTimeMillis();
+        /*
+            var events1 = LogReader.readCSV("src\\main\\java\\logs\\Evaluation\\CSV\\StudentRecord_segmented.csv");
+            var events2 = LogReader.readCSV("src\\main\\java\\logs\\Evaluation\\CSV\\Reimbursement_segmented.csv");
 
-            List<Event> events = new ArrayList<>();
-            String fileType = filePath.substring(filePath.lastIndexOf('.') + 1);
-            List<List<String>> sequences = new ArrayList<>();
-            HashMap<Integer, List<Event>> originalCases = new HashMap<>();
+            var originalCases1 = Parser.getCases(events1);
+            var originalCases2 = Parser.getCases(events2);
+            var originalCases = Parser.shuffleCases(originalCases2, originalCases1);
 
-            if (fileType.equals("xes")) {
-                originalCases = LogReader.readXES(filePath);
-                originalCases.values().forEach(events::addAll);
-                events.forEach(event -> event.setCaseID(""));
-                events.forEach(event -> event.removeAttribute("caseID"));
-                System.out.println("Original segments - " + originalCases.size());
-                System.out.println("Average segment length - " + originalCases.values().stream().mapToInt(el -> el.size()).average());
-
-                var trueLengths = originalCases.values().stream().map(val -> val.size()).collect(Collectors.toList());
-                var trueMean = trueLengths.stream().mapToDouble(el -> el).average().orElse(0.0);
-                var trueSd = 0.0;
-                for (var length : trueLengths)
-                    trueSd += Math.pow((length - trueMean), 2);
-
-                trueSd = Math.sqrt(trueSd / trueLengths.size());
-                System.out.println("True mean segment size - " + trueMean + ", True standard deviation - " + trueSd);
-
-                sequences = Utils.toSequences(originalCases, contextAttributes).stream().distinct().collect(Collectors.toList());
-            } else if (fileType.equals("csv")) {
-                events = LogReader.readCSV(filePath);
-                events = Preprocessor.applyPreprocessing(filePath, Utils.eventListToString(events), preprocessing);
-            } else {
-                System.out.println("The tool only supports XES and CSV formats!");
-                return;
-            }
-
-            //originalCases = Utils.segmentByActivity(events, "clickButton");
-
-            HashMap<String, List<Event>> groupedEvents = Utils.groupEvents(events);
+            HashMap<String, List<Event>> groupedEvents = Utils.groupEvents(events1);
             for (var group : groupedEvents.keySet())
-                //Utils.setContextAttributes(groupedEvents.get(group), 0.05, false);
                 Utils.setContextAttributes(groupedEvents.get(group), contextAttributes);
 
-            List<List<String>> groundTruth = new ArrayList<>();
-            for (var path : PatternsMiner.parseSequences(groundTruthFile))
-                groundTruth.add(Arrays.asList(path.split(",")));
+            groupedEvents = Utils.groupEvents(events2);
+            for (var group : groupedEvents.keySet())
+                Utils.setContextAttributes(groupedEvents.get(group), contextAttributes);
 
-            //List<List<String>> groundTruth = new ArrayList<>(sequences);
-
-            long t1 = System.currentTimeMillis();
-            SegmentsDiscoverer disco = new SegmentsDiscoverer();
-            HashMap<Integer, List<Event>> cases = disco.extractSegments(events);
-            long t2 = System.currentTimeMillis();
-            System.out.println("Segmentation time - " + (t2 - t1) / 1000.0 + " sec");
-            var patterns = PatternsMiner.discoverPatterns(cases, algorithm, minSupport, minCoverage, metric);
-            Utils.getSummary(patterns, groundTruth, events);
-        }
+            HashMap<Integer, List<Event>> dict = Parser.shuffleCases(Parser.getCases(events2), Parser.getCases(events1));
+            List<Event> events = Parser.getEvents(dict);
+            */
     }
 
     static void readConfiguration(String config){

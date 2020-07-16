@@ -5,6 +5,8 @@ import data.Edge;
 import data.Event;
 import data.Node;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,6 +25,9 @@ public class SegmentsDiscoverer {
     int NID;
 
     private void generateDominatorsTree(DirectlyFollowsGraph dfg){
+        System.out.print("\tGenerating dominators tree");
+        long s1 = System.currentTimeMillis();
+
         NID = 0;
         nodeIDs = new HashMap<>();
         idToNode = new HashMap<>();
@@ -40,6 +45,9 @@ public class SegmentsDiscoverer {
 
         domTree = new DominatorTree(reachableNodes);
         domTree.analyse(nodeIDs.get(dfg.getNodes().get(0)));
+
+        long s2 = System.currentTimeMillis();
+        System.out.println(" (" + (s2 - s1) / 1000.0 + " sec)");
     }
 
     private Node getDominator(Node node){
@@ -65,7 +73,9 @@ public class SegmentsDiscoverer {
         generateDominatorsTree(dfg);
         List<Edge> loops = new ArrayList<>();
         HashMap<Edge, List<Node>> container = new HashMap<>();
+
         discoverBackEdges(dfg, loops, container, 0);
+        intoSymbols(dfg.getEvents(), dfg);
         return discoverSegments(dfg, loops, container);
     }
 
@@ -74,13 +84,38 @@ public class SegmentsDiscoverer {
         dfg.buildGraph();
         dfg.convertIntoDOT();
         generateDominatorsTree(dfg);
+        intoSymbols(events, dfg);
         List<Edge> loops = new ArrayList<>();
         HashMap<Edge, List<Node>> container = new HashMap<>();
+
+        System.out.print("\tDiscovering back-edges");
+        long s1 = System.currentTimeMillis();
         discoverBackEdges(dfg, loops, container, 0);
+        long s2 = System.currentTimeMillis();
+        System.out.println(" (" + (s2 - s1) / 1000.0 + " sec)");
+
         return discoverSegments(dfg, loops, container);
     }
 
+    void intoSymbols(List<Event> events, DirectlyFollowsGraph dfg){
+        String symbols = "";
+        for(var event: events){
+            Node temp = new Node(event);
+            int j = dfg.getNodes().indexOf(temp);
+            symbols += Integer.toString(j) + ",";
+        }
+        try{
+            FileWriter writer = new FileWriter("reimbursement.txt", true);
+            writer.write(symbols);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private HashMap<Integer, List<Event>> discoverSegments(DirectlyFollowsGraph dfg, List<Edge> loops, HashMap<Edge, List<Node>> container){
+        System.out.print("\tIdentifying segments...");
+        long s1 = System.currentTimeMillis();
         HashMap<Integer, List<Event>> segments = new HashMap<>();
         List<Event> uiLog = dfg.getEvents();
 
@@ -88,16 +123,6 @@ public class SegmentsDiscoverer {
         Event next = null;
 
         uiLog.get(eCounts-1).setEnd(true);
-
-        /*
-        var rank1 = rankByFrequency(loops);
-        var rank2 = rankByLogLength(loops);
-        var rank3 = rankByGraphDistance(loops, dfg);
-
-        List<List<Edge>> rankings = new ArrayList<>(){{ add(rank1); add(rank2); add(rank3); }};
-        var overallRank = getAggregatedRanking(rankings);
-        */
-
         int lCount = 0;
 
         HashMap<Event, List<Event>> startMatches = new HashMap<>();
@@ -108,13 +133,14 @@ public class SegmentsDiscoverer {
                     uiLog.get(start.getID()).setStart(true);
                     if(!startMatches.containsKey(start))
                         startMatches.put(start, new ArrayList<>(loop.getSourceEvents().stream().filter(event ->
-                                event.getTimestamp().compareTo(start.getTimestamp()) > 0).collect(Collectors.toList())));
+                                event.getID() > start.getID()).collect(Collectors.toList())));
                     else
                         startMatches.put(start, new ArrayList<>(Stream.concat(startMatches.get(start).stream(),
                                 loop.getSourceEvents().stream().filter(event ->
-                                        event.getTimestamp().compareTo(start.getTimestamp()) > 0)).collect(Collectors.toList())));
+                                        event.getID() > start.getID())).collect(Collectors.toList())));
                 }
             }
+
             for(Event end: uiLog){
                 if(end.getEventType().equals(loop.getSource().getEventType()) && end.context.equals(loop.getSource().getContext()))
                     uiLog.get(end.getID()).setEnd(true);
@@ -155,11 +181,10 @@ public class SegmentsDiscoverer {
                 start = next;
             }
         } while(i!=eCounts);
-
+        long s2 = System.currentTimeMillis();
+        System.out.println(" (" + (s2 - s1) / 1000.0 + " sec)");
         System.out.println("\nTotal segments discovered: " + caseID);
-        //System.out.println("\tDEBUG - total events ("+ i +") into segments: " + totalLength);
-        //System.out.println("Average length: " + totalLength/caseID);
-        //System.out.println("Vertices: " + dfg.getNodes().size() + ", Edges: " + dfg.getEdges().size());
+        System.out.println("Average length: " + totalLength/caseID);
         return segments;
     }
 
@@ -176,7 +201,6 @@ public class SegmentsDiscoverer {
         var k = i+1;
         List<DirectlyFollowsGraph> sccs = dfg.getSCComponents(dfg.getAdjacencyMatrix());
         for(var scc: sccs){
-            //System.out.println("SCC (nodes = " + scc.getNodes().size() + ", edges = " + scc.getEdges().size() + ")");
             if(scc.getNodes().size() > 1){
                 var backEdges = getBackEdges(scc);
 
@@ -186,7 +210,6 @@ public class SegmentsDiscoverer {
                     discoverBackEdges(scc, loops, container, i);
                 }
                 else{
-                    //System.out.println("DEBUG - " + backEdges + " (level = " + k + ")");
                     loops.addAll(new ArrayList<>(backEdges));
 
                     for(var be: backEdges){
@@ -199,6 +222,7 @@ public class SegmentsDiscoverer {
                 }
             }
         }
+
         return loops;
     }
 

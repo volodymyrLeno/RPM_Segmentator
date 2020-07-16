@@ -41,11 +41,12 @@ public class PatternsMiner {
             List<Event> events = new ArrayList<>();
             cases.values().forEach(events::addAll);
 
-            System.out.println("\nDiscovering frequent patterns...\n");
+            System.out.print("\nDiscovering routines...");
             long s1 = System.currentTimeMillis();
             getPattern(toSequences(cases), algorithm, minSupport, minFrequency, cases, metric);
             long s2 = System.currentTimeMillis();
-            System.out.println("\nDiscovery time - " + (s2 - s1) / 1000.0 + " sec");
+            System.out.println(" (" + (s2 - s1) / 1000.0 + " sec)");
+            //System.out.println("\nDiscovery time - " + (s2 - s1) / 1000.0 + " sec");
 
             var coverages = computeCoverages(patterns, cases, events);
             for(var pattern: patterns){
@@ -208,7 +209,7 @@ public class PatternsMiner {
                     p.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                //System.out.println(line);
             }
         }
         catch(Exception e){

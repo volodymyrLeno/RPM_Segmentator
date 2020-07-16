@@ -131,7 +131,7 @@ public class DirectlyFollowsGraph {
     */
 
     public void buildGraph(){
-        System.out.print("\nBuilding DFG... ");
+        System.out.print("\tBuilding DFG");
         long startTime = System.currentTimeMillis();
 
         Event previousEvent = null;
@@ -211,7 +211,7 @@ public class DirectlyFollowsGraph {
     }
 
     public void convertIntoDOT(){
-        System.out.print("\nCreating DOT file from a DFG... ");
+        System.out.print("\tCreating DOT file from a DFG");
 
         String DOT = "digraph g {\n";
         long startTime = System.currentTimeMillis();
