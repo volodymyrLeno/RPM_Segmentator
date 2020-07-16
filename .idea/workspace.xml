@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="RPM_Segmentator" />
+      <artifact name="RPM_Segmentator:jar" />
     </artifacts-to-build>
   </component>
   <component name="BranchesTreeState">
@@ -24,40 +24,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/AcceptingPetriNet.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/bpmtk.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Parser.java" afterDir="false" />
+    <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="Refactoring">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RPM_Segmentator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RPM_Segmentator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEMP.dot" beforeDir="false" afterPath="$PROJECT_DIR$/TEMP.dot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config1.json" beforeDir="false" afterPath="$PROJECT_DIR$/config1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config2.json" beforeDir="false" afterPath="$PROJECT_DIR$/config2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logs/Evaluation/CSV/Reimmbursement_preprocessed.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logs/Evaluation/CSV/StudentRecords_preprocessed.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/ground truth.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/input.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/output.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +114,7 @@
       <workItem from="1593049469439" duration="25033000" />
       <workItem from="1593654256601" duration="24595000" />
       <workItem from="1594873754421" duration="681000" />
-      <workItem from="1594874462234" duration="404000" />
+      <workItem from="1594874462234" duration="2887000" />
     </task>
     <task id="LOCAL-00001" summary="Added event pairs">
       <created>1578897042748</created>
@@ -324,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582696685106</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Refactoring">
+      <created>1594874938479</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1594874938479</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -374,20 +355,20 @@
     <MESSAGE value="Updated general repeats. Added some logs for testing" />
     <MESSAGE value="Added some logs for testing" />
     <MESSAGE value="Searching for non-overlapping patterns" />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value="Fixed context attributes identification" />
     <MESSAGE value="Code optimization, added one more artificial log" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code optimization, added one more artificial log" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594873045797">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1594873045797" />
-    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1594874218406">
+    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1594877257684">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1600.860@0.0.1600.860" timestamp="1594874218406" />
+    <state x="530" y="220" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1600.860@0.0.1600.860" timestamp="1594877257684" />
     <state x="1020" y="266" key="#xdebugger.evaluate" timestamp="1594092588383">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -432,10 +413,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1557" height="378" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1594873725232" />
-    <state x="280" y="4" key="SettingsEditor" timestamp="1594874565595">
+    <state x="280" y="4" width="1234" height="851" key="SettingsEditor" timestamp="1594877352963">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="280" y="4" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1594874565595" />
+    <state x="280" y="4" width="1234" height="851" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1594877352963" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1594874942786">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1594874942786" />
     <state width="808" height="438" key="XDebugger.FullValuePopup" timestamp="1592279662438">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

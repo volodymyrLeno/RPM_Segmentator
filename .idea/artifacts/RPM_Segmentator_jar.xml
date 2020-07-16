@@ -1,100 +1,15 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="RPM_Segmentator:jar">
+  <artifact type="jar" name="RPM_Segmentator:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar</output-path>
     <root id="archive" name="RPM_Segmentator.jar">
       <element id="module-output" name="RPM_Segmentator" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.10.2/jackson-core-2.10.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/bpstruct-0.1.117.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/bpmtk.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/guava-20.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/javax.activation-1.2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-api-2.3.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-core-2.3.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/jaxb-impl-2.3.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/OpenXES-20160212.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar" path-in-jar="/" />
       <element id="library" level="project" name="commons-lang3-3.1" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.9/commons-lang3-3.9.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/AcceptingPetriNet.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ApacheUtils.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/BasicUtils.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/BPMN.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/bpstruct-0.1.117.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/bpstruct-osgi-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/CNet.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/commons-cli-1.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/commons-collections-3.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/commons-io-2.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/commons-lang-2.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/commons-lang3-3.7.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/conversion-1.0.20161111-1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/eclipse-collections-9.2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/eclipse-collections-api-8.0.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ETConformance.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/fake-context-1.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/fodina-2019-06-17.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/fodina-libs-2019-06-17.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/GraphViz.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/guava-20.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/InductiveMiner.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/InductiveMinerDeprecated.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/javacsv-2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/javailp-1.2a.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jbpt-0.2.429.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jdom-2.0.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jgoodies-common-1.2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jgoodies-forms-1.4.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jgrapht-jdk1.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jmathplot.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/json-20090211.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/kxml2-2.2.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/kxml2-2.3.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/log-util-1.0.20180622.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/Log.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/LogAbstractions.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/LogToDAFSA.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/lpsolve55j.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/Murata.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/OpenXES-20181205.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/OpenXES-XStream-20160212.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/PetriNets.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/PNAnalysis.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/PNetReplayer.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/prefuse-core-1.0.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProcessTree.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProjectedRecallAndPrecision.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProM-Contexts-6.8.34.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProM-Framework-6.8.60.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProM-Models-6.7.20.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ProM-Plugins.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/Properties.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/Sat4j.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/slickerbox-1.0rc1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/stagemining-logic-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/tablelayout.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/TransitionSystems.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/trove-3.1a1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/uitopia-6.5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/ujmp-complete-0.2.5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/univocity-parsers-1.5.5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/weka.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/Widgets.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/jgraph.jar" path-in-jar="/" />
       <element id="library" level="project" name="opencsv-4.6" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.6.1/log4j-core-2.6.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-text/1.1/commons-text-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.6/commons-io-2.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.6.1/log4j-api-2.6.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.2/commons-math3-3.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.10.2/jackson-annotations-2.10.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.10.2/jackson-databind-2.10.2.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
