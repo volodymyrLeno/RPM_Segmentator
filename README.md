@@ -1,22 +1,42 @@
 # RPM_Segmentator
 
-This is a command line tool to identify task traces (instances of a task) and assign each action within UI log to specific trace. It works with UI logs recorded by RPA UI Logger tool available at https://github.com/apromore/RPA_UILogger. 
+This is a command line tool to discover routine tasks from unsegmented UI logs. It works with UI logs recorded by RPA UI Logger tool available at https://github.com/apromore/RPA_UILogger. 
 
 ## Usage
 
 The tool requires the following input parameters:
 
-* logPath - a path to UI log to be processed (String, e.g. src\logs\useCase_preprocessed.csv)
-* contextThreshold - a threshold which is used to identify context attributes (if ratio of unique values for an attribute is below or equal the threshold, then this attribute is considered as context attribute) (Double [0, 1])
-* preprocessing - indicates whether preprocessing should be performed (Boolean)
-* considerMissing - specify whether consider attributes with missing values as candidates for context attributes (Boolean)
-* approach - specifies which approach is used for routines identification ("-1" for graph based approach combined with sequnce pattern mining; "-2" for general repeats mining approach). At the moment only the first approach ("-1") is stable. 
+* logPath - a path to UI log to be processed (e.g. src\logs\useCase_preprocessed.csv)
+* configPath - a path to configuration file (the file has to be in json format)
+* groundTruthFilePath - a path to the file with ground truth routines (if available). If the ground truth is not available set it to "null"
+
+The example of the configuration file:
+
+```javascript
+{ "preprocessing": true,
+  "algorithm": "CloFast",
+  "minSupport": 0.1,
+  "minCoverage": 0.05,
+  "metric": : "cohesion",
+  "context": [
+      "target.id",
+      "target.name",
+      "target.innerText",
+      "target.sheetName"
+  ]}
+```
+
+* preprocessing - specifies whether the redundant actions should be removed
+* algorithm - the algorithm used to mine frequent patterns (at the moment BIDE and CloFast are supported)
+* minSupport - the miminal relative frequency of the pattern to be considered a candidate routine
+* minCoverage - the minimal amount of the behavior in the log that has to be covered by the routine
+* metric - used for patterns selection (frequency, coverage, cohesion and length are supported metrics)
+* context - a collection of the attributes that are used to distinguish the actions in the log
 
 Example how to run the tool:
 
 ```
-java -jar RPM_Segmentator.jar logs/StudentRecord.csv 0.05 true false -1
+java -jar RPM_Segmentator.jar logs/StudentRecord.csv config.json null
 ```
 
-Segmented log will appear in the same folder as the one used as input and will have name "X_segmented.csv", where X is the name of original log.
 The tool generates .DOT file that represents a directly follows graph constructed from the given UI log. You can visualize this graph by using any graph vizualization tool (e.g, http://www.webgraphviz.com/)
