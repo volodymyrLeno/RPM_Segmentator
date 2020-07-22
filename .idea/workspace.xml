@@ -24,31 +24,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="Added jar">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/RPM_Segmentator_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/AcceptingPetriNet.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/bpmtk.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/opencsv_4_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/opencsv_4_6.xml" afterDir="false" />
+    <list default="true" id="60ecc04e-6410-4113-8226-978a83179ce0" name="Default Changelist" comment="Project update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RPM_Segmentator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RPM_Segmentator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/RPM_Segmentator.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/TEMP.dot" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/TEMP.dot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RPM_Segmentator_jar/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PatternsMiner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SegmentsDiscoverer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DirectlyFollowsGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner$SPMFAlgorithmName.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PatternsMiner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PatternsMiner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SegmentsDiscoverer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/DirectlyFollowsGraph.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +110,7 @@
       <workItem from="1594873754421" duration="681000" />
       <workItem from="1594874462234" duration="3621000" />
       <workItem from="1594946603881" duration="6171000" />
-      <workItem from="1595384576406" duration="3548000" />
+      <workItem from="1595384576406" duration="3944000" />
     </task>
     <task id="LOCAL-00001" summary="Added event pairs">
       <created>1578897042748</created>
@@ -331,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594877456496</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Project update">
+      <created>1595388202021</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1595388202021</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -359,7 +343,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated dfg representation" />
     <MESSAGE value="Updated toString methods for Node and Edge classes" />
     <MESSAGE value="Write segmented log into file" />
     <MESSAGE value="Added ranking" />
@@ -384,9 +367,14 @@
     <MESSAGE value="Code optimization, added one more artificial log" />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Added jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added jar" />
+    <MESSAGE value="Project update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project update" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="685" y="293" key="#Notifications" timestamp="1595388311931">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="685" y="293" key="#Notifications/0.0.1600.860@0.0.1600.860" timestamp="1595388311931" />
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595386586389">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -411,22 +399,22 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1595387449707" />
-    <state width="1557" height="331" key="GridCell.Tab.0.bottom" timestamp="1595387772547">
+    <state width="1557" height="331" key="GridCell.Tab.0.bottom" timestamp="1595388475377">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="331" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1595387772547" />
-    <state width="1557" height="331" key="GridCell.Tab.0.center" timestamp="1595387772547">
+    <state width="1557" height="331" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1595388475377" />
+    <state width="1557" height="331" key="GridCell.Tab.0.center" timestamp="1595388475377">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="331" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1595387772547" />
-    <state width="1557" height="331" key="GridCell.Tab.0.left" timestamp="1595387772546">
+    <state width="1557" height="331" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1595388475377" />
+    <state width="1557" height="331" key="GridCell.Tab.0.left" timestamp="1595388475376">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="331" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1595387772546" />
-    <state width="1557" height="331" key="GridCell.Tab.0.right" timestamp="1595387772547">
+    <state width="1557" height="331" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1595388475376" />
+    <state width="1557" height="331" key="GridCell.Tab.0.right" timestamp="1595388475377">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="331" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1595387772547" />
+    <state width="1557" height="331" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1595388475377" />
     <state width="1557" height="461" key="GridCell.Tab.1.bottom" timestamp="1595069581346">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -447,14 +435,22 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="280" y="4" width="1234" height="851" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1595387461170" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1594877465988">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1595388217413">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1594877465988" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1595388217413" />
     <state width="808" height="438" key="XDebugger.FullValuePopup" timestamp="1592279662438">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="808" height="438" key="XDebugger.FullValuePopup/0.0.1600.860@0.0.1600.860" timestamp="1592279662438" />
+    <state x="609" y="344" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595388464904">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="609" y="344" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1600.860@0.0.1600.860" timestamp="1595388464904" />
+    <state x="486" y="218" key="git4idea.merge.GitPullDialog" timestamp="1595388327328">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="486" y="218" key="git4idea.merge.GitPullDialog/0.0.1600.860@0.0.1600.860" timestamp="1595388327328" />
     <state x="456" y="195" key="run.anything.popup" timestamp="1593406485814">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
