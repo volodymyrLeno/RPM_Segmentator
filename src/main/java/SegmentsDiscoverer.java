@@ -56,26 +56,11 @@ public class SegmentsDiscoverer {
         return dominator;
     }
 
-    public void segmentLog(String log, String config){
-        List<Event> events = LogReader.readCSV(log);
-        List<String> contextAttributes = Utils.extractContextAttributes(config);
-        var groupedEvents = Utils.groupEvents(events);
-        for(var key: groupedEvents.keySet())
-            Utils.setContextAttributes(groupedEvents.get(key), contextAttributes);
-        var dfg = new DirectlyFollowsGraph(events);
-        dfg.buildGraph();
-
-        var cases = extractSegmentsFromDFG(dfg);
-        Utils.writeSegments(log.substring(0, log.lastIndexOf(".")) + "_segmented.csv", cases);
-    }
-
     public HashMap<Integer, List<Event>> extractSegmentsFromDFG(DirectlyFollowsGraph dfg){
         generateDominatorsTree(dfg);
         List<Edge> loops = new ArrayList<>();
         HashMap<Edge, List<Node>> container = new HashMap<>();
-
         discoverBackEdges(dfg, loops, container, 0);
-        intoSymbols(dfg.getEvents(), dfg);
         return discoverSegments(dfg, loops, container);
     }
 
@@ -183,6 +168,7 @@ public class SegmentsDiscoverer {
         } while(i!=eCounts);
         long s2 = System.currentTimeMillis();
         System.out.println(" (" + (s2 - s1) / 1000.0 + " sec)");
+
         System.out.println("\nTotal segments discovered: " + caseID);
         System.out.println("Average length: " + totalLength/caseID);
         return segments;

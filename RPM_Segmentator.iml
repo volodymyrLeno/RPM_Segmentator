@@ -14,11 +14,7 @@
     <orderEntry type="library" name="opencsv-4.6 (3)" level="project" />
     <orderEntry type="library" name="OpenXES-20181205 (2)" level="project" />
     <orderEntry type="library" name="guava-20.0-javadoc" level="project" />
-    <orderEntry type="library" name="opencsv-4.6" level="project" />
-    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
     <orderEntry type="library" name="bpstruct-0.1.117" level="project" />
-    <orderEntry type="library" name="bpmtk" level="project" />
-    <orderEntry type="library" name="AcceptingPetriNet" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.1" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0-2" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
@@ -43,5 +39,7 @@
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="opencsv-4.6" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
   </component>
 </module>

@@ -461,27 +461,6 @@ public class PatternsMiner {
         return occurences;
     }
 
-    /*
-    private List<String> getOutliers(String sequence, List<String> pattern) {
-        List<String> outliers = new ArrayList<>();
-        List<Integer> indexes = new ArrayList<>();
-        Matcher m = getPattern(pattern).matcher(sequence);
-
-        for (int i = 2; i < 2 * pattern.size() - 1; i += 2) {
-            indexes.add(i);
-        }
-
-        if (m.find()) {
-            indexes.forEach(index -> outliers.addAll(Arrays.asList(m.group(index).split(","))));
-            StringJoiner anyElement = new StringJoiner("|", "[", "]");
-            itemset.forEach(anyElement::add);
-            outliers.removeIf(item -> item == null || "".equals(item) || item.matches(anyElement.toString()));
-        }
-
-        return outliers;
-    }
-    */
-
     private static HashMap<Pattern, Double> computeCoverages(List<Pattern> patterns, HashMap<Integer, List<Event>> cases, List<Event> events){
         var sequences = toSequences(cases);
 

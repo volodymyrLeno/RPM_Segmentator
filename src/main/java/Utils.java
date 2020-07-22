@@ -69,8 +69,6 @@ public class Utils {
     }
 
     static void writeSegments(String filePath, Map<Integer, List<Event>> segments){
-        System.out.print("\nSaving segmented log... ");
-        long startTime = System.currentTimeMillis();
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(filePath),
                     CSVWriter.DEFAULT_SEPARATOR,
@@ -78,19 +76,14 @@ public class Utils {
                     CSVWriter.NO_ESCAPE_CHARACTER,
                     CSVWriter.RFC4180_LINE_END);
 
-            //Map.Entry<Integer,List<Event>> entry = segments.entrySet().iterator().next();
-            //var value = entry.getValue();
-
             List<Event> events = new ArrayList<>();
             segments.values().forEach(events::addAll);
 
             String[] headers = Stream.concat(Stream.of("\"caseID\""),
                     extractAttributes(events).stream().map(el -> "\"" + el + "\"")).toArray(String[]::new);
-                    //value.get(0).getAttributes().stream().map(el -> "\"" + el + "\"")).toArray(String[]::new);
             writer.writeNext(headers);
 
             StringBuilder row = new StringBuilder();
-            System.out.println(row.toString());
             for(var caseID: segments.keySet())
                 for(var event: segments.get(caseID)){
                     for (String header : headers) {
@@ -117,8 +110,6 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        long stopTime = System.currentTimeMillis();
-        System.out.println(" (" + (stopTime - startTime) / 1000.0 + " sec)");
     }
 
     /* Context attributes analysis */

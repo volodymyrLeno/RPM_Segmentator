@@ -6,9 +6,7 @@
       <element id="extracted-dir" path="$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/bpstruct-0.1.117.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../PhD/TARTU/java libraries/OpenXES-20160212.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar" path-in-jar="/" />
-      <element id="library" level="project" name="commons-lang3-3.1" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../1/lib/json-20090211.jar" path-in-jar="/" />
-      <element id="library" level="project" name="opencsv-4.6" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar" path-in-jar="/" />
     </root>
   </artifact>

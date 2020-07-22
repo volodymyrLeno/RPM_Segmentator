@@ -47,6 +47,7 @@ public class Main {
 
         for(var key: groupedEvents.keySet())
             Utils.setContextAttributes(groupedEvents.get(key), contextAttributes);
+            //Utils.setContextAttributes(groupedEvents.get(key), 0.2, true);
 
         System.out.println("\nSegmentation...");
         long t1 = System.currentTimeMillis();
@@ -54,6 +55,7 @@ public class Main {
         HashMap<Integer, List<Event>> cases = disco.extractSegments(events);
         long t2 = System.currentTimeMillis();
         System.out.println("Segmentation time - " + (t2 - t1) / 1000.0 + " sec");
+        Utils.writeSegments(log.substring(0, log.lastIndexOf(".")) + "_segmented.csv", cases);
 
         List<List<String>> groundTruth = new ArrayList<>();
 
