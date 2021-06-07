@@ -35,7 +35,8 @@ The example of the configuration file:
 
 Example how to run the tool:
 
-```
+```bash
+cd out/artifacts/RPM_Segmentator_jar/
 java -jar RPM_Segmentator.jar logs/StudentRecord.csv config.json null
 ```
 
